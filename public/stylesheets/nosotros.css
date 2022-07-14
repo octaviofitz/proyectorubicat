@@ -1,0 +1,178 @@
+/* tarjetas */
+
+.nosotros .tarjetas{
+    margin: 1vh;
+    padding: 0vh 3vh;
+}
+
+.nosotros .tarjetas .quienesSomos,
+.nosotros .tarjetas .nosotros,
+.nosotros .tarjetas .redes{
+    border-radius: 10px;
+}
+
+
+.nosotros .tarjetas .quienesSomos .titulo,
+.nosotros .tarjetas .nosotros .titulo,
+.nosotros .tarjetas .redes .titulo{
+    padding-top: 3vh;
+    color: white;
+    text-align: center;
+    font-size: 9vw;
+    font-weight: 500;
+}
+
+.nosotros .tarjetas .quienesSomos .texto,
+.nosotros .tarjetas .nosotros .texto,
+.nosotros .tarjetas .redes .texto{
+    padding: 2vh 5vh 7vh 5vh;
+    color: white;
+    text-align: center;
+    font-size: 2.85vh;
+}
+
+/* íconos redes sociales */
+.iconosRedes{
+    margin-top: -1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.nosotros .fa-whatsapp,
+.nosotros .fa-instagram,
+.nosotros .fa-youtube,
+.nosotros .fa-tiktok{
+    font-size: 2.5rem;
+    padding: 0 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.fa-globe,
+.fa-cube,
+.fa-address-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    color: white;
+    padding-top: 4vh;
+    font-size: 2.05rem;
+}
+
+.fa-whatsapp{
+    color: #39f83c;
+}
+
+.fa-instagram{
+    color: #c52298;
+}
+
+.fa-youtube{
+    color: red;
+}
+
+.fa-tiktok{
+    color: black;
+}
+
+@media (min-width: 768px){
+       /* Tarjetas */
+
+.nosotros .tarjetas{
+    margin: 10vh;
+    padding: 0vh 7vh;
+}
+
+.nosotros .tarjetas .quienesSomos .titulo,
+.nosotros .tarjetas .nosotros .titulo,
+.nosotros .tarjetas .redes .titulo{
+    font-size: 6vw;
+}
+
+.nosotros .tarjetas .quienesSomos .texto,
+.nosotros .tarjetas .nosotros .texto,
+.nosotros .tarjetas .redes .texto{
+    font-size: 2.85vh;
+}
+
+.iconosRedes{
+    margin-top: -1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nosotros .fa-whatsapp,
+.nosotros .fa-instagram,
+.nosotros .fa-youtube,
+.nosotros .fa-tiktok{
+    font-size: 3.3rem;
+    padding: -1rem 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.fa-globe,
+.fa-cube,
+.fa-address-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    color: white;
+    padding-top: 4vh;
+    font-size: 2.5rem;
+}
+}
+
+@media (min-width: 1024px){
+     /* Tarjetas */
+
+     .nosotros .tarjetas{
+        display: flex;
+        padding: 0;
+        margin: 2rem 3rem;
+        }
+    
+        .nosotros .tarjetas .quienesSomos .titulo,
+    .nosotros .tarjetas .nosotros .titulo,
+    .nosotros .tarjetas .redes .titulo{
+        font-size: 2vw;
+    }
+    
+    .nosotros .tarjetas .quienesSomos .texto,
+    .nosotros .tarjetas .nosotros .texto,
+    .nosotros .tarjetas .redes .texto{
+        font-size: 1.9vh;
+        padding: 1vw 0.5vw 0vw 0.5vw;
+    }
+    
+    .nosotros .tarjetas .iconosRedes{
+        margin-top: -1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .nosotros .fa-whatsapp,
+    .nosotros .fa-instagram,
+    .nosotros .fa-youtube,
+    .nosotros .fa-tiktok{
+        font-size: 2.5vw;
+        padding: -1rem 0.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .fa-globe,
+    .fa-cube,
+    .fa-address-card{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3vh;
+        color: white;
+        padding-top: 0vh;
+        font-size: 2.2rem;
+    }
+}

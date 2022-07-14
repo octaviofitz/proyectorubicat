@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head')  %> 
+  <body>
+    <%- include('./partials/header') %>
+    <%- include('./partials/banner') %>    
+
+    <main class="distribuidores">
+        
+        <section class="tarjetas">
+
+            <div class="informacion">
+                <h1 class="titulo">Distribuidores</h1>
+                <p class="texto">En Rubicat consideramos muy importante la labor de nuestros distribuidores. Ellos son los encargados de distribuir nuestros productos a lo largo y ancho del país y del exterior. Contamos con más de 100 y día a día se siguen sumando más.</p>
+            </div>
+
+            <div class="nuevosDistribuidores">
+
+                <h2 class="titulo">¿Querés distribuir Rubicat?</h2>
+                <p class="texto">Para ser parte del equipo de distribución, hacé click en el siguiente ícono y contactanos.</p>
+               
+                <div class="whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span class="texto">+54 11 3276-2324</span>
+                      </div>
+            </div>
+
+        </section>
+
+        <section class="mapa">
+            <h3 class="titulo">Encontrá a tu distribuidor más cercano</h3>
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1QVKFcLC2CRT9VJuL0gCTYst_q1kD-IoM" width="90%" height="540px" class="googleMap"></iframe>
+
+        </section>
+
+  </main>
+  <%- include('./partials/backToTop') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scripts') %>
+  </body>
+</html>

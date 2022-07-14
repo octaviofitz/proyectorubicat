@@ -1,0 +1,534 @@
+/* banner */
+.index .banner{
+    display: flex;
+    flex-direction: column;
+/*     background-color: #223d5f;*/
+    background-image: url('../images/banner/bannerDesktop.png');
+    }
+
+.index .banner .imagen{
+    width: 100%;
+    margin: 1rem auto;
+    display: block;    
+}
+
+.index .banner .subtitulo{
+    font-size: 1.8rem;
+    color: white;
+    font-family: 'Mulish', sans-serif;
+    text-align: center;
+    margin-top: -2rem;
+    padding: 0rem 1rem;
+    line-height: 45px;
+    font-weight: 700;
+}
+
+.index .banner .texto{
+    padding: 0 1rem;
+    color: white;
+    text-align: center; 
+    margin-bottom: 2rem;  
+    
+    font-family: 'Mulish', sans-serif;
+}
+
+/* video */
+.index .video{
+    margin: 2rem auto;
+}
+
+.index .video .videoYoutube{
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+}
+
+.index .video .titulo{
+    text-align: center;
+    margin-top: 3.5vh;
+    color: #44464B;
+    font-size: 3.5vh;
+}
+
+.index .video .texto{
+    color: #76777B;
+    text-align: center;
+    font-size: 2.85vh;
+    padding: 0 1.25rem;
+}
+
+/* información */
+
+.index .data{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.index .data .titulo{
+    font-size: 40px;
+    line-height: 60px;
+    text-align: left;
+    font-weight: 700;
+    margin: 1.5rem 0.5rem 0.75rem 1.5rem;
+}
+
+.index .data .subtitulo{
+    font-size: 25px;
+    line-height: 60px;
+    text-align: left;
+    font-weight: 300;
+    margin: -0.5rem 1.5rem;
+}
+
+.index .data .texto{
+    padding: 0.55rem 1.5rem;
+    text-align: left;
+    font-size: 16px;
+    color: #000;
+}
+
+.index .data .lista{
+    list-style: none;
+    text-align: left;
+    margin: 0 0 1.5rem -0.5vw;
+}
+
+.index .data .fa-check{
+    color: #dc5572;
+    padding: -3rem 0rem;
+    text-align: left;
+    font-size: 15px;
+}
+
+.index .data .tickTexto{
+    color: #000;
+    padding-left: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* banner mercadolibre */
+.index .bannerML .imagen{
+    margin: 1rem auto;
+    margin-top: 1.5rem;
+    margin-bottom: -1rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* Productos */
+.index .productos{
+    margin-top: 0.5rem;
+}
+
+.index .informacion{
+    background-color: #f4f6f7;
+    margin-top: -0.35rem;
+    padding: 1rem;
+}
+
+.index .informacion .titulo,
+.index .informacion .texto{
+    text-align: left;
+    padding-left: 0.25rem;
+}
+
+.index .informacion .titulo{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.index .informacion .productos .texto{
+    padding: 0.350rem 1.7rem;
+    text-align: center;
+}
+
+.index .informacion .accordion{
+    margin-bottom: 1rem;
+}
+
+.index .informacion .accordion-item{
+    background-color: #f4f6f7;
+}
+
+.index .informacion .accordion-body{
+    text-align: center;
+}
+
+.index .informacion .accordion #acordeon-classic{
+    background-color: #00ACBB;
+    font-weight: 600;
+    color: #fff;
+}
+
+.index .informacion .accordion #acordeon-premium{
+    background-color: #FF8C1E;
+    font-weight: 600;
+    color: #fff;
+}
+
+.index .informacion .accordion #acordeon-sensitive{
+    background-color: #dc5572;
+    font-weight: 600;
+    color: #fff;
+}
+
+.index .informacion .img{
+    display: flex;
+    margin: 0.5rem auto;
+    justify-content: center;
+    width: 67%;
+    border-radius: 5px;
+}
+
+.index .informacion .accordion .boton-carrusel{
+    align-items: center;
+    text-align: center;
+    padding: 0.75rem 2rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 1rem;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+}
+
+/* redes */
+
+.index .redes{
+    background-color: #f4f6f7;
+}
+
+.index .redes .lista{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    font-size: 3rem;
+    padding: 0 0.25vw;
+}
+
+.index .redes .lista li{
+    padding: 0 2.5vw;
+    font-size: 40px;
+}
+
+.index .redes .fa-instagram{
+    background-color: #E1306C;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.index .redes .fa-tiktok{
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+
+.index .redes .fa-youtube{
+    background-color: red;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+
+.index .redes .fa-whatsapp{
+    background-color: green;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+/* Contacto */
+
+.index .contacto{
+    margin-top: 3rem;
+}
+  
+.index .contacto .titulo{
+    text-align: center;
+    margin-top: 3.5vh;
+    color: #44464B;
+    font-size: 4vh;
+    font-weight: 600;
+}
+
+.index .contacto .texto {
+    color: #76777B;
+    text-align: center;
+    font-size: 2.85vh;
+    padding: 0 1.25rem;
+}
+
+.index .contacto .datos .tarjeta1,
+.index .contacto .datos .tarjeta2{
+    display: flex;
+    justify-content: center;
+
+}
+
+.index .contacto .datos .tarjeta1{
+    background-color: #223d5f;
+    border-radius: 6px;
+    color: white;
+    padding: 2rem 0rem;
+    margin: 0 2.5rem;
+}
+
+.index .contacto .datos .texto{
+    color: white;
+}
+
+.fa-envelope{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.15rem;
+    margin-top: 0.85vh;
+}
+
+
+/* Formulario */
+.index .formulario{
+    background-color: #f4f6f7;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #f4f6f7;
+    border-radius: 5px;
+}
+
+.index .boton{
+    padding: 0.75rem 2rem;
+    background-color: #223d5f;
+    color: white;
+    border: 2px solid white;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border-radius: 4px;
+}
+
+
+/* TABLET */
+
+@media (min-width: 768px){  
+
+    /* Información */
+    
+    .index .data .titulo{
+        margin: 2.5rem 0.5rem 0.75rem 1.5rem;
+    }
+    
+    .index .data .subtitulo{
+        font-size: 30px;
+    }
+    
+    .index .data .texto{
+        font-size: 19px;
+        padding: 1rem 2rem 0.5rem 1.5rem;
+    }
+    
+    .index .data .lista{
+        line-height: 30px;
+        }
+    
+/* Productos */
+
+.index .productos .informacion{
+    margin: -0.5rem 0rem;
+    padding: 1rem;
+}
+
+.index .informacion .titulo{
+    font-size: 5vh;
+    padding: 0rem;
+    text-align: left;
+}
+
+.index .informacion .texto{
+    font-size: 20px;
+}
+
+.index .informacion .accordion #acordeon-classic,
+.index .informacion .accordion #acordeon-premium,
+.index .informacion .accordion #acordeon-sensitive{
+    font-size: 1.35rem;
+}
+
+.index .informacion .accordion .boton-carrusel{
+    font-size: 1.25rem;
+}
+
+.index .informacion .accordion-body{
+    font-size: 20px;
+}
+
+.index .informacion .img{
+    width: 50%;
+    border-radius: 5px;
+}
+
+/* carrusel */
+.carousel.pointer-event{
+    margin: 1rem 5rem;
+    }
+
+/* Banner */
+
+.index .banner .imagen{
+    width: 80%;
+    margin-top: -1.5rem;
+}
+
+.index .banner .subtitulo{
+    margin-top: -6rem;
+    padding: 0 6rem;
+}
+
+.index .videoYoutube{
+    width: 60vw;
+}
+
+/* Contacto */
+
+    .index .contacto{
+        margin: 3rem 0rem;
+    }
+    
+    .index .contacto .titulo{
+        font-size: 5vh;
+        text-transform: uppercase;
+    }
+    
+    .index .contacto .texto {
+        padding: 0 3rem;
+    }
+    
+    .index .contacto .datos .tarjeta1{
+        margin: 0 3rem 1rem 3rem;
+    }
+    
+    .index .contacto .datos .texto {
+        font-size: 1.8rem;
+    }
+    
+   .index .fa-envelope{
+        font-size: 1.8rem;
+    }
+    
+    .index .contacto .form-label{
+        font-size: 2.85vh;
+    }
+    
+    .index .boton{
+        font-size: 1.25rem;
+    }
+    
+}
+
+/* Desktop */
+
+@media (min-width:1024px){
+
+    .index .contacto{
+        display: flex;
+    }
+
+    /* banner */
+
+    .index .banner{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .index .videoYoutube{
+        width: 45vw;
+        height: 50vh;
+        padding-right: 3vw;
+
+    }
+
+    .index .banner .imagen{
+        width: 80%;
+        margin-top: 0rem;
+    }
+
+    .index .banner .subtitulo{
+    margin-top: -2rem;
+    padding: 0 3vw;
+    }
+
+    /* informacion */
+
+    .index .data{
+        margin:0;
+        justify-content: center;
+    }
+
+    .index .data .titulo{
+        text-align: start;
+        padding: 0 3rem;
+    }
+
+    .index .data .subtitulo{
+        font-size: 30px;
+        line-height: 40px;
+        padding-left: 3rem;
+    }
+
+    .index .data .texto{
+        padding: 2rem 8rem 0 4.5rem;
+        font-size: 20px;
+
+    }
+
+    .index .data .lista{
+        margin: 2.2rem;
+        font-size: 22px;
+        display: flex;
+        justify-content:start;
+    }
+
+    .index .data .lista2{
+        padding: 0 7rem;
+    }
+
+    /* .bannerML */
+    .index .bannerML .imagen{
+        margin: auto;
+        display: flex;
+        justify-items: center;
+        width: 80%;
+        height: 55vh;
+    }
+   
+
+/* productos */
+
+.index .productos .informacion{
+    margin: 2vh 0vh;
+    padding: 3vh 13vh;
+}
+
+/* carrusel */
+.carousel.pointer-event{
+    margin: 1rem 20vh;
+    }
+
+    .index .informacion .img{
+        width: 40%;
+    }
+}
+
+
+@media (min-width: 1240px){
+
+}

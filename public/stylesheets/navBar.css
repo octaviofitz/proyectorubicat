@@ -1,0 +1,24 @@
+#classicMenu{
+    background-color: #00ACBB;
+    font-weight: 600;
+}
+
+#premiumMenu{
+    background-color: #FF8C1E;
+    font-weight: 600;
+}
+
+#SensitiveMenu{
+    background-color: #dc5572;
+    font-weight: 600;
+}
+
+#headerBoton,
+#navbarDropdown{
+    font-weight: 600;
+}
+
+@media (min-width: 768px){
+    
+   
+}

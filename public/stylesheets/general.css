@@ -1,0 +1,53 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Mulish', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* colores */
+
+.classic{
+    background-color: #00ACBB;
+}
+
+.lavanda{
+    background-color: #8B85CA;
+}
+
+.premium{
+    background-color: #FF8C1E;
+}
+
+.sensitive{
+    background-color: #dc5572;
+}
+
+
+.Classic{
+    color: #00ACBB;
+}
+
+.Lavanda{
+    color: #8B85CA;
+}
+
+.Premium{
+    color: #FF8C1E;
+}
+
+.Sensitive{
+    color: #dc5572;
+}
+
+.white {
+    color: #fff;
+}

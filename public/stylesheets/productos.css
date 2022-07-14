@@ -1,0 +1,138 @@
+.DetalleProductos .nav .boton{
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    margin: 1.5rem 1rem;
+    color: #fff;
+}
+
+.DetalleProductos a{
+    text-decoration: none;
+}
+
+.DetalleProductos .btn-group{
+    margin: 0 0 1.5rem 1rem;
+}
+
+.DetalleProductos .producto{
+    background-color: #f4f6f7;
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+.DetalleProductos .producto .imagen-precio .img{
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    margin: 1rem auto;
+}
+
+.DetalleProductos .producto .imagen-precio .data{
+    text-align: center;
+    margin-top: 1vw;
+}
+
+.DetalleProductos .producto .imagen-precio .titulo{
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 50px;
+}
+
+.DetalleProductos .producto .imagen-precio .detalles{
+    font-size: 20px;
+    margin: 0.5rem;
+    color: #000;
+}
+
+.DetalleProductos .producto .imagen-precio .boton{
+    border-radius: 4px;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    margin-top: 0.65rem;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+}
+
+.DetalleProductos .descripcion{
+    text-align: center;
+    margin: 1.5rem 1rem;
+}
+
+.DetalleProductos .producto .logos{
+    width: 33vw;
+}
+
+.DetalleProductos .producto .descripcion .info .titulo,
+.DetalleProductos .producto .descripcion .caracteristicas .titulo,
+.DetalleProductos .producto .descripcion .modo .titulo{
+    font-size: 25px;
+    font-weight: 600;
+    margin: 1.5rem;
+    text-transform: uppercase;
+}
+
+.DetalleProductos .producto .descripcion .tituloLogos{
+    margin-top: 1rem;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.DetalleProductos .producto .descripcion .texto{
+    font-size: 18px;
+}
+
+.DetalleProductos .video{
+    margin: 1rem auto;
+    margin-bottom: 0;
+}
+
+.DetalleProductos .video .videoYoutube{
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    width: 80vw;
+}
+
+@media (min-width: 768px){
+
+.DetalleProductos .imagen-precio{
+    display: flex;
+    justify-content: left;
+}
+
+.DetalleProductos .producto .imagen-precio .img{
+    width: 37vw;
+    margin: 1rem 0rem;
+}
+
+
+
+.DetalleProductos .descripcion{
+    padding: 0 2rem;
+}
+
+.DetalleProductos .producto .descripcion .info .titulo,
+.DetalleProductos .producto .descripcion .caracteristicas .titulo,
+.DetalleProductos .producto .descripcion .modo .titulo{
+    font-size: 35px;
+}
+
+.DetalleProductos .producto .descripcion .texto{
+    font-size: 24px;
+}
+
+.DetalleProductos .producto .logos{
+    width: 22vw;
+}
+
+.DetalleProductos .producto .descripcion .tituloLogos{
+    font-size: 27px;
+}
+
+.DetalleProductos .video .videoYoutube{
+    width: 70vw;
+    height: 330px;
+}
+}

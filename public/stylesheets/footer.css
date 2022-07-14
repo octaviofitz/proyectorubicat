@@ -1,0 +1,97 @@
+.footer{
+    background-color: #223d5f!important;
+    color: #fff!important;
+}
+
+.footer .datos{
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.footer .datos .titulo{
+    font-size: 1.75rem;
+}
+
+.footer .datos .slogan{
+    font-size: 1.35rem;
+    margin-top: 1.25rem;
+}
+
+.footer .datos .ubicacion{
+    color: #76777B!important;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+/* redes */
+
+.footer .iconosMenu .iconos{
+    display: flex;
+    justify-content: center;
+}
+
+.footer .iconosMenu .fa-instagram,
+.footer .iconosMenu .fa-tiktok,
+.footer .iconosMenu .fa-whatsapp{
+    color: #fff;
+    padding: 0.75rem;
+    margin: 0 0.3rem;
+    font-size: 1.75rem;
+}
+
+.footer .iconosMenu .fa-instagram{
+    background-color: #E1306C;
+    border-radius: 50%;
+}
+
+.footer .iconosMenu .fa-tiktok{
+    background-color: black;
+    border-radius: 50%;
+}
+
+.footer .iconosMenu .fa-whatsapp{
+    background-color: #25D366;
+    border-radius: 50%;
+}
+
+
+.footer .iconosMenu .derechos{
+    text-align: center;
+    color: #76777B;
+    font-weight: 600;
+    margin-top: -1rem;
+    margin-bottom: 0rem;
+    padding-bottom: 2rem;
+    font-size: 3.35vw;
+}
+
+.footer .menu{
+    text-align: center;
+    align-items: center;
+}
+
+.footer .menu .lista{
+    list-style: none;
+    display: inline-block;
+    padding: 1rem 1rem;
+}
+
+.footer .menu .lista li{
+    float: left;
+    padding: 0 1rem;
+}
+
+/* Tablet */
+@media (min-width: 768px){
+    .footer .iconosMenu .derechos{
+        font-size: 2.5vw;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px){
+    .footer .iconosMenu .derechos {
+        font-size: 1.25vw;
+    }
+}

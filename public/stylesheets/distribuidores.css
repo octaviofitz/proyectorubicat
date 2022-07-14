@@ -1,0 +1,169 @@
+.distribuidores .tarjetas .informacion{
+    background-color: #223d5f;
+    margin: 1.5rem;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.distribuidores .tarjetas .nuevosDistribuidores{
+    background-color: #f4f6f7;
+    margin: 0 1.5rem;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.distribuidores .tarjetas .informacion .titulo{
+    color: #fff;
+    text-align: center;
+    margin-top: 1vh;
+    font-size: 4vh;
+    font-weight: 600;
+}
+
+.distribuidores .tarjetas .nuevosDistribuidores .titulo{
+    text-align: center;
+    margin-top: 4vh;
+    color: #44464B;
+    font-size: 3.75vh;
+    font-weight: 600;
+}
+
+.distribuidores .tarjetas .informacion .texto{
+    color: #fff;
+    text-align: center;
+    font-size: 2.85vh;
+    padding: 0 1.25rem;
+}
+
+.distribuidores .tarjetas .nuevosDistribuidores .texto{
+    color: #76777B;
+    text-align: center;
+    font-size: 2.85vh;
+    padding: 0 1.25rem;
+}
+
+
+ .distribuidores .nuevosDistribuidores .whatsapp{
+    background-color: #299651;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    margin: 1.25rem 1rem;
+    text-align: center;
+    padding: 1rem;
+    padding-top: 0.75rem;
+}
+
+.distribuidores .nuevosDistribuidores .whatsapp .fa-whatsapp{
+    color: #fff;
+    font-size: 1.8rem;
+    margin-top: 0rem;
+}
+
+.distribuidores .nuevosDistribuidores .whatsapp .texto{
+    font-size: 1.1rem;  
+    margin-top: -1rem;
+    color: #fff;
+} 
+
+
+
+/* mapa */
+
+.distribuidores .mapa{
+    background-color: #f4f6f7;
+    margin-top: 2.25rem;
+    padding: 0.5rem 0;
+}
+
+.distribuidores .mapa .titulo{
+    margin-top: 3vh;
+    color: #44464B;
+    text-align: center;
+    font-size: 3.5vh;
+    font-weight: 600;
+    padding: 0 2rem;
+}
+
+.distribuidores .mapa .googleMap{
+  display: flex;
+  justify-content: center;
+  padding: 0.2rem;
+  margin: 2rem auto;
+  border-radius: 5px;
+  border-color: #2a2e33;
+  background-color: #223d5f;
+}
+
+@media (min-width: 768px){
+
+    .distribuidores .tarjetas .informacion,
+    .distribuidores .tarjetas .nuevosDistribuidores{
+        margin: 1rem 8rem;
+}
+
+.distribuidores .tarjetas .informacion .texto,
+.distribuidores .tarjetas .nuevosDistribuidores .texto {
+    padding: 0 2.25rem;
+    margin-top: 1rem;
+}
+
+.distribuidores .nuevosDistribuidores .whatsapp {
+    margin: 1.25rem 2rem;
+}
+
+.distribuidores .whatsapp .texto{
+    font-size: 4rem;
+}
+
+.distribuidores .tarjetas .nuevosDistribuidores .titulo{
+    margin-top: 1rem;
+}
+
+.distribuidores .nuevosDistribuidores .whatsapp .fa-whatsapp{
+    font-size: 2.5rem;
+}
+
+.distribuidores .nuevosDistribuidores .whatsapp .texto{
+    font-size: 1.8rem;  
+} 
+
+
+.distribuidores .mapa .googleMap{
+    width: 80vw;
+  }
+     
+}
+
+@media (min-width: 1024px){
+
+    .distribuidores{
+        margin: 1rem 1.5rem;
+    }
+
+    .distribuidores .tarjetas{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .distribuidores .tarjetas .informacion,
+    .distribuidores .tarjetas .nuevosDistribuidores{
+        width: 40vw;
+        margin: 2rem 0;
+        padding: 1rem 0;
+    }
+
+    .distribuidores .nuevosDistribuidores .whatsapp .fa-whatsapp{
+        font-size: 2vw;
+    }
+    
+    .distribuidores .nuevosDistribuidores .whatsapp .texto{
+        font-size: 2vw;  
+    } 
+
+    .distribuidores .mapa .googleMap{
+        width: 80vw;
+        margin: 2rem auto;
+      }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <%- include('./partials/head')  %> 
+  <body>
+    <%- include('./partials/header') %>
+    <main class="DetalleProductos">
+      <%- include('./partials/banner') %> 
+
+      <div class="nav">
+        <a href="/"><button class="boton classic">← Volver atrás</button></a>
+      </div>
+
+      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <button type="button" class="btn btn-danger classic">Classic</button>
+        <button type="button" class="btn btn-success lavanda">Lavanda</button>
+      </div>
+
+      <section class="producto">
+
+        <article class="imagen-precio">
+          <div class="container">
+            <img src="/images/renders/classic/classic-sin-fondo2.png" alt="Rubicat Classic" class="img">
+          </div>
+          <div class="data">
+            <h1 class="titulo Classic">RUBICAT CLASSIC</h1>
+            <p class="detalles">100% Natural</p>
+            <p class="detalles">Envíos a todo el país</p>
+           <a href="https://listado.mercadolibre.com.ar/rubicat-classic#D[A:rubicat%20classic]" target="_blank"><button class="boton classic">Comprar</button></a>
+          </div>
+        </article>
+
+        <article class="descripcion">
+
+          <div class="info">
+            <h2 class="titulo Classic">Descripción</h2>
+            <p class="texto">Rubicat Sensitive reúne las características indispensables en un producto sanitario para gatos: Extremo control de olores; Micro granulado para un mayor confort; Aglutina instantáneamente formando cúmulos resistentes; Impide la formación de bacterias en la bandeja; Su fórmula no tóxica con un pH neutro garantiza una mayor seguridad y bienestar para su gato y su familia.</p>
+          </div>
+
+          <div class="caracteristicas">
+            <h3 class="titulo Classic">Caracteristicas</h3>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/classic/logos/Recurso 2@4x.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Classic">Aglutina</p>
+                <p class="texto">Rubicat es elaborada con bentonita sódica. Esta tiene la capacidad de aglomerar líquido y humedad, formando sólidos cúmulos.</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/classic/logos/limpiar@4x.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Classic">Fácil limpieza</p>
+                <p class="texto">Con la fórmula Rubicat te asegurás limpiar la litera una vez cada 30 días. Una vez generado el cúmulo, solo se repone la cantidad extraída.</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/classic/logos/olor@4x.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Classic">Elimina olores</p>
+                <p class="texto">Su capacidad de aglomeración permite capturar los olores al instante y así mantener los ambientes limpios.</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/classic/logos/lavanda@4x.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Classic">Suave aroma a lavanda</p>
+                <p class="texto">Rubicat Classic trae un suave aroma a lavanda para mantener el ambiente fresco y con un rico perfume.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modo">
+            <div>
+              <h4 class="titulo Classic">Modo de uso</h4>
+            </div>
+              <div class="video" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="1500">
+                <iframe width="320" height="260" src="https://www.youtube.com/embed/Wypl7NYO2_U" class="videoYoutube" title="Youtube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+  </main>
+  <%- include('./partials/backToTop') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scripts') %>
+  </body>
+</html>
