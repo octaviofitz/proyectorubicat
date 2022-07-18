@@ -4,7 +4,47 @@
     border: none;
     margin: 1.5rem 1rem;
     color: #fff;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    display: inline-block;
 }
+
+  .DetalleProductos .nav .boton::after {
+    content: "";
+    background: #223d5f; /* color de fondo hover */
+    position: absolute;
+    z-index: -1;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    right: 100%;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+  }
+  
+  .DetalleProductos .nav .boton:hover::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .DetalleProductos a{
     text-decoration: none;
@@ -95,18 +135,72 @@
     width: 80vw;
 }
 
+/* Más productos */
+
+.DetalleProductos .masproductos{
+    background-color: #f4f6f7;
+    margin: 1.5rem 0;
+}
+
+.DetalleProductos .masproductos .titulo{
+    font-size: 25px;
+    font-weight: 600;
+    padding: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.DetalleProductos .masproductos .d-block{
+    border-radius: 5px;
+}
+
 @media (min-width: 768px){
 
-.DetalleProductos .imagen-precio{
+    .DetalleProductos .nav .boton{
+        font-size: 1.3rem;
+    }
+
+.DetalleProductos .producto .imagen-precio{
+    display: flex;
+    justify-content: center;
+}
+
+.DetalleProductos .producto .container,
+.DetalleProductos .producto .data{
+    width: 50vw;
+}
+
+.DetalleProductos .producto .container .img{
+    width: 300px;
+}
+
+.DetalleProductos .producto .imagen-precio .data{
+    margin-top: 3rem;
+    padding: 1rem 1rem 0 4rem;
+}
+
+.DetalleProductos .producto .imagen-precio .data .titulo{
+    font-size: 35px;
+}
+
+.DetalleProductos .producto .imagen-precio .data .titulo,
+.DetalleProductos .producto .imagen-precio .data .detalles{
+    text-align: left;
+    padding: 0rem;
+}
+
+.DetalleProductos .producto .imagen-precio .detalles{
+    font-size: 24px;
+    margin: 0.5rem 0;
+}
+
+
+.DetalleProductos .producto .imagen-precio .boton{
+    margin: 1rem 0rem;
     display: flex;
     justify-content: left;
+    font-size: 24px;
 }
-
-.DetalleProductos .producto .imagen-precio .img{
-    width: 37vw;
-    margin: 1rem 0rem;
-}
-
 
 
 .DetalleProductos .descripcion{
@@ -127,7 +221,8 @@
     width: 22vw;
 }
 
-.DetalleProductos .producto .descripcion .tituloLogos{
+.DetalleProductos .producto .descripcion .tituloLogos,
+.DetalleProductos .masproductos .titulo{
     font-size: 27px;
 }
 
@@ -135,4 +230,45 @@
     width: 70vw;
     height: 330px;
 }
+}
+
+
+@media (min-width: 1024px){
+
+    .DetalleProductos .producto{
+        margin: 1rem 5rem;
+        border-radius: 15px;
+    }
+
+    .DetalleProductos .nav .boton{
+        margin-left: 5rem;
+    }
+
+  
+
+    /* características */
+
+    .DetalleProductos .producto .caracteristicas .container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .DetalleProductos .producto .caracteristicas .container .subcontainer{
+        display: flex;
+        flex-direction: row;
+        width: 45%;
+        margin-left: 1rem;
+        margin-top: 1.5rem;
+
+        }
+
+    .DetalleProductos .producto .logos{
+        width: 10vw;
+    }
+
+    /* video */
+    .DetalleProductos .video .videoYoutube{
+        width: 50vw;
+        height: 400px;
+    }
 }

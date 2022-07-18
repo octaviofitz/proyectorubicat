@@ -6,6 +6,8 @@
     <main class="DetalleProductos">
       <%- include('./partials/banner') %> 
 
+      <div class="containerNav">
+
       <div class="nav">
         <a href="/"><button class="boton classic">← Volver atrás</button></a>
       </div>
@@ -14,6 +16,8 @@
         <button type="button" class="btn btn-danger classic">Classic</button>
         <button type="button" class="btn btn-success lavanda">Lavanda</button>
       </div>
+    
+    </div>
 
       <section class="producto">
 
@@ -91,6 +95,28 @@
           </div>
         </article>
 
+      </section>
+
+      <section class="masproductos">
+        <h4 class="titulo Classic">Más productos Rubicat</h4>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a href="/productos/premium"><img src="/images/index/productos/Premium-Producto.jpg" class="d-block w-100" alt="Rubicat Premium"></a>
+            </div>
+            <div class="carousel-item">
+              <a href="/productos/sensitive"><img src="/images/index/productos/Sensitive-Producto.jpg" class="d-block w-100" alt="Rubicat Sensitive"></a>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </section>
 
   </main>

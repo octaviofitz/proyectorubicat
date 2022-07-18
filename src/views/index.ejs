@@ -3,30 +3,39 @@
   <%- include('./partials/head')  %> 
   <body>
     <%- include('./partials/header') %>
+    <%- include('./partials/banner') %>
+
     <main class="index">
     
-      <section class="banner">
+      <section class="banner" data-aos="fade-up" data-aos-duration="2000">
         <div> 
-          <img src="/images/index/logoPortada.png" class="imagen" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1200">
-          <h1 class="subtitulo" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1200">MÁS EFECTIVA, ECONÓMICA Y PRÁCTICA QUE LAS OTRAS MARCAS</h1>
-        </div>
-        <div class="video" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="1500">
-          <iframe width="320" height="260" src="https://www.youtube.com/embed/JX1jSK4-eIw" class="videoYoutube" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-            </section>
-
-            <!-- <article class="redes">
-                <ul class="lista">
+          <h1 class="subtitulo" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1200">ARENA SANITARIA AGLUTINANTE PARA GATOS<h1>
+            
+                <ul class="listaDesktop">
                   <li><i class="fa-brands fa-instagram"></i></li>
                   <li><i class="fa-brands fa-tiktok"></i></li>
                   <li><i class="fa-brands fa-youtube"></i></li>
                   <li><i class="fa-brands fa-whatsapp"></i></li>
                 </ul>
-            </article> -->
+          
+          </div>
+        <div class="video" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="1500">
+          <iframe width="320" height="260" src="https://www.youtube.com/embed/JX1jSK4-eIw" class="videoYoutube" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         
+          <ul class="listaMobile">
+            <li><i class="fa-brands fa-instagram"></i></li>
+            <li><i class="fa-brands fa-tiktok"></i></li>
+            <li><i class="fa-brands fa-youtube"></i></li>
+            <li><i class="fa-brands fa-whatsapp"></i></li>
+         
+          </ul>
+        </div>
+            </section>
+
 
       <article class="data" data-aos="fade-up" data-aos-duration="2000">
         <div>
-          <h2 class="titulo">ARENA SANITARIA AGLUTINANTE PARA GATOS</h2>
+          <h2 class="titulo">MÁS EFECTIVA, ECONÓMICA Y PRÁCTICA QUE LAS OTRAS MARCAS</h2>
           <h3 class="subtitulo">Bentonita Patagónica</h3>
         </div>
         <div>
@@ -51,7 +60,7 @@
 
         <div class="informacion" data-aos="fade-down" data-aos-duration="2200" data-aos-delay="750">
           <h3 class="titulo">Conocé Nuestra Línea de Productos</h3>
-          <p class="texto">Nuestros productos están pensados para la necesidad de cada gato. Desarrollamos y testeamos los mismos para establecer las condiciones correctas de higiene y cuidado, requeridas por las mascotas. Determinamos la granulometría y las variaciones, adecuadas al uso de cada cliente.</p>
+          <p class="texto">Nuestros productos están pensados para la necesidad de cada gato. Determinamos la granulometría y las variaciones, adecuadas al uso de cada cliente.</p>
           
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -65,9 +74,13 @@
                   <strong>Rubicat Classic</strong> es ideal para aquellos gatitos que se encuentran en transicion o utilizan por primera vez una arena aglomerante. <br> Podés encontrarla en su formato Classic o en su formato Lavanda.
                   <strong></strong>
                 </div>
+                <div class="container">
                 <img class="img" src="/images/index/productos/Classic-Producto.jpg">
-                <a href="/productos/classic"><button class="boton-carrusel classic">Ver Detalles</button></a>
+                <img class="img2" src="/images/index/productos/Classic-Producto2.jpg">
+                <img class="img3" src="/images/index/productos/Classic-Producto3.jpg">
               </div>
+                <a href="/productos/classic"><button class="boton-carrusel classic">Ver Detalles</button></a>
+            </div>
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
@@ -79,9 +92,14 @@
                 <div class="accordion-body">
                   <strong>Rubicat Premium</strong> aglutina de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.
                 </div>
+                <div class="container">
                 <img class="img" src="/images/index/productos/Premium-Producto.jpg">
-                <a href="/productos/premium"><button class="boton-carrusel premium">Ver Detalles</button></a>
+                <img class="img2" src="/images/index/productos/Premium-Producto2.jpg">
+                <img class="img3" src="/images/index/productos/Premium-Producto3.jpg">
               </div>
+                <a href="/productos/premium"><button class="boton-carrusel premium">Ver Detalles</button></a>
+              
+            </div>
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
@@ -94,35 +112,16 @@
                   <strong>Rubicat Sensitive</strong> reúne las características indispensables en un producto sanitario para gatos: Extremo control de olores; Micro granulado para un mayor confort; Aglutina instantáneamente formando cúmulos resistentes; Impide la formación de bacterias en la bandeja; Su fórmula no tóxica con un pH neutro garantiza una mayor seguridad y bienestar para su gato y su familia. <br>
                   <strong>Es ideal para usuarios exigentes.</strong>
                 </div>
-                <img class="img" src="/images/index/productos/Sensitive-Producto.jpg"
+                <div class="container">
+                <img class="img" src="/images/index/productos/Sensitive-Producto.jpg">
+                <img class="img2" src="/images/index/productos/Sensitive-Producto2.jpg">
+                <img class="img3" src="/images/index/productos/Sensitive-Producto3.jpg">
+              </div>
                 <a href="/productos/sensitive"><button class="boton-carrusel sensitive">Ver Detalles</button></a>
               </div>
             </div>
           </div>
-        </div>
-  <!-- 
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="750">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <a href="/productos/classic"><img src="/images/index/productos/Classic-Producto.jpg" class="d-block w-100" alt="Rubicat Classic"></a>
-            </div>
-            <div class="carousel-item">
-              <a href="/productos/premium"> <img src="/images/index/productos/Premium-Producto.jpg" class="d-block w-100" alt="Rubicat Premium"></a>
-            </div>
-            <div class="carousel-item">
-              <a href="/productos/sensitive"><img src="/images/index/productos/Sensitive-Producto.jpg" class="d-block w-100" alt="Rubicat Sensitive"></a>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div> -->
-  
+        </div> 
       </section>
   
 
@@ -131,22 +130,20 @@
       </section> 
 
       <section class="contacto" data-aos="zoom-in-up" data-aos-duration="1500" data-aos-delay="750">
-        <div>
+       
+        <div class="data">
         <h4 class="titulo">Contacto</h4>
         <p class="texto">Si tenés alguna pregunta o querés distribuir Rubicat, completá el siguiente formulario. Estamos atentos a tu consulta y responderemos a la brevedad.</p>
-      </div>
+      
        
         <article class="datos">
           
-          <div>
-          <div class="tarjetas">
            
             <div class="tarjeta1">
               <i class="fa-solid fa-envelope"> </i>
                 <span class="texto"> info@rubicat.com.ar</span> 
             </div>
-             
-  
+          </div>
         </article>
       
       <article class="formulario">
