@@ -13,13 +13,13 @@
       </div>
 
       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-danger classic">Classic</button>
-        <button type="button" class="btn btn-success lavanda">Lavanda</button>
+        <button type="button" class="btn btn-danger classic" onclick="ocultar();">Classic</button>
+        <button type="button" class="btn btn-success lavanda" onclick="mostrar();">Lavanda</button>
       </div>
     
     </div>
 
-      <section class="producto">
+      <section class="producto" id="productoClassic">
 
         <article class="imagen-precio">
           <div class="container">
@@ -97,8 +97,88 @@
 
       </section>
 
+      <!-- LAVANDA -->
+
+      <section class="producto" id="productoLavanda" style="display: none;">
+
+        <article class="imagen-precio">
+          <div class="container">
+            <img src="/images/renders/lavanda/classic-lavanda2.png" alt="Rubicat Lavanda" class="img">
+          </div>
+          <div class="data">
+            <h1 class="titulo Lavanda">RUBICAT LAVANDA</h1>
+            <p class="detalles">100% Natural</p>
+            <p class="detalles">Envíos a todo el país</p>
+           <a href="https://listado.mercadolibre.com.ar/rubicat-lavanda#D[A:rubicat%20lavanda]" target="_blank"><button class="boton lavanda">Comprar</button></a>
+          </div>
+        </article>
+
+        <article class="descripcion">
+
+          <div class="info">
+            <h2 class="titulo Lavanda">Descripción</h2>
+            <p class="texto">Rubicat Sensitive reúne las características indispensables en un producto sanitario para gatos: Extremo control de olores; Micro granulado para un mayor confort; Aglutina instantáneamente formando cúmulos resistentes; Impide la formación de bacterias en la bandeja; Su fórmula no tóxica con un pH neutro garantiza una mayor seguridad y bienestar para su gato y su familia.</p>
+          </div>
+
+          <div class="caracteristicas">
+            <h3 class="titulo Lavanda">Caracteristicas</h3>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/lavanda/logos/aglutina-lavanda.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Lavanda">Aglutina</p>
+                <p class="texto">Rubicat es elaborada con bentonita sódica. Esta tiene la capacidad de aglomerar líquido y humedad, formando sólidos cúmulos.</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/lavanda/logos/limpieza-lavanda.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Lavanda">Fácil limpieza</p>
+                <p class="texto">Con la fórmula Rubicat te asegurás limpiar la litera una vez cada 30 días. Una vez generado el cúmulo, solo se repone la cantidad extraída.</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/lavanda/logos/olores-lavanda.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Lavanda">Elimina olores</p>
+                <p class="texto">Su capacidad de aglomeración permite capturar los olores al instante y así mantener los ambientes limpios.</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="containerLogos">
+                <img src="/images/renders/lavanda/logos/lavanda-logo.png" class="logos">
+              </div>
+              <div class="infoLogos">
+                <p class="tituloLogos Lavanda">Suave aroma a lavanda</p>
+                <p class="texto">Rubicat Classic trae un suave aroma a lavanda para mantener el ambiente fresco y con un rico perfume.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modo">
+            <div>
+              <h4 class="titulo Lavanda">Modo de uso</h4>
+            </div>
+              <div class="video" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="1500">
+                <iframe width="320" height="260" src="https://www.youtube.com/embed/Wypl7NYO2_U" class="videoYoutube" title="Youtube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
       <section class="masproductos">
-        <h4 class="titulo Classic">Más productos Rubicat</h4>
+        <h4 class="titulo">Más productos Rubicat</h4>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
@@ -117,11 +197,34 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+
+        <div class="tarjetasDesktop">
+        <div class="card" style="width: 20rem;">
+          <img src="/images/index/productos/Premium-Producto.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Rubicat Premium</h5>
+            <p class="card-text">Acción instantánea</p>
+            <a href="/productos/premium" class="btn btn-primary premium white">Ver detalles</a>
+          </div>
+        </div>
+
+        <div class="card" style="width: 20rem;">
+          <img src="/images/index/productos/Sensitive-Producto2.jpg" class="card-img-top" alt="Rubicat Sensitive">
+          <div class="card-body">
+            <h5 class="card-title">Rubicat Sensitive</h5>
+            <p class="card-text">Para usuarios exigentes</p>
+            <a href="/productos/sensitive" class="btn btn-primary sensitive white">Ver detalles</a>
+          </div>
+        </div>
+
+      </div>
       </section>
+
 
   </main>
   <%- include('./partials/backToTop') %>
   <%- include('./partials/footer') %>
+  <%- include('./partials/scriptProducto') %>
   <%- include('./partials/scripts') %>
   </body>
 </html>

@@ -31,24 +31,6 @@
     font-size: 2.85vh;
 }
 
-/* íconos redes sociales */
-.iconosRedes{
-    margin-top: -1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.nosotros .fa-whatsapp,
-.nosotros .fa-instagram,
-.nosotros .fa-youtube,
-.nosotros .fa-tiktok{
-    font-size: 2.5rem;
-    padding: 0 0.5rem;
-    margin-bottom: 2rem;
-}
-
 .fa-globe,
 .fa-cube,
 .fa-address-card{
@@ -61,20 +43,30 @@
     font-size: 2.05rem;
 }
 
-.fa-whatsapp{
-    color: #39f83c;
+.nosotros .ubicacion{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background-color: #f4f6f7;
+    padding: 1.35rem;
+    margin-top: 0.5rem;
 }
 
-.fa-instagram{
-    color: #c52298;
+.nosotros .ubicacion .titulo{
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 1rem;
 }
 
-.fa-youtube{
-    color: red;
-}
-
-.fa-tiktok{
-    color: black;
+.nosotros .ubicacion .mapa{
+    display: flex;
+    margin: auto;
+    width: 80vw;
+    padding-top: 0.5rem;
+    border-color: #2a2e33;
+    border-radius: 15px;
 }
 
 @media (min-width: 768px){
@@ -97,22 +89,6 @@
     font-size: 2.85vh;
 }
 
-.iconosRedes{
-    margin-top: -1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nosotros .fa-whatsapp,
-.nosotros .fa-instagram,
-.nosotros .fa-youtube,
-.nosotros .fa-tiktok{
-    font-size: 3.3rem;
-    padding: -1rem 0.5rem;
-    margin-bottom: 2rem;
-}
-
 .fa-globe,
 .fa-cube,
 .fa-address-card{
@@ -131,10 +107,17 @@
 
      .nosotros .tarjetas{
         display: flex;
-        padding: 0;
-        margin: 2rem 3rem;
+        justify-content: space-around;
+        margin: 2rem 0rem;
+        padding: 1rem;
         }
     
+        .nosotros .tarjetas .quienesSomos,
+        .nosotros .tarjetas .nosotros,
+        .nosotros .tarjetas .redes{
+            width: 25vw;
+        }
+
         .nosotros .tarjetas .quienesSomos .titulo,
     .nosotros .tarjetas .nosotros .titulo,
     .nosotros .tarjetas .redes .titulo{
@@ -174,5 +157,41 @@
         color: white;
         padding-top: 0vh;
         font-size: 2.2rem;
+    }
+
+    /* ubicación */
+
+    .nosotros .ubicacion{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        background-color: #f4f6f7;
+        padding: 1.35rem;
+        margin: 0.5rem 6rem 2rem 6rem;
+        border-radius: 10px;
+    }
+    
+    .nosotros .ubicacion .titulo{
+        font-size: 30px;
+        font-weight: 300;
+        margin-bottom: 1rem;
+        padding: 0 8rem;
+    }
+    
+    .nosotros .ubicacion .mapa{
+        width: 70vw;
+        height: 380px;
+        padding-top: 0.5rem;
+        border-color: #2a2e33;
+        border-radius: 15px;
+    }
+}
+
+@media (min-width: 1440px){
+
+    /* mapa */
+
+    .nosotros .ubicacion .mapa{
+        height: 420px;
     }
 }

@@ -154,7 +154,18 @@
     border-radius: 5px;
 }
 
+
 @media (min-width: 768px){
+
+    .DetalleProductos .containerNav{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .DetalleProductos .btn-group{
+        margin-top: 1.5rem;
+    }
+
 
     .DetalleProductos .nav .boton{
         font-size: 1.3rem;
@@ -230,12 +241,19 @@
     width: 70vw;
     height: 330px;
 }
+
+.DetalleProductos .w-100{
+    width: 50%!important;
+    display: flex;
+    margin: auto;
+}
 }
 
 
 @media (min-width: 1024px){
 
-    .DetalleProductos .producto{
+    .DetalleProductos .producto,
+    .DetalleProductos .masproductos{
         margin: 1rem 5rem;
         border-radius: 15px;
     }
@@ -244,7 +262,11 @@
         margin-left: 5rem;
     }
 
-  
+    .DetalleProductos .btn-group{
+        margin-top: 1.5rem;
+        margin-right: 5rem;
+    }
+
 
     /* características */
 
@@ -270,5 +292,22 @@
     .DetalleProductos .video .videoYoutube{
         width: 50vw;
         height: 400px;
+    }
+
+
+    /* Más productos */
+
+    .DetalleProductos .carousel{
+        display: none;
+    }
+
+    .DetalleProductos .tarjetasDesktop{
+        display: flex;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+
+    .DetalleProductos .tarjetasDesktop .card{
+        margin: 0rem 7rem;
     }
 }

@@ -9,6 +9,10 @@
     text-decoration: none;
 }
 
+.footer .menu .lista a:hover{
+    font-weight: 700;
+}
+
 .footer .datos{
     margin-top: 2.5rem;
     padding-top: 2rem;
@@ -22,6 +26,7 @@
     display: flex;
     margin: -1rem auto;
     margin-top: -2rem;
+    margin-bottom: -2.5rem;
 }
 
 .footer .datos .titulo{
@@ -37,6 +42,10 @@
     color: #76777B!important;
     font-weight: 600;
     font-size: 1.15rem;
+}
+
+.footer .datos .ubicacion:hover{
+    font-weight: 900;
 }
 
 /* redes */
