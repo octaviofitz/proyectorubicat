@@ -10,9 +10,11 @@
     display: inline-block;
 }
 
+/* botón efecto */
+
   .DetalleProductos .nav .boton::after {
     content: "";
-    background: #223d5f; /* color de fondo hover */
+    background: #2a2c2e; /* color de fondo hover */
     position: absolute;
     z-index: -1;
     display: block;
@@ -34,24 +36,26 @@
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .DetalleProductos a{
     text-decoration: none;
 }
 
 .DetalleProductos .btn-group{
     margin: 0 0 1.5rem 1rem;
+}
+
+/* btn */
+
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+    color: #fff;
+    background-color: #00ACBB;
+    border-color: #00ACBB;
+}
+
+.btn-group>:not(.btn-check)+.btn {
+    color: #fff;
+    background-color: #8B85CA;
+    border-color: #8B85CA;
 }
 
 .DetalleProductos .producto{
@@ -94,6 +98,10 @@
     text-transform: uppercase;
 }
 
+.DetalleProductos .producto .imagen-precio .boton:hover{
+    font-weight: 700;
+}
+
 .DetalleProductos .descripcion{
     text-align: center;
     margin: 1.5rem 1rem;
@@ -129,7 +137,7 @@
 }
 
 .DetalleProductos .video .videoYoutube{
-    display: block;
+    display: flex;
     margin: 0 auto;
     border-radius: 6px;
     width: 80vw;
@@ -140,6 +148,7 @@
 .DetalleProductos .masproductos{
     background-color: #f4f6f7;
     margin: 1.5rem 0;
+    padding-bottom: 1.5rem;
 }
 
 .DetalleProductos .masproductos .titulo{
@@ -154,6 +163,19 @@
     border-radius: 5px;
 }
 
+.DetalleProductos .tarjetasDesktop{
+    display: none;
+}
+
+.DetalleProductos #productoLavanda{
+    display: none;
+}
+
+.DetalleProductos .tarjetasDesktop .btn-primary:hover{
+    font-weight: 900;
+    background-color:#223d5f;
+}
+
 
 @media (min-width: 768px){
 
@@ -164,11 +186,22 @@
 
     .DetalleProductos .btn-group{
         margin-top: 1.5rem;
+        margin-right: 1rem;
+    }
+
+    .btn-group>:not(.btn-check)+.btn,
+    .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+        font-size: 1.3rem;
     }
 
 
     .DetalleProductos .nav .boton{
         font-size: 1.3rem;
+    }
+
+    .DetalleProductos .producto{
+        margin: 0 1rem;
+        border-radius: 10px;
     }
 
 .DetalleProductos .producto .imagen-precio{
@@ -238,14 +271,19 @@
 }
 
 .DetalleProductos .video .videoYoutube{
-    width: 70vw;
-    height: 330px;
+    width: 50vw;
+    height: 300px;
 }
+
 
 .DetalleProductos .w-100{
     width: 50%!important;
     display: flex;
     margin: auto;
+}
+
+.DetalleProductos .masproductos{
+    padding: 0.5rem;
 }
 }
 
@@ -256,6 +294,10 @@
     .DetalleProductos .masproductos{
         margin: 1rem 5rem;
         border-radius: 15px;
+        padding-bottom: 1rem;
+        margin-bottom: 3rem;
+        box-shadow: 5px 5px #00ACBB, 10px 10px #8B85CA, 15px 15px #FF8C1E, 20px 20px #dc5572;
+
     }
 
     .DetalleProductos .nav .boton{
@@ -266,32 +308,53 @@
         margin-top: 1.5rem;
         margin-right: 5rem;
     }
-
-
+    
+    
     /* características */
 
-    .DetalleProductos .producto .caracteristicas .container{
+    .DetalleProductos .caracteristicas{
+        margin-top: 2rem;
+    }
+
+    .DetalleProductos .producto .container1,
+    .DetalleProductos .producto .container2,
+    .DetalleProductos .producto .container3{
         display: flex;
-        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .DetalleProductos .producto .caracteristicas .container{  
+        width: 100%;
+        margin-top: 1.2rem;
     }
 
     .DetalleProductos .producto .caracteristicas .container .subcontainer{
         display: flex;
-        flex-direction: row;
-        width: 45%;
-        margin-left: 1rem;
-        margin-top: 1.5rem;
-
+        width: 40vw;
+        padding: 0.75rem 0;
         }
 
     .DetalleProductos .producto .logos{
-        width: 10vw;
+        width: 8vw;
+        margin: 1.5rem 0;
     }
+
+
+    .DetalleProductos .producto .tituloLogos{
+        padding: 0 1.3rem;
+    }
+    
+    .DetalleProductos .producto .caracteristicas .texto{
+    font-size: 21px;
+    padding: 0 1rem;
+    }
+    
 
     /* video */
     .DetalleProductos .video .videoYoutube{
         width: 50vw;
         height: 400px;
+        margin-top: 1rem;
     }
 
 
@@ -308,6 +371,39 @@
     }
 
     .DetalleProductos .tarjetasDesktop .card{
-        margin: 0rem 7rem;
+        margin: -1rem 7rem -1rem 7rem;
+        font-size: 17px;
+    }
+
+    .DetalleProductos .masproductos .titulo {
+        font-size: 35px;
+        font-weight: 900;
+        padding-top: 2rem;
+    }
+
+    .DetalleProductos .masproductos .tarjetasDesktop .card-title{
+        font-size: 25px;
+        font-weight: 700;
+    }
+}
+
+@media (min-width: 1440px){
+    .DetalleProductos .producto,
+    .DetalleProductos .masproductos{
+        margin: 1rem 8rem 4rem 8rem;
+    }
+
+    .DetalleProductos .producto .descripcion .texto {
+        padding: 0 5rem;
+    }
+
+    /* nav */
+
+    .DetalleProductos .nav .boton{
+        margin-left: 8rem;
+    }
+
+    .DetalleProductos .btn-group{
+    margin-right: 8rem;
     }
 }

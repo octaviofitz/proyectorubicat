@@ -6,13 +6,13 @@
     <main class="DetalleProductos">
       <%- include('./partials/banner') %> 
 
-      <div class="containerNav">
+      <div class="containerNav" data-aos="zoom-in-down" data-aos-duration="1500" data-aos-delay="750">
 
       <div class="nav">
         <a href="/"><button class="boton classic">← Volver atrás</button></a>
       </div>
 
-      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+      <div class="btn-group" role="group" aria-label="Basic mixed styles example" >
         <button type="button" class="btn btn-danger classic" onclick="ocultar();">Classic</button>
         <button type="button" class="btn btn-success lavanda" onclick="mostrar();">Lavanda</button>
       </div>
@@ -22,29 +22,35 @@
       <section class="producto" id="productoClassic">
 
         <article class="imagen-precio">
-          <div class="container">
+          <div class="container" data-aos="fade-down" data-aos-duration="2500">
             <img src="/images/renders/classic/classic-sin-fondo2.png" alt="Rubicat Classic" class="img">
           </div>
-          <div class="data">
+          <div class="data" data-aos="fade-right" data-aos-duration="2500">
             <h1 class="titulo Classic">RUBICAT CLASSIC</h1>
             <p class="detalles">100% Natural</p>
             <p class="detalles">Envíos a todo el país</p>
+            <p class="detalles">Stock disponible</p>
            <a href="https://listado.mercadolibre.com.ar/rubicat-classic#D[A:rubicat%20classic]" target="_blank"><button class="boton classic">Comprar</button></a>
           </div>
         </article>
 
         <article class="descripcion">
 
-          <div class="info">
+          <div class="info" data-aos="zoom-in-down" data-aos-duration="1500" data-aos-delay="750">
             <h2 class="titulo Classic">Descripción</h2>
             <p class="texto">Rubicat Sensitive reúne las características indispensables en un producto sanitario para gatos: Extremo control de olores; Micro granulado para un mayor confort; Aglutina instantáneamente formando cúmulos resistentes; Impide la formación de bacterias en la bandeja; Su fórmula no tóxica con un pH neutro garantiza una mayor seguridad y bienestar para su gato y su familia.</p>
           </div>
 
           <div class="caracteristicas">
-            <h3 class="titulo Classic">Caracteristicas</h3>
+            <h3 class="titulo Classic" data-aos="fade-right" data-aos-duration="2000">Caracteristicas</h3>
 
             <div class="container">
-              <div class="containerLogos">
+
+              <div class="container1" data-aos="fade-right" data-aos-duration="2000">
+
+                <div class="subcontainer">
+                 
+                  <div>
                 <img src="/images/renders/classic/logos/Recurso 2@4x.png" class="logos">
               </div>
               <div class="infoLogos">
@@ -53,8 +59,8 @@
               </div>
             </div>
 
-            <div class="container">
-              <div class="containerLogos">
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/classic/logos/limpiar@4x.png" class="logos">
               </div>
               <div class="infoLogos">
@@ -63,8 +69,12 @@
               </div>
             </div>
 
-            <div class="container">
-              <div class="containerLogos">
+          </div>
+
+          <div class="container2" data-aos="fade-right" data-aos-duration="2000">
+
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/classic/logos/olor@4x.png" class="logos">
               </div>
               <div class="infoLogos">
@@ -73,33 +83,34 @@
               </div>
             </div>
 
-            <div class="container">
-              <div class="containerLogos">
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/classic/logos/lavanda@4x.png" class="logos">
               </div>
               <div class="infoLogos">
-                <p class="tituloLogos Classic">Suave aroma a lavanda</p>
+                <p class="tituloLogos Classic">Aroma</p>
                 <p class="texto">Rubicat Classic trae un suave aroma a lavanda para mantener el ambiente fresco y con un rico perfume.</p>
               </div>
             </div>
 
           </div>
 
-          <div class="modo">
+          <div class="modo" data-aos="fade-up" data-aos-duration="3000">
             <div>
               <h4 class="titulo Classic">Modo de uso</h4>
             </div>
-              <div class="video" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="1500">
+              <div class="video" data-aos="fade-up" data-aos-duration="3000">
                 <iframe width="320" height="260" src="https://www.youtube.com/embed/Wypl7NYO2_U" class="videoYoutube" title="Youtube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
+
         </article>
 
       </section>
 
       <!-- LAVANDA -->
 
-      <section class="producto" id="productoLavanda" style="display: none;">
+      <section class="producto" id="productoLavanda">
 
         <article class="imagen-precio">
           <div class="container">
@@ -109,6 +120,7 @@
             <h1 class="titulo Lavanda">RUBICAT LAVANDA</h1>
             <p class="detalles">100% Natural</p>
             <p class="detalles">Envíos a todo el país</p>
+            <p class="detalles">Stock disponible</p>
            <a href="https://listado.mercadolibre.com.ar/rubicat-lavanda#D[A:rubicat%20lavanda]" target="_blank"><button class="boton lavanda">Comprar</button></a>
           </div>
         </article>
@@ -121,10 +133,16 @@
           </div>
 
           <div class="caracteristicas">
+            
             <h3 class="titulo Lavanda">Caracteristicas</h3>
 
-            <div class="container">
-              <div class="containerLogos">
+
+          <div class="container">
+
+            <div class="container1">
+
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/lavanda/logos/aglutina-lavanda.png" class="logos">
               </div>
               <div class="infoLogos">
@@ -133,8 +151,8 @@
               </div>
             </div>
 
-            <div class="container">
-              <div class="containerLogos">
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/lavanda/logos/limpieza-lavanda.png" class="logos">
               </div>
               <div class="infoLogos">
@@ -143,8 +161,12 @@
               </div>
             </div>
 
-            <div class="container">
-              <div class="containerLogos">
+          </div>
+
+          <div class="container2">
+
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/lavanda/logos/olores-lavanda.png" class="logos">
               </div>
               <div class="infoLogos">
@@ -153,31 +175,34 @@
               </div>
             </div>
 
-            <div class="container">
-              <div class="containerLogos">
+            <div class="subcontainer">
+              <div>
                 <img src="/images/renders/lavanda/logos/lavanda-logo.png" class="logos">
               </div>
               <div class="infoLogos">
-                <p class="tituloLogos Lavanda">Suave aroma a lavanda</p>
+                <p class="tituloLogos Lavanda">Aroma</p>
                 <p class="texto">Rubicat Classic trae un suave aroma a lavanda para mantener el ambiente fresco y con un rico perfume.</p>
               </div>
             </div>
+          </div>
 
           </div>
 
-          <div class="modo">
-            <div>
-              <h4 class="titulo Lavanda">Modo de uso</h4>
-            </div>
-              <div class="video" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="1500">
-                <iframe width="320" height="260" src="https://www.youtube.com/embed/Wypl7NYO2_U" class="videoYoutube" title="Youtube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+        </div>
+
+        <div class="modo">
+          <div>
+            <h4 class="titulo Lavanda">Modo de uso</h4>
           </div>
-        </article>
+            <div class="video">
+              <iframe width="320" height="260" src="https://www.youtube.com/embed/Wypl7NYO2_U" class="videoYoutube" title="Youtube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </article>
 
       </section>
 
-      <section class="masproductos">
+      <section class="masproductos" data-aos="zoom-in-up" data-aos-duration="1500" data-aos-delay="750">
         <h4 class="titulo">Más productos Rubicat</h4>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -198,7 +223,7 @@
           </button>
         </div>
 
-        <div class="tarjetasDesktop">
+        <div class="tarjetasDesktop" data-aos="zoom-in-up" data-aos-duration="1500" data-aos-delay="750">
         <div class="card" style="width: 20rem;">
           <img src="/images/index/productos/Premium-Producto.jpg" class="card-img-top" alt="...">
           <div class="card-body">

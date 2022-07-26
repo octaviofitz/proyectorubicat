@@ -1,47 +1,46 @@
 .distribuidores .tarjetas .informacion{
-    background-color: #223d5f;
+    background-color: #f4f6f7;
     margin: 1.5rem;
     border-radius: 6px;
     padding: 0.75rem;
 }
 
-.distribuidores .tarjetas .nuevosDistribuidores{
-    background-color: #f4f6f7;
-    margin: 0 1.5rem;
-    border-radius: 6px;
-    padding: 0.75rem;
-}
-
 .distribuidores .tarjetas .informacion .titulo{
-    color: #fff;
+    color: #2a2c2e;
     text-align: center;
     margin-top: 1vh;
     font-size: 4vh;
     font-weight: 600;
 }
 
+.distribuidores .tarjetas .informacion .texto{
+    color: #000;
+    text-align: center;
+    font-size: 2.85vh;
+    padding: 0 1.25rem;
+}
+
+.distribuidores .tarjetas .nuevosDistribuidores{
+    background-color: #2a2c2e;
+    margin: 0 1.5rem;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
 .distribuidores .tarjetas .nuevosDistribuidores .titulo{
     text-align: center;
     margin-top: 4vh;
-    color: #44464B;
+    color: #fff;
     font-size: 3.75vh;
     font-weight: 600;
 }
 
-.distribuidores .tarjetas .informacion .texto{
+.distribuidores .tarjetas .nuevosDistribuidores .texto{
     color: #fff;
     text-align: center;
     font-size: 2.85vh;
     padding: 0 1.25rem;
 }
-
-.distribuidores .tarjetas .nuevosDistribuidores .texto{
-    color: #76777B;
-    text-align: center;
-    font-size: 2.85vh;
-    padding: 0 1.25rem;
-}
-
 
  .distribuidores .nuevosDistribuidores .whatsapp{
     background-color: #299651;
@@ -77,29 +76,29 @@
 }
 
 .distribuidores .mapa .titulo{
-    margin-top: 3vh;
-    color: #44464B;
+    font-size: 25px;
+    line-height: 30px;
     text-align: center;
-    font-size: 3.5vh;
-    font-weight: 600;
-    padding: 0 2rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    padding: 1rem 1rem 0 1rem;
 }
 
 .distribuidores .mapa .googleMap{
-  display: flex;
-  justify-content: center;
-  padding: 0.2rem;
-  margin: 2rem auto;
-  border-radius: 5px;
-  border-color: #2a2e33;
-  background-color: #223d5f;
+    display: flex;
+    margin: auto;
+    width: 80vw;
+    padding-top: 0.5rem;
+    border-color: #2a2e33;
+    border-radius: 15px;
+    padding-bottom: 1rem;
 }
 
 @media (min-width: 768px){
 
     .distribuidores .tarjetas .informacion,
     .distribuidores .tarjetas .nuevosDistribuidores{
-        margin: 1rem 8rem;
+        margin: 3rem 8rem;
 }
 
 .distribuidores .tarjetas .informacion .texto,
@@ -128,11 +127,24 @@
     font-size: 1.8rem;  
 } 
 
+.distribuidores .mapa .googleMap{
+    width: 80vw;
+    height: 350px;
+    padding-bottom: 1rem;
+  }
 
 .distribuidores .mapa .googleMap{
     width: 80vw;
+    height: 350px;
   }
-     
+
+  .distribuidores .mapa .titulo{
+    font-size: 25px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }  
 }
 
 @media (min-width: 1024px){
@@ -162,8 +174,38 @@
         font-size: 2vw;  
     } 
 
+    .distribuidores .mapa{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        background-color: #f4f6f7;
+        padding: 1.35rem;
+        margin: 0.5rem 6rem 2rem 6rem;
+        border-radius: 10px;
+    }
+
+    .distribuidores .mapa .titulo{
+        font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    padding: 0 8rem;
+    }
+   
+
     .distribuidores .mapa .googleMap{
-        width: 80vw;
-        margin: 2rem auto;
+        width: 70vw;
+        height: 380px;
+        padding-top: 0.5rem;
+        border-color: #2a2e33;
+        border-radius: 15px;
       }
+    
+}
+
+@media (min-width: 1440px){
+    
+    .distribuidores .mapa .googleMap{
+        height: 520px;
+}
+
 }

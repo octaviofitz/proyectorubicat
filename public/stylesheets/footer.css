@@ -1,5 +1,5 @@
 .footer{
-    background-color: #223d5f!important;
+    background-color: #2a2c2e!important;
     color: #fff!important;
 }
 
@@ -79,10 +79,17 @@
     border-radius: 50%;
 }
 
+.footer .iconosMenu .fa-instagram:hover,
+.footer .iconosMenu .fa-tiktok:hover,
+.footer .iconosMenu .fa-whatsapp:hover
+{
+    font-weight: 700;
+}
+
 
 .footer .iconosMenu .derechos{
     text-align: center;
-    color: #76777B;
+    color: #787b85;
     font-weight: 600;
     margin-top: -1rem;
     margin-bottom: 0rem;
