@@ -135,30 +135,31 @@
         </article>
       
       <article class="formulario">
+        <form action="/" method="POST" novalidate id="index">
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Nombre</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="nombre"></textarea>
         </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com">
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null%>">
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Número de teléfono / Whatsapp</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="telefono"></textarea>
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Asunto</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="asunto"></textarea>
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="mensaje"></textarea>
       </div>
       <button class="boton">Enviar</button>
+    </form>
       </article>
-      </div>
-  
+       
       </section>
 
   </main>
