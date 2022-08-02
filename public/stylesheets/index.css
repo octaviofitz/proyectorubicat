@@ -14,37 +14,23 @@
 }
 
 /* video */
-.index .video{
+.index .presentacion{
     margin: 2rem auto;
 }
 
-.index .video .videoYoutube{
+.index .presentacion .videoYoutube{
     display: block;
     margin: 0 auto;
     border-radius: 6px;
 }
 
-.index .video .titulo{
-    text-align: center;
-    margin-top: 3.5vh;
-    color: #44464B;
-    font-size: 3.5vh;
-}
-
-.index .video .texto{
-    color: #76777B;
-    text-align: center;
-    font-size: 2.85vh;
-    padding: 0 1.25rem;
-}
-
-.index .banner .imagen{
+.index .banner .presentacion .parrafo{
     display: none;
 }
 
 /* redes sociales */
 
-.index .banner .video{
+.index .banner .presentacion{
     display: flex;
     flex-direction: column;
 }
@@ -216,8 +202,6 @@
     background-color: #2a2c2e;
     opacity: 90%;
 }
-
-
 
 /* Contacto */
 
@@ -409,7 +393,7 @@
     
    .index .fa-envelope{
         font-size: 1.8rem;
-        margin-top: 0.65vh;
+        margin-top: 0.1rem;
         margin-left: 3rem;
     }
     
@@ -436,21 +420,89 @@
         justify-content: center;
     }
 
+    .index .banner .presentacion{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
     .index .videoYoutube{
         width: 575px;
-        height: 323px;
+        height: 284px;
+        padding-left: 5vw;
     }
 
-    .index .banner .imagen{
-        width: 80%;
-        margin-top: 0rem;
+    .index .banner .presentacion .parrafo{
+        display: block;
+        width: 40vw;
+        text-align: left;
+        padding-left: 3vw;
     }
 
-    .index .banner .subtitulo{
-        margin-top: 5rem;
-        font-size: 3rem;
-        padding: 0 6vw;
-        line-height: 80px;
+    .index .banner .presentacion .parrafo .titulo{
+        margin-top: 1rem;
+        font-weight: 900;
+        font-size: 2.4rem;
+    }
+
+    .index .banner .presentacion .parrafo .texto{
+        display: none;
+    }
+
+    .index .banner .presentacion .parrafo .titulo,
+    .indedx .banner .presentacion .parrafo .texto{
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: left;
+    }
+
+    .index .banner .presentacion .redes{
+        font-size: 2.5vw;
+        display: flex;
+        flex-direction: row;
+        margin-top: 2rem;
+    }
+
+    .index .banner .presentacion .redes .fa-instagram,
+    .index .banner .presentacion .redes .fa-tiktok,
+    .index .banner .presentacion .redes .fa-whatsapp,
+    .index .banner .presentacion .redes .fa-youtube,
+    .index .banner .presentacion .redes .fa-facebook{
+        color: #fff;
+        padding: 1rem;
+        border-radius: 50%;
+        margin: 0 0.35rem;
+    }
+
+    .index .banner .presentacion .redes .fa-instagram{
+        background-color: #dc5572;
+        margin-left: 0;
+    }
+
+    .index .banner .presentacion .redes .fa-tiktok{
+        background-color: #000;
+    }
+    
+    .index .banner .presentacion .redes .fa-whatsapp{
+        background-color: #25D366;
+    }
+
+    .index .banner .presentacion .redes .fa-youtube{
+        background-color: #FF0000;
+    }
+
+    .index .banner .presentacion .redes .fa-facebook{
+        background-color: #4267B2;
+    }
+
+    .index .banner .presentacion .redes .fa-instagram:hover,
+    .index .banner .presentacion .redes .fa-tiktok:hover,
+    .index .banner .presentacion .redes .fa-whatsapp:hover,
+    .index .banner .presentacion .redes .fa-youtube:hover,
+    .index .banner .presentacion .redes .fa-facebook:hover{
+        transition: 1000ms;
+        background-color: #000;
+        font-weight: 900;
+        
     }
 
     /* informacion */
@@ -461,19 +513,25 @@
         }
 
     .index .data .titulo{
+        display: none;
         text-align: start;
         padding: 0 3rem;
+    }
+
+    
+    .index .data .subtitulo{
+        font-size: 30px;
+        line-height: 40px;
+        padding-left: 3rem;
+        padding-top: 2rem;
+        text-transform: uppercase;
+        font-weight: 700;
     }
 
     .index .data .texto{
         padding: 1.5rem 4rem 0rem 4.5rem;
     }
 
-    .index .data .subtitulo{
-        font-size: 30px;
-        line-height: 40px;
-        padding-left: 3rem;
-    }
 
     .index .data .lista{
         margin: 2.2rem;
@@ -582,10 +640,52 @@
         margin-top: -0.65vh;
         margin-right: 1rem;
         margin-left: 0;
+        font-size: 1.7rem;
     }
     
 }
 
 @media (min-width: 1240px){
+
+    /* Banner */
+
+    .index .videoYoutube{
+        width: 700px;
+        height: 340px;
+        padding-left: 5vw;
+    }
+
+    .index .banner .presentacion .parrafo{
+        display: block;
+        width: 40vw;
+        text-align: left;
+        padding-left: 3vw;
+    }
+
+    .index .banner .presentacion .parrafo .titulo{
+        margin-top: 0rem;
+        font-weight: 900;
+        font-size: 3.5rem;
+    }
+
+    .index .banner .presentacion .parrafo .texto{
+        display: none;
+    }
+
+    .index .banner .presentacion .redes{
+        font-size: 3rem;
+        margin-top: 2.3rem;
+    }
+
+    @media(min-width: 1440px){
+
+        .index .data{
+            padding: 0 7vw;
+        }
+
+        .index .productos .informacion{
+            padding: 2rem 11vw;
+        }
+    }
 
 }
