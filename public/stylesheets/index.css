@@ -500,6 +500,7 @@
 
     .index .banner .presentacion .redes .fa-youtube{
         background-color: #FF8C1E;
+        padding: 1rem 0.8rem;
     }
 
     .index .banner .presentacion .redes .fa-youtube:hover{
