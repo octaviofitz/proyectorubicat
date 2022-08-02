@@ -1,6 +1,15 @@
+.navbar-expand-lg {
+    background-color: #2a2c2e!important;
+}
+
 #classicMenu{
     background-color: #00ACBB;
     font-weight: 600;
+}
+
+#classicMenu:hover{
+    background-color: #fff;
+    color: #00ACBB;
 }
 
 #premiumMenu{
@@ -8,12 +17,25 @@
     font-weight: 600;
 }
 
+#premiumMenu:hover{
+    transition: 2500;
+    background-color: #fff;
+    color: #FF8C1E;
+    font-weight: 900;
+}
+
 #SensitiveMenu{
     background-color: #dc5572;
     font-weight: 600;
 }
 
+#SensitiveMenu:hover{
+    background-color: #fff;
+    color: #dc5572;
+}
+
 #headerBoton,
 #navbarDropdown{
     font-weight: 600;
+    color: #fff;
 }

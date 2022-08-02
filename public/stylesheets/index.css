@@ -465,12 +465,12 @@
     .index .banner .presentacion .redes .fa-instagram,
     .index .banner .presentacion .redes .fa-tiktok,
     .index .banner .presentacion .redes .fa-whatsapp,
-    .index .banner .presentacion .redes .fa-youtube,
-    .index .banner .presentacion .redes .fa-facebook{
+    .index .banner .presentacion .redes .fa-youtube
+    {
         color: #fff;
         padding: 1rem;
         border-radius: 50%;
-        margin: 0 0.35rem;
+        margin: 0 0.7rem;
     } 
 
     .index .banner .presentacion .redes .fa-instagram{
@@ -478,29 +478,39 @@
         margin-left: 0;
     }
 
+    .index .banner .presentacion .redes .fa-instagram:hover{
+        background-color: #E1306C;
+    }
+
     .index .banner .presentacion .redes .fa-tiktok{
+       background-color: #8B85CA;
+    }
+
+    .index .banner .presentacion .redes .fa-tiktok:hover{
         background-color: #000;
     }
     
     .index .banner .presentacion .redes .fa-whatsapp{
+        background-color: #00ACBB;
+    }
+
+    .index .banner .presentacion .redes .fa-whatsapp:hover{
         background-color: #25D366;
     }
 
     .index .banner .presentacion .redes .fa-youtube{
-        background-color: #FF0000;
+        background-color: #FF8C1E;
     }
 
-    .index .banner .presentacion .redes .fa-facebook{
-        background-color: #4267B2;
+    .index .banner .presentacion .redes .fa-youtube:hover{
+        background-color: #FF0000;
     }
 
     .index .banner .presentacion .redes .fa-instagram:hover,
     .index .banner .presentacion .redes .fa-tiktok:hover,
     .index .banner .presentacion .redes .fa-whatsapp:hover,
-    .index .banner .presentacion .redes .fa-youtube:hover,
-    .index .banner .presentacion .redes .fa-facebook:hover{
-        transition: 1000ms;
-        background-color: #000;
+    .index .banner .presentacion .redes .fa-youtube:hover{
+        transition: 2000ms;
         font-weight: 900;
     }
 
