@@ -1,6 +1,7 @@
 const { check } = require("express-validator");
+const { validateResult } = require ('../helpers/validateHelper')
 
-module.exports = [
+const validateCreate = [
 
     /* Nombre */
     check("nombre")
@@ -51,4 +52,10 @@ module.exports = [
       max: 1000,
     })
     .withMessage("El numero máximo de caracteres es de 1000"),
+
+    (req, res, next) => {
+      validateResult(res, req, next)
+    }
 ];
+
+module.exports = {validateCreate}
