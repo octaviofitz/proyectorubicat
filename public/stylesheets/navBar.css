@@ -1,5 +1,23 @@
+.navbar{
+    padding-top: 0.5rem;
+    padding-bottom: 0;
+}
+
 .navbar-expand-lg {
     background-color: #2a2c2e!important;
+}
+
+.navbar-toggler:hover{
+    border: 1px solid #fff;
+ }
+
+ .navbar-toggler:focus{
+    border: 1px solid #fff;
+ }
+
+.fa-bars{
+    padding: 0.3rem;
+    color: #fff;
 }
 
 #classicMenu{
