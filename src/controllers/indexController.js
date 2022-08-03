@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const nodemailer= require('nodemailer')
 
 module.exports = {
@@ -8,8 +9,12 @@ module.exports = {
       })},
 
 
-       enviarFormulario: async (req, res) => {
-        const {nombre, email, telefono, asunto, mensaje} = req.body;
+       formulario: async (req, res) => {
+        let errors= (validationResult(req));
+
+        if(errors.isEmpty()){
+
+          const {nombre, email, telefono, asunto, mensaje} = req.body;
 
         contentHTML= `
         <h2><b>Nombre:</b> ${nombre}</h2>
@@ -20,33 +25,42 @@ module.exports = {
         <br>
         <p>Enviado desde www.rubicat.com.ar</h4>
         `;
-
+      
       const transporter = nodemailer.createTransport({
         host: 'smtp.hostinger.com',
         port: 465,
         secure: true,
         auth: {
             user: 'octavio@rubicat.com.ar',
-            pass: 'Rubicat23@'
+            pass: 'Amenedo4480.'
         },
         tls:{
           rejectUnauthorized: false
         }
        })
+      
 
      const info= await transporter.sendMail({
         from: "octavio@rubicat.com.ar",
-        to: 'octavio@rubicat.com.ar',
+        to: 'octavio.sist@gmail.com',
         subject: asunto,
         html: contentHTML
-       });
+       })
 
        console.log("Mensaje enviado", info.messageId);
-       res.redirect('/')
+       res.redirect('/');
+      
+        } else{
+          return res.render("index", {
+            title: "Rubicat - Un Llamado de la Naturaleza",
+            errores: errors.mapped(),  /* Envío Errors al Frontend.*/
+            old: req.body /* guardo esta variable para la persistencia de datos */
+          })
+        }
       }, 
 
 
-
+      
     
       distribuidores: (req, res) => {
         return res.render("distribuidores", {
