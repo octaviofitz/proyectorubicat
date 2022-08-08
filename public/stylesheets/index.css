@@ -270,6 +270,9 @@
     border-radius: 4px;
 }
 
+.index .formulario .textoError{
+    padding: 0.3rem 0 0 0.1rem;
+}
 
 /* TABLET */
 

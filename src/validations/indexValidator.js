@@ -19,7 +19,7 @@ const validateCreate = [
     .notEmpty()
     .withMessage("Debe ingresar un correo")
     .isEmail()
-    .withMessage("Debe ingresar un correo valido"),
+    .withMessage("Debe ingresar un correo válido"),
 
     /* Número de contacto */
 
@@ -28,7 +28,7 @@ const validateCreate = [
     .withMessage("Indique un número de contacto")
     .bail()
     .isLength({ max: 30 })
-    .withMessage("El maximo de caracteres permitidos es de 30")
+    .withMessage("El máximo de caracteres permitidos es de 30")
     .bail()
     .isNumeric()
     .withMessage("Solo se permiten números")
@@ -38,7 +38,7 @@ const validateCreate = [
 
     check("asunto")
     .notEmpty()
-    .withMessage("Debe indicar un asunto")
+    .withMessage("Debe ingresar un asunto")
     .bail()
     .isLength({ max: 100 })
     .withMessage("El maximo de caracteres permitidos es de 100")
@@ -49,10 +49,7 @@ const validateCreate = [
      check("mensaje")
      .notEmpty()
      .bail()
-    .isLength({
-      max: 1000,
-    })
-    .withMessage("El máximo de caracteres permitidos es de 1000")
+    .withMessage("Debe ingresar su mensaje")
 ];
 
 module.exports = {validateCreate}

@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
-const nodemailer= require('nodemailer')
+const sgMail = require('@sendgrid/mail')
+
 
 module.exports = {
 
@@ -16,52 +17,35 @@ module.exports = {
 
           const {nombre, email, telefono, asunto, mensaje} = req.body;
 
-        contentHTML= `
-        <h2><b>Nombre:</b> ${nombre}</h2>
-        <p><b>Correo de contacto:</b> ${email}</p>
-        <p><b>Teléfono de contacto:</b> ${telefono}</p>
-        <p><b>Asunto del mensaje:</b> ${asunto}</p>
-        <p><b>Mensaje:</b> ${mensaje}</p>
-        <br>
-        <p>Enviado desde www.rubicat.com.ar</h4>
-        `;
-      
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.hostinger.com',
-        port: 465,
-        secure: true,
-        auth: {
-            user: 'octavio@rubicat.com.ar',
-            pass: 'Amenedo4480.'
-        },
-        tls:{
-          rejectUnauthorized: false
-        }
-       })
-      
-
-     const info= await transporter.sendMail({
-        from: "octavio@rubicat.com.ar",
-        to: 'octavio.sist@gmail.com',
-        subject: asunto,
-        html: contentHTML
-       })
-
-       console.log("Mensaje enviado", info.messageId);
-       res.redirect('/');
-      
-        } else{
-          return res.render("index", {
-            title: "Rubicat - Un Llamado de la Naturaleza",
-            errores: errors.mapped(),  /* Envío Errors al Frontend.*/
-            old: req.body /* guardo esta variable para la persistencia de datos */
-          })
-        }
-      }, 
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+          const msg = {
+            to: 'octavio@rubicat.com.ar', // Change to your recipient
+            from: 'webrubicat@gmail.com', // Change to your verified sender
+            subject: asunto,
+            text: mensaje,
+            html: `<p><strong>Nombre:</strong> ${nombre}</p><p><strong>Correo:</strong>${email}</p><p><strong>Número de contacto:</strong> ${telefono}</p> <p><strong>Mensaje:</strong> ${mensaje}</p> <br> <p>Correo enviado desde www.rubicat.com.ar</p>`
+            ,
+          }
+          sgMail
+            .send(msg)
+            .then(() => {
+              console.log('Email sent');
+              res.redirect('/');
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          
+            } else{
+              return res.render("index", {
+                title: "Rubicat - Un Llamado de la Naturaleza",
+                errores: errors.mapped(),  /* Envío Errors al Frontend.*/
+                old: req.body /* guardo esta variable para la persistencia de datos */
+              })
+            }
+          }, 
 
 
-      
-    
       distribuidores: (req, res) => {
         return res.render("distribuidores", {
           title: "Rubicat - Distribuidores",

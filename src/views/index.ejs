@@ -132,52 +132,61 @@
         <h4 class="titulo">Contacto</h4>
         <p class="texto">Si tenés alguna pregunta o querés distribuir Rubicat, completá el siguiente formulario. Estamos atentos a tu consulta y responderemos a la brevedad.</p>
       
-       
         <article class="datos">
             <div class="tarjeta1">
               <i class="fa-solid fa-envelope"> </i>
                <a href="mailto:info@rubicat.com.ar" class="texto"> info@rubicat.com.ar</a> 
             </div>
-          </div>
         </article>
-
-        <div>
-
-        </div>
+     
+      </div>
       
-      <article class="formulario">
+      <article class="formulario" id="formulario">
+        
         <form action="/" method="POST" novalidate id="index">
+
         <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Nombre</label>
-          <input class="form-control" id="exampleFormControlInput2" name="nombre" value="<%= locals.old && old.nombre ? old.nombre : null %>">
-          <span class="text-danger"> <%= locals.errores && errores.nombre ? errores.nombre.msg : null %> </span>
+          <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+          <input class="form-control" type="text" id="exampleFormControlInput2" name="nombre" value="<%= locals.old && old.nombre ? old.nombre : null %>" required>
+         <div class="textoError">
+           <span class="text-danger"> <%= locals.errores && errores.nombre ? errores.nombre.msg : null %> </span>
+          </div>
         </div>
+
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null %>">
-        <span class="text-danger"> <%= locals.errores && errores.email ? errores.email.msg : null %> </span>
+        <label for="exampleFormControlInput2" class="form-label">Email</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null %>" required>
+        <div class="textoError"> 
+          <span class="text-danger"> <%= locals.errores && errores.email ? errores.email.msg : null %> </span>
+        </div>
       </div>
+
       <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Número de teléfono / Whatsapp</label>
-        <input class="form-control" id="exampleFormControlInput3" name="telefono" value="<%= locals.old && old.telefono ? old.telefono : null %>">
-        <span class="text-danger"> <%= locals.errores && errores.telefono ? errores.telefono.msg : null %> </span>
-      </div>
+        <label for="exampleFormControlInput3" class="form-label">Número de teléfono / Whatsapp</label>
+        <input class="form-control" id="exampleFormControlInput3" type="tel" name="telefono" value="<%= locals.old && old.telefono ? old.telefono : null %>" required>
+        <div class="textoError"> 
+          <span class="text-danger"> <%= locals.errores && errores.telefono ? errores.telefono.msg : null %> </span>
+        </div>
+     </div>
+
       <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Asunto</label>
-        <input class="form-control" id="exampleFormControlInput4" name="asunto" value="<%= locals.old && old.asunto ? old.asunto : null %>">
-        <span class="text-danger"> <%= locals.errores && errores.asunto ? errores.asunto.msg : null %> </span>
+        <label for="exampleFormControlInput4" class="form-label">Asunto</label>
+        <input class="form-control" id="exampleFormControlInput4" type="text" name="asunto" value="<%= locals.old && old.asunto ? old.asunto : null %>" required>
+        <div class="textoError"> 
+           <span class="text-danger"> <%= locals.errores && errores.asunto ? errores.asunto.msg : null %> </span>
+          </div>
       </div>
+
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="mensaje"><%= locals.old && old.mensaje ? old.mensaje : null%></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="mensaje"><%= locals.old && old.mensaje ? old.mensaje : null%></textarea required>
+        <div class="textoError"> 
         <span class="text-danger"> <%= locals.errores && errores.mensaje ? errores.mensaje.msg : null %> </span>
-          <span id="msgArea"></span>
-                    <% if (locals.errors && errors.mensaje) { %>
-                      <p class="text-danger"><%= errors.mensaje.msg %> </p>
-                    <% } %>
-        </textarea>
       </div>
-      <button class="boton">Enviar</button>
+    </div>
+    
+      <button class="boton" id="botonFormulario">Enviar</button>
+      
     </form>
       </article>
        
@@ -187,5 +196,7 @@
   <%- include('./partials/backToTop') %>
   <%- include('./partials/footer') %>
   <%- include('./partials/scripts') %>
+ 
+  </script>
   </body>
 </html>
