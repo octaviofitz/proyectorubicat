@@ -1,14 +1,12 @@
 const { validationResult } = require('express-validator');
 const sgMail = require('@sendgrid/mail')
 
-
 module.exports = {
 
     index: (req, res) => {
       return res.render("index", {
         title: "Rubicat - Un Llamado de la Naturaleza",
       })},
-
 
        formulario: async (req, res) => {
         let errors= (validationResult(req));
@@ -30,7 +28,7 @@ module.exports = {
             .send(msg)
             .then(() => {
               console.log('Email sent');
-              res.redirect('/');
+              res.redirect('/formulario-enviado');
             })
             .catch((error) => {
               console.error(error)
@@ -44,6 +42,11 @@ module.exports = {
               })
             }
           }, 
+
+          formularioenviado: (req, res) => {
+            return res.render("formularioenviado", {
+              title: "Rubicat - Un llamado de la Naturaleza",
+            })},
 
 
       distribuidores: (req, res) => {

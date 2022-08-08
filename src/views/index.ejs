@@ -147,7 +147,7 @@
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-          <input class="form-control" type="text" id="exampleFormControlInput2" name="nombre" value="<%= locals.old && old.nombre ? old.nombre : null %>" required>
+          <input class="form-control" type="text" id="exampleFormControlInput1" name="nombre" value="<%= locals.old && old.nombre ? old.nombre : null %>" required>
          <div class="textoError">
            <span class="text-danger"> <%= locals.errores && errores.nombre ? errores.nombre.msg : null %> </span>
           </div>
@@ -155,7 +155,7 @@
 
       <div class="mb-3">
         <label for="exampleFormControlInput2" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null %>" required>
+        <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null %>" required>
         <div class="textoError"> 
           <span class="text-danger"> <%= locals.errores && errores.email ? errores.email.msg : null %> </span>
         </div>
@@ -184,9 +184,10 @@
         <span class="text-danger"> <%= locals.errores && errores.mensaje ? errores.mensaje.msg : null %> </span>
       </div>
     </div>
-    
-      <button class="boton" id="botonFormulario">Enviar</button>
-      
+   
+    <button class="boton" id="botonFormularioDisabled" disabled>Enviar</button>
+    <button class="boton" id="botonFormulario">Enviar</button>
+          
     </form>
       </article>
        
@@ -196,7 +197,7 @@
   <%- include('./partials/backToTop') %>
   <%- include('./partials/footer') %>
   <%- include('./partials/scripts') %>
- 
+  <%- include('./partials/scriptBoton') %>
   </script>
   </body>
 </html>

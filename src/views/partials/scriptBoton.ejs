@@ -1,0 +1,47 @@
+<script>
+    
+    function habilitar() {
+        
+    let nombre= document.getElementById("exampleFormControlInput1").value
+    let email= document.getElementById("exampleFormControlInput2").value
+    let telefono= document.getElementById("exampleFormControlInput3").value
+    let asunto= document.getElementById("exampleFormControlInput4").value
+    let mensaje= document.getElementById("exampleFormControlTextarea1").value
+    val= 0;
+
+        if (nombre =="") {
+            val++;
+        }
+
+        if (email== "") {
+            val++;
+        }
+
+        if (telefono == "") {
+            val++;
+        }
+
+        if (asunto == "") {
+            val++;
+                }
+
+         if (mensaje == "") {
+            val++;
+         }
+
+         if (val == 0) {
+            document.getElementById("botonFormulario").style.display = 'block';
+            document.getElementById("botonFormularioDisabled").style.display = 'none';
+         } else {
+            document.getElementById("botonFormulario").style.display = 'none';
+            document.getElementById("botonFormularioDisabled").style.display = 'block';
+         }
+        }
+        document.getElementById("exampleFormControlInput1").addEventListener("keyup", habilitar);
+        document.getElementById("exampleFormControlInput2").addEventListener("keyup", habilitar);
+        document.getElementById("exampleFormControlInput3").addEventListener("keyup", habilitar);
+        document.getElementById("exampleFormControlInput4").addEventListener("keyup", habilitar);
+        document.getElementById("exampleFormControlTextarea1").addEventListener("keyup", habilitar);
+        
+</script>
+

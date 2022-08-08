@@ -258,7 +258,8 @@
     border-radius: 5px;
 }
 
-.index .boton{
+.index .formulario .boton,
+.index .formulario #botonFormularioDisabled{
     padding: 0.75rem 2rem;
     background-color: #dc5572;
     color: white;
@@ -268,6 +269,12 @@
     justify-content: center;
     margin: auto;
     border-radius: 4px;
+    display: none;
+}
+
+.index .formulario #botonFormularioDisabled{
+    display: block;
+    background-color: #959595;
 }
 
 .index .formulario .textoError{
