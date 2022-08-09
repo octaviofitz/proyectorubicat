@@ -44,7 +44,7 @@ module.exports = {
           }, 
 
           formularioenviado: (req, res) => {
-            return res.render("formularioenviado", {
+            return res.render("formulario-enviado", {
               title: "Rubicat - Un llamado de la Naturaleza",
             })},
 
