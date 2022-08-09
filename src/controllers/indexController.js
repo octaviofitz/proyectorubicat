@@ -17,8 +17,8 @@ module.exports = {
 
           sgMail.setApiKey(process.env.SENDGRID_API_KEY)
           const msg = {
-            to: 'octavio@rubicat.com.ar', // Change to your recipient
-            from: 'webrubicat@gmail.com', // Change to your verified sender
+            to: 'octavio@rubicat.com.ar',
+            from: 'webrubicat@gmail.com', 
             subject: asunto,
             text: mensaje,
             html: `<p><strong>Nombre:</strong> ${nombre}</p><p><strong>Correo:</strong>${email}</p><p><strong>Número de contacto:</strong> ${telefono}</p> <p><strong>Mensaje:</strong> ${mensaje}</p> <br> <p>Correo enviado desde www.rubicat.com.ar</p>`
@@ -48,7 +48,6 @@ module.exports = {
               title: "Rubicat - Un llamado de la Naturaleza",
             })},
 
-
       distribuidores: (req, res) => {
         return res.render("distribuidores", {
           title: "Rubicat - Distribuidores",
@@ -64,8 +63,3 @@ module.exports = {
               title: "Rubicat - Nosotros",
             })}    
       }
-    
-    
-  
-     
-        

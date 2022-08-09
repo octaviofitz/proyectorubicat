@@ -163,7 +163,7 @@
 
       <div class="mb-3">
         <label for="exampleFormControlInput3" class="form-label">Número de teléfono / Whatsapp</label>
-        <input class="form-control" id="exampleFormControlInput3" type="tel" name="telefono" value="<%= locals.old && old.telefono ? old.telefono : null %>" required>
+        <input class="form-control" id="exampleFormControlInput3" type="number" name="telefono" value="<%= locals.old && old.telefono ? old.telefono : null %>" required>
         <div class="textoError"> 
           <span class="text-danger"> <%= locals.errores && errores.telefono ? errores.telefono.msg : null %> </span>
         </div>
