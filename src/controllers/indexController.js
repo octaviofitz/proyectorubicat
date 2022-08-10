@@ -6,6 +6,7 @@ module.exports = {
     index: (req, res) => {
       return res.render("index", {
         title: "Rubicat - Un Llamado de la Naturaleza",
+        descripcion: "Nashe"
       })},
 
        formulario: async (req, res) => {
@@ -21,7 +22,7 @@ module.exports = {
             from: 'webrubicat@gmail.com', 
             subject: asunto,
             text: mensaje,
-            html: `<p><strong>Nombre:</strong> ${nombre}</p><p><strong>Correo:</strong>${email}</p><p><strong>Número de contacto:</strong> ${telefono}</p> <p><strong>Mensaje:</strong> ${mensaje}</p> <br> <p>Correo enviado desde www.rubicat.com.ar</p>`
+            html: `<p><strong>Nombre:</strong> ${nombre}</p><p><strong>Correo:</strong> ${email}</p><p><strong>Número de contacto:</strong> ${telefono}</p> <p><strong>Mensaje:</strong> ${mensaje}</p> <br> <p>Correo enviado desde www.rubicat.com.ar</p>`
             ,
           }
           sgMail
@@ -46,20 +47,24 @@ module.exports = {
           formularioenviado: (req, res) => {
             return res.render("formulario-enviado", {
               title: "Rubicat - Un llamado de la Naturaleza",
+              descripcion: "Nashe"
             })},
 
       distribuidores: (req, res) => {
         return res.render("distribuidores", {
           title: "Rubicat - Distribuidores",
+          descripcion: "Nashe"
         })},
 
         contacto: (req, res) => {
           return res.render("contacto", {
             title: "Rubicat - Contacto",
+            descripcion: "Nashe"
           })},
           
           nosotros: (req, res) => {
             return res.render("nosotros", {
               title: "Rubicat - Nosotros",
+              descripcion: "Nashe"
             })}    
       }

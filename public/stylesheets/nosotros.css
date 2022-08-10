@@ -111,7 +111,7 @@
 }
 
 @media (min-width: 768px){
-    .nosotros .contador{
+     .nosotros .contador{
         flex-direction: row;
         justify-content: center;
         padding: 2rem 0rem;
@@ -129,83 +129,99 @@
 
 @media (min-width: 1024px){
 
-    .nosotros .historia,
-    .nosotros .objetivos,
-    .nosotros .redes,
-    .nosotros .materiaPrima{
-        margin: auto;
-    }
+  .nosotros .historia,
+  .nosotros .redes,
+  .nosotros .materiaPrima{
+    display: flex;
+    padding: 0;    
+  }
+
+  .nosotros .historia{
+    margin-top: 1rem;
+    pad: 0;
+  }
+
+  .nosotros .objetivos{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0;
+  }
+
+
+  .nosotros .objetivos .contenedor,
+  .nosotros .redes .contenedor,
+  .nosotros .materiaPrima .contenedor{
+    width: 50%;
+    padding: 1.5rem 2rem 2.5rem;
+  }
+
+  .nosotros .historia .contenedor{
+    padding: 0rem 2rem 3rem;
+
+  }
+
+  .nosotros .img1{
+    width: 50vw;
+    height: 100%;
+    margin-top: 0;
+    padding: 0;
+    border-radius: 3px;
+} 
+
+.nosotros .historia .titulo,
+.nosotros .objetivos .titulo,
+.nosotros .redes .titulo,
+.nosotros .materiaPrima .titulo{
+    padding-top: 0rem;
+    margin-bottom: 1vh;
+    padding-bottom: 1.5rem;
+     font-size: 3.5vw;
+}
+
+.nosotros .historia .texto,
+.nosotros .objetivos .texto,
+.nosotros .redes .texto,
+.nosotros .materiaPrima .texto{
+    font-size: 1.85vw;
+    line-height: 1.3;
+} 
+
+.nosotros .redes{
+    padding: 5rem 2rem;
+}
+
+.nosotros .contador{
+    padding: 4rem 0rem;
+}
+
+.nosotros .contador .numeros{
+    font-size: 5.5rem;
+}
+
+.nosotros .contador .texto{
+    font-size: 2rem;
+}
+}
+
+@media (min-width:1440px){
 
     .nosotros .historia .titulo,
-    .nosotros .objetivos .titulo,
-    .nosotros .redes .titulo,
-    .nosotros .materiaPrima .titulo{
-        text-align: center;
-        padding-top: 2rem;
-        font-family: 2.8vw;
-    }
+.nosotros .objetivos .titulo,
+.nosotros .redes .titulo,
+.nosotros .materiaPrima .titulo{
+     font-size: 3.3vw;
+}
 
-    .nosotros .historia .texto,
-    .nosotros .objetivos .texto,
-    .nosotros .redes .texto,
-    .nosotros .materiaPrima .texto{
-       text-align: center;
-        padding: 1rem 25vw 2rem 25vw;
-        font-size: 1.7vw;
-        line-height: 1.5;
-    }
+.nosotros .historia .texto,
+.nosotros .objetivos .texto,
+.nosotros .redes .texto,
+.nosotros .materiaPrima .texto{
+    font-size: 1.65vw;
+    line-height: 1.3;
+} 
 
-    .nosotros .contenedorImagenes{
-        display: flex;
-    }
-
-    .nosotros .img1{
-        width: 50vw;
-    } 
-
-    .nosotros .img2{
-        display: inline-block;
-        width: 50vw;
-  }
-
-  .nosotros .contador{
-    padding: 6vh 0;
-  }
-
-  .nosotros .contador .numeros{
-    font-size: 8vw;
-  }
-
-    /* .nosotros .historia,
-    .nosotros .objetivos,
-    .nosotros .redes,
-    .nosotros .materiaPrima{
-        display: flex;
-    }
-
-    .nosotros .historia .titulo,
-    .nosotros .objetivos .titulo{
-        width: 20vw;
-        font-size: 3.75vw;
-        line-height: 1.3;
-    }
-
-    .nosotros .objetivos .titulo{
-        width: 20vw;
-        font-size: 3.4vw;
-        line-height: 1.3;
-    }
-
-    .nosotros .historia .texto,
-    .nosotros .objetivos .texto{
-        width: 50vw;
-        font-size: 1.45vw;
-        line-height: 1.2;
-        padding-top: 2.25rem;
-    }
-
-    .nosotros .img1{
-        width: 30vw;
-    } */
-
+.nosotros .objetivos .contenedor,
+.nosotros .materiaPrima .contenedor{
+  padding-top: 4rem;
+}
 }
