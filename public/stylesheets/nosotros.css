@@ -133,20 +133,21 @@
   .nosotros .redes,
   .nosotros .materiaPrima{
     display: flex;
-    padding: 0;    
+    padding: 0;  
+    margin: 0;  
   }
 
   .nosotros .historia{
     margin-top: 1rem;
-    pad: 0;
+    padding: 0;
   }
 
   .nosotros .objetivos{
     display: flex;
     flex-direction: row-reverse;
     padding: 0;
+    margin: 0;
   }
-
 
   .nosotros .objetivos .contenedor,
   .nosotros .redes .contenedor,
@@ -157,13 +158,19 @@
 
   .nosotros .historia .contenedor{
     padding: 0rem 2rem 3rem;
+    margin: 0;
+  }
 
+  .nosotros .contenedorImagenes{
+    width: 50vw;
+    max-width: 50vw;
   }
 
   .nosotros .img1{
     width: 50vw;
     height: 100%;
     margin-top: 0;
+    margin: 0;
     padding: 0;
     border-radius: 3px;
 } 

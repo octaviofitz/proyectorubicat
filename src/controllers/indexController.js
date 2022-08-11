@@ -6,7 +6,8 @@ module.exports = {
     index: (req, res) => {
       return res.render("index", {
         title: "Rubicat - Un Llamado de la Naturaleza",
-        descripcion: "Nashe"
+        descripcion: "Nashe",
+        keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
       })},
 
        formulario: async (req, res) => {
@@ -38,6 +39,8 @@ module.exports = {
             } else{
               return res.render("index", {
                 title: "Rubicat - Un Llamado de la Naturaleza",
+                descripcion: "Nashe",
+                keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos",
                 errores: errors.mapped(),  /* Envío Errors al Frontend.*/
                 old: req.body /* guardo esta variable para la persistencia de datos */
               })
@@ -47,24 +50,21 @@ module.exports = {
           formularioenviado: (req, res) => {
             return res.render("formulario-enviado", {
               title: "Rubicat - Un llamado de la Naturaleza",
-              descripcion: "Nashe"
+              descripcion: "Nashe",
+              keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
             })},
 
       distribuidores: (req, res) => {
         return res.render("distribuidores", {
           title: "Rubicat - Distribuidores",
-          descripcion: "Nashe"
+          descripcion: "Nashe",
+          keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
         })},
-
-        contacto: (req, res) => {
-          return res.render("contacto", {
-            title: "Rubicat - Contacto",
-            descripcion: "Nashe"
-          })},
           
           nosotros: (req, res) => {
             return res.render("nosotros", {
               title: "Rubicat - Nosotros",
-              descripcion: "Nashe"
+              descripcion: "Nashe",
+              keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
             })}    
       }

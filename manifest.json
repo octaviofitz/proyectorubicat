@@ -1,0 +1,8 @@
+{
+    "name": "Rubicat",
+    "short_name": "Rubicat",
+    "start_url": "/index",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "El conocimiento en la Nube es Colectivo. Compartimos Tutoriales y Recursos sobre Desarrollo Web, Back-end, Front-end, Aplicaciones Móviles, UX, UI, Seguridad Web, etc."
+  }

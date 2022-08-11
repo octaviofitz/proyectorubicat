@@ -57,3 +57,9 @@
     font-weight: 600;
     color: #fff;
 }
+
+.dropdown-menu{
+    --bs-dropdown-bg: #2a2c2e!important;
+    --bs-dropdown-border-color: none;
+    --bs-dropdown-padding-y: 0rem;
+}
