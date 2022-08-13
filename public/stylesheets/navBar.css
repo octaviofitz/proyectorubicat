@@ -53,8 +53,13 @@
 }
 
 #headerBoton,
+#headerBoton2,
 #navbarDropdown{
     font-weight: 600;
+    color: #fff;
+}
+
+#white{
     color: #fff;
 }
 

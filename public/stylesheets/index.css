@@ -1,6 +1,6 @@
 /* banner */
 .index .banner{
-    display: flex;
+    display: inline;
     flex-direction: column;
     background-color: #fff;
  }
@@ -16,12 +16,14 @@
 /* video */
 .index .presentacion{
     margin: 2rem auto;
+    display: block;
 }
 
-.index .presentacion .videoYoutube{
+.index .videoYoutube{
     display: block;
     margin: 0 auto;
     border-radius: 6px;
+    padding: 0 1rem;
 }
 
 .index .banner .presentacion .parrafo{

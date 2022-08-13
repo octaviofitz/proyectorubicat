@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* Middlewares */
-const {cacheInit} = require('../middlewares/cache');
-
 const {classic, premium, sensitive} = require('../controllers/productsController');
+
 
 /* GET home page. */
 router.get('/classic', classic)
