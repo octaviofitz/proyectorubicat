@@ -130,11 +130,13 @@
 @media (min-width: 1024px){
 
   .nosotros .historia,
+  .nosotros .objetivos
   .nosotros .redes,
   .nosotros .materiaPrima{
     display: flex;
     padding: 0;  
     margin: 0;  
+    width: 100vw;
   }
 
   .nosotros .historia{

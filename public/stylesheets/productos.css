@@ -127,6 +127,11 @@
     font-weight: 600;
 }
 
+.DetalleProductos .producto .descripcion .textoDescriptivo{
+    font-size: 18px;
+    padding: 0 1.5rem;
+}
+
 .DetalleProductos .producto .descripcion .texto{
     font-size: 18px;
 }
@@ -172,8 +177,9 @@
 }
 
 .DetalleProductos .tarjetasDesktop .btn-primary:hover{
+    transition: 2s;
     font-weight: 900;
-    background-color:#223d5f;
+    background-color:#2a2c2e;
 }
 
 
@@ -257,6 +263,11 @@
     font-size: 35px;
 }
 
+.DetalleProductos .producto .descripcion .textoDescriptivo{
+    font-size: 23px;
+    padding: 0 1.5rem;
+}
+
 .DetalleProductos .producto .descripcion .texto{
     font-size: 24px;
 }
@@ -296,8 +307,9 @@
         border-radius: 15px;
         padding-bottom: 1rem;
         margin-bottom: 3rem;
-        box-shadow: 5px 5px #00ACBB, 10px 10px #8B85CA, 15px 15px #FF8C1E, 20px 20px #dc5572;
-
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+/*         box-shadow: 5px 5px #00ACBB, 10px 10px #8B85CA, 15px 15px #FF8C1E, 20px 20px #dc5572;
+ */
     }
 
     .DetalleProductos .nav .boton{
@@ -388,22 +400,52 @@
 }
 
 @media (min-width: 1440px){
+
     .DetalleProductos .producto,
     .DetalleProductos .masproductos{
-        margin: 1rem 8rem 4rem 8rem;
+        margin: 1rem 12rem 4rem 12rem;
+    }
+
+    .DetalleProductos .producto .imagen-precio{
+        margin-left: 9rem;
     }
 
     .DetalleProductos .producto .descripcion .texto {
-        padding: 0 5rem;
+        padding: 0 7rem;
+        text-align: left;
     }
 
     /* nav */
 
     .DetalleProductos .nav .boton{
-        margin-left: 8rem;
+        margin-left: 12rem;
     }
 
     .DetalleProductos .btn-group{
-    margin-right: 8rem;
+    margin-right: 12rem; 
     }
+
+    /* productos */
+
+    .DetalleProductos .producto .caracteristicas .container {
+        justify-content: center;
+        margin: auto;
+    }
+
+    .DetalleProductos .producto .descripcion .tituloLogos{
+        text-align: left;
+        padding: 0 2rem;
+    }
+
+    .DetalleProductos .producto .descripcion .textoDescriptivo{
+        font-size: 23px;
+        text-align: left;
+        padding: 0 7.5rem;
+    }
+
+    .DetalleProductos .producto .descripcion .texto {
+        padding: 0 2rem;
+    }
+
+    
 }
