@@ -19,11 +19,15 @@
     display: block;
 }
 
+.index .play{
+    border-radius: 10px!important;
+}
+
 .index .videoYoutube{
     display: block;
     margin: 0 auto;
     border-radius: 6px;
-    padding: 0 1rem;
+    padding: 0 8vw;
 }
 
 .index .banner .presentacion .parrafo{
@@ -213,6 +217,7 @@
 }
 
 .index .informacion .accordion .boton-carrusel:hover{
+    transition: 1s;
     background-color: #2a2c2e;
     opacity: 90%;
 }
@@ -307,8 +312,7 @@
 } 
 
 .index .videoYoutube{
-    width: 60vw;
-    height: 33vh;
+    width: 75vw;
 }
 
 /* redes sociales */
@@ -462,8 +466,9 @@
     }
 
     .index .videoYoutube{
-        width: 575px;
-        height: 284px;
+        /* width: 575px;
+        height: 284px; */
+        width: 55vw;
         padding-left: 5vw;
     }
 
@@ -693,8 +698,9 @@
     /* Banner */
 
     .index .videoYoutube{
-        width: 700px;
-        height: 340px;
+        /* width: 575px;
+        height: 284px; */
+        width:58vw;
         padding-left: 5vw;
     }
 
@@ -721,6 +727,13 @@
     }
 
     @media(min-width: 1440px){
+
+        .index .videoYoutube{
+            /* width: 575px;
+            height: 284px; */
+            width:45vw;
+            padding-left: 5vw;
+        }
 
         .index .data{
             padding: 0 7vw;
