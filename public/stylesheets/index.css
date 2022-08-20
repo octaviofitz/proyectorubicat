@@ -19,15 +19,16 @@
     display: block;
 }
 
-.index .play{
-    border-radius: 10px!important;
-}
-
 .index .videoYoutube{
     display: block;
     margin: 0 auto;
     border-radius: 6px;
     padding: 0 8vw;
+    clip-path: polygon(0 2%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.contenedorVideo{
+    border-radius: 50px;
 }
 
 .index .banner .presentacion .parrafo{
@@ -137,7 +138,7 @@
 .index .informacion{
     background-color: #f4f6f7;
     margin-top: -0.35rem;
-    padding: 1rem;
+    padding: 2rem 1.25rem 0rem;
 }
 
 .index .informacion .titulo,
@@ -350,7 +351,7 @@
 
 .index .productos .informacion{
     margin: -0.5rem 0rem;
-    padding: 1rem 1.5rem;
+    padding: 2.25rem 2rem;
 }
 
 .index .informacion .titulo{
@@ -457,6 +458,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+        margin-left: 6rem;
     }
 
     .index .banner .presentacion{
@@ -466,8 +468,6 @@
     }
 
     .index .videoYoutube{
-        /* width: 575px;
-        height: 284px; */
         width: 55vw;
         padding-left: 5vw;
     }
@@ -639,7 +639,6 @@
     padding: 0 1rem;
     margin: 1rem 0 2rem 0;
     order: -1;
-
 }
 
  /* .contacto */   
@@ -697,10 +696,12 @@
 
     /* Banner */
 
+    .index .banner{
+        margin-left: 3rem;
+    }
+
     .index .videoYoutube{
-        /* width: 575px;
-        height: 284px; */
-        width:58vw;
+        width:50vw;
         padding-left: 5vw;
     }
 
@@ -714,7 +715,7 @@
     .index .banner .presentacion .parrafo .titulo{
         margin-top: 0rem;
         font-weight: 900;
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 
     .index .banner .presentacion .parrafo .texto{
@@ -729,10 +730,12 @@
     @media(min-width: 1440px){
 
         .index .videoYoutube{
-            /* width: 575px;
-            height: 284px; */
             width:45vw;
             padding-left: 5vw;
+        }
+
+        .index .banner .presentacion .parrafo .titulo{
+            font-size: 3.5rem;
         }
 
         .index .data{

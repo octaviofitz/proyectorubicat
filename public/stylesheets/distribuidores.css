@@ -97,9 +97,10 @@
     font-size: 25px;
     line-height: 30px;
     text-align: center;
-    font-weight: 300;
+    font-weight: 700;
     margin-bottom: 1rem;
     padding: 1rem 1rem 0 1rem;
+    text-transform: uppercase;
 }
 
 .distribuidores .mapa .googleMap{

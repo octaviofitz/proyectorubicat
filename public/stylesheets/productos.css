@@ -156,7 +156,7 @@
 
 .DetalleProductos .masproductos{
     background-color: #f4f6f7;
-    margin: 1.5rem 1rem;
+    margin: 1.5rem 0rem;
     padding-bottom: 1.5rem;
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -168,10 +168,6 @@
     padding: 1rem;
     text-transform: uppercase;
     text-align: center;
-}
-
-.DetalleProductos .masproductos .d-block{
-    border-radius: 5px;
 }
 
 .DetalleProductos .tarjetasDesktop{
@@ -197,12 +193,12 @@
 
 .DetalleProductos .masproductos .tarjeta1,
 .DetalleProductos .masproductos .tarjeta2{
-    width: 45vw;
+    width: 50vw;
 }
 
 .DetalleProductos .masproductos .tarjeta1 .imagenTarjeta,
 .DetalleProductos .masproductos .tarjeta2 .imagenTarjeta{
-    width: 40vw;
+    width: 48vw;
     border-radius: 10%;
 }
 
@@ -349,6 +345,7 @@
 
 .DetalleProductos .masproductos{
     padding: 0.5rem;
+    margin: 1.5rem 2rem;
 }
 }
 
