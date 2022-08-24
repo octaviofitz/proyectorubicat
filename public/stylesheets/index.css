@@ -24,7 +24,6 @@
     margin: 0 auto;
     border-radius: 6px;
     padding: 0 8vw;
-    clip-path: polygon(0 2%, 100% 0, 100% 100%, 0% 100%);
 }
 
 .contenedorVideo{
@@ -615,6 +614,19 @@
 }
 
 /* carrusel */
+
+.index .informacion .accordion #acordeon-classic,
+.index .informacion .accordion #acordeon-premium,
+.index .informacion .accordion #acordeon-sensitive{
+    opacity: 0.95;
+}
+
+.index .informacion .accordion #acordeon-classic:hover,
+.index .informacion .accordion #acordeon-premium:hover,
+.index .informacion .accordion #acordeon-sensitive:hover{
+    opacity: 1;
+}
+
 .carousel.pointer-event{
     margin: 1rem 20vh;
     }
