@@ -1,10 +1,12 @@
 .navbar{
     padding-top: 0.5rem;
     padding-bottom: 0;
+    border: none;
 }
 
 .navbar-expand-lg {
-    background-color: #2a2c2e!important;
+    background-color: #2B2B2B!important;
+    border: none;
 }
 
 .navbar-toggler:hover{
