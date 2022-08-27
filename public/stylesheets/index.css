@@ -16,6 +16,7 @@
 /* video */
 .index .presentacion{
     margin: 2rem auto;
+    margin-top: 0;
     display: block;
 }
 
@@ -47,7 +48,6 @@
     display: flex;
     flex-direction: column;
     background-color: #2a2c2e;
-    clip-path: polygon(0 0, 100% 1%, 100% 100%, 0% 100%);
 }
 
 .index .data .titulo{
@@ -115,7 +115,7 @@
     margin-bottom: -1rem;
     width: 100%;
     opacity: 93%;
-    clip-path: polygon(0 0, 100% 4%, 100% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 3%, 100% 100%, 0% 100%);
 }
 
 .index .bannerML .imagen:hover,
@@ -189,13 +189,14 @@
     transition: 800ms;
 }
 
-
 .index .informacion .img{
     display: flex;
     margin: 0.5rem auto;
     justify-content: center;
     width: 67%;
     border-radius: 5px;
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .index .informacion .img2,
@@ -210,7 +211,8 @@
     display: flex;
     justify-content: center;
     margin: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 1.1rem;
+    margin-top: 1.65rem;
     border: none;
     color: #fff;
     border-radius: 3px;
@@ -251,6 +253,7 @@
     color: white;
     padding: 2rem 0rem;
     margin: 0 2.5rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
  }
 
 .index .contacto .datos .texto{
@@ -263,7 +266,7 @@
     justify-content: center;
     text-align: center;
     font-size: 1.15rem;
-    margin-top: -0.35vh;
+    margin-top: 0rem;
 }
 
 
@@ -313,6 +316,10 @@
 
 .index .videoYoutube{
     width: 75vw;
+}
+
+.index .presentacion{
+    margin: 1.5rem auto;
 }
 
 /* redes sociales */
@@ -400,7 +407,6 @@
 
 .index .bannerMLDesktop .imagen{
     width: 100vw;
-    clip-path: polygon(0 0, 100% 4%, 100% 100%, 0% 100%);
 }
 
 /* Contacto */
@@ -643,14 +649,17 @@
     width: 26%;
     padding: 0 1rem;
     margin: 1rem 0 2rem 0;
+    object-fit: cover;
+    box-shadow: none;
 }
 
 .index .informacion .img2{
-    display: inline;
-    width: 26%;
-    padding: 0 1rem;
-    margin: 1rem 0 2rem 0;
     order: -1;
+}
+
+.index .informacion .accordion .boton-carrusel{
+    margin-bottom: 1.5rem;
+    margin-top: 0rem;
 }
 
  /* .contacto */   
@@ -689,6 +698,13 @@
     .index .contacto .datos .tarjeta1{
         margin: 0 1rem 1rem 1rem;
         padding: 1.5rem 3.5rem;
+        opacity: 0.95;
+        cursor: pointer;
+    }
+
+    .index .contacto .datos .tarjeta1:hover{
+        transition: 0.5s;
+        opacity: 1;
     }
 
     .index .contacto .datos .tarjeta1 .texto{
