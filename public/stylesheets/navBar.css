@@ -70,3 +70,27 @@
     --bs-dropdown-border-color: none;
     --bs-dropdown-padding-y: 0rem;
 }
+
+.bandera{
+    width: 10vw;
+    padding-right: 0.3rem;
+}
+
+.flag{
+    background-color: #2B2B2B;
+    padding: 0.25rem 0rem;
+    font-weight: 600;
+}
+
+@media (min-width: 768px){
+    .bandera{
+        width: 6vw;
+    }
+}
+
+@media (min-width: 1024px){
+    .bandera{
+        width: 2.5vw;
+        padding-left: 0.5rem;
+    }
+}
