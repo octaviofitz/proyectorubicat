@@ -1,0 +1,18 @@
+.eng .index .informacion .img{
+    margin-bottom: 2rem;
+}
+
+.eng .footer .datos .logoFooter {
+    padding-bottom: 1.5rem;
+}
+
+.eng .footer .iconosMenu{
+    padding-bottom: 1.5rem;
+}
+
+@media (min-width: 1024px){
+    .eng .footer .iconosMenu,
+    .eng .footer .datos .logoFooter{ 
+    padding-bottom: 0;
+}
+}

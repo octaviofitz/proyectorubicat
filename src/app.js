@@ -8,7 +8,8 @@ require('dotenv').config()
 
 /* Requiriendo Rutas */
 var indexRouter = require('./routes/index');
-var productsRouter = require('./routes/products')
+var productsRouter = require('./routes/products');
+var englishRouter = require('./routes/english');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/', indexRouter);
 app.use('/productos', productsRouter);
+app.use('/eng', englishRouter);
 
 
 // catch 404 and forward to error handler
