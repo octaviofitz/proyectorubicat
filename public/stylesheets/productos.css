@@ -209,6 +209,7 @@
 .DetalleProductos .masproductos .BtnTarjeta:hover{
     transition: 2s;
     font-weight: 700;
+    background-color:#2a2c2e;
 }
 
 
@@ -349,7 +350,6 @@
 }
 }
 
-
 @media (min-width: 1024px){
 
     .DetalleProductos .producto,
@@ -359,8 +359,6 @@
         padding-bottom: 1rem;
         margin-bottom: 3rem;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-/*         box-shadow: 5px 5px #00ACBB, 10px 10px #8B85CA, 15px 15px #FF8C1E, 20px 20px #dc5572;
- */
     }
 
     .DetalleProductos .nav .boton{
@@ -500,6 +498,4 @@
         width: 40vw;
         margin-top: 1rem;
     }
-
-    
 }

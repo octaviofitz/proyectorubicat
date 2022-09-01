@@ -90,15 +90,28 @@
 
 @media (min-width: 1024px){
     .bandera{
-        width: 2.5vw;
+        width: 3.2vw;
         padding-left: 0.5rem;
+        margin-top: -0.2rem;
     }
 
     .flag{
-        padding: 0.25rem 0.45rem;
+        padding: 0.25rem 0.5rem;
     }
 
     .navbar-expand-lg .navbar-collapse{
         margin-right: 2.9rem;
+    }
+}
+
+@media (min-width: 1440px){
+    .bandera{
+        width: 2.5vw;
+        padding-left: 0.5rem;
+        margin-top: -0.25rem;
+    }
+
+    .flag{
+        padding: 0.25rem 0.5rem;
     }
 }
