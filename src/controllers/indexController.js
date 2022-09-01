@@ -6,7 +6,7 @@ module.exports = {
     index: (req, res) => {
       return res.render("index", {
         title: "Rubicat - Un Llamado de la Naturaleza",
-        descripcion: "Nashe",
+        descripcion: "Fina Bentonita Patagónica de excelente calidad. Rinde más de un mes por bidón. Ofrecemos variedad de calidad y muy buena duración para el higiene de tu gato. Aglutina en el momento. 100% natural. Elimina Olores.",
         keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
       })},
 
@@ -39,7 +39,7 @@ module.exports = {
             } else{
               return res.render("index", {
                 title: "Rubicat - Un Llamado de la Naturaleza",
-                descripcion: "Nashe",
+                descripcion: "Fina Bentonita Patagónica de excelente calidad. Rinde más de un mes por bidón. Ofrecemos variedad de calidad y muy buena duración para el higiene de tu gato. Aglutina en el momento. 100% natural. Elimina Olores.",
                 keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos",
                 errores: errors.mapped(),  /* Envío Errors al Frontend.*/
                 old: req.body /* guardo esta variable para la persistencia de datos */
@@ -50,21 +50,21 @@ module.exports = {
           formularioenviado: (req, res) => {
             return res.render("formulario-enviado", {
               title: "Rubicat - Un llamado de la Naturaleza",
-              descripcion: "Nashe",
+              descripcion: "Rubicat - Distribuidores",
               keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
             })},
 
       distribuidores: (req, res) => {
         return res.render("distribuidores", {
           title: "Rubicat - Distribuidores",
-          descripcion: "Nashe",
-          keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
+          descripcion: "Mapa de distribuidores de Rubicat en Argentina. ¿Querés ser un distribuidor? Contactate con nosotros",
+          keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos, rubicat distribucion, distribucion"
         })},
           
           nosotros: (req, res) => {
             return res.render("nosotros", {
               title: "Rubicat - Nosotros",
-              descripcion: "Nashe",
+              descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat ",
               keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
             })}    
       }
