@@ -44,16 +44,22 @@
     margin: 1rem 0;
   }
 
-  @media (min-width: 768px){
-  
-  .formularioEnviado .container .fa-check{
-      font-size: 20vw;
-  }
+  @media (min-width: 1024px){
+    .formularioEnviado{
+      margin: 5.8rem 10vw;
+    }
+    .eng .index .banner .presentacion .parrafo .titulo{
+      font-size: 3.8rem;
+    }
   }
 
-  @media (min-width: 1024px){
-    .formularioEnviado .container .fa-check{
-      font-size: 15vw;
-  }
-  }
+  @media (min-width: 1440px){
+
+    .eng .index .banner .presentacion .parrafo .titulo{
+      font-size: 5rem;
+    }
+    }
+  
+
+
 

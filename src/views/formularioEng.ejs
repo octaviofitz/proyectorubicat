@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head')  %> 
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a href="/eng"><img src="/images/iconos/faviconwhite.png" alt="Ícono Rubicat" width="24" height="24"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    
+            <li class="nav-item dropdown">
+              <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                LANGUAGES
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="Idiomas">
+                <li><a class="dropdown-item white flag" href="/" id="banderaArgentina"><img src="/images/iconos/bandera argentina.png" class="bandera">SPANISH</a></li>
+                <li><a class="dropdown-item white flag" href="/eng" id="banderaEEUU"><img src="/images/iconos/bandera eeuu.png" class="bandera">ENGLISH</a></li>
+              </ul>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <%- include('./partials/banner') %>
+    <main class="formularioEnviado">            
+            <section class="container">
+            <img src="/images/index/cat-ok.gif" class="gif" alt="Gif Cat">
+            <h3 class="titulo">Your message has been sent!</h1>
+            <h4 class="texto">We will be contacting you shortly</h4>
+            <a href="/eng"><button class="boton sensitive">Back to Home</button></a>
+        </section>
+        </main>
+
+        <section class="footer">
+    
+          <div class="datos">
+              <img class="logoFooter" src="/images/index/logoPortada.webp" alt="Logo Rubicat footer">
+          </div>
+      
+        
+            <div class="iconosMenu">
+              <div class="iconos">
+              <a href="https://www.instagram.com/rubicatarena/" target="_blank" title="Instagram Rubicat"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.tiktok.com/@rubicatarena" target="_blank" title="Tiktok Rubicat"><i class="fa-brands fa-tiktok"></i></a>
+              <a href="https://api.whatsapp.com/send?phone=+541132762324&text=Hello 😁" target="_blank" title="Whatsapp Rubicat"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+              
+          </div>
+      </section>
+  <%- include('./partials/backToTop') %>
+  <%- include('./partials/scripts') %>
+  </body>
+</html>
