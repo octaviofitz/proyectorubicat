@@ -199,7 +199,7 @@
 .DetalleProductos .masproductos .tarjeta1 .imagenTarjeta,
 .DetalleProductos .masproductos .tarjeta2 .imagenTarjeta{
     width: 48vw;
-    border-radius: 10%;
+    border-radius: 3%;
 }
 
 .DetalleProductos .masproductos .BtnTarjeta{
