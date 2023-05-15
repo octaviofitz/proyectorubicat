@@ -18,7 +18,14 @@ module.exports = {
               title: "Rubicat - Sensitive",
               descripcion: "Rubicat Sensitive ofrece extremo control de olores y aglutinación instantánea. Para usuarios exigentes",
               keywords: "rubicat, rubicat sensitive, bentonita, arena aglutinante, gatos, piedras sanitarias"
-            })}
+            })},
+
+            original: (req, res) => {
+              return res.render("original", {
+                title: "Rubicat - Original",
+                descripcion: "Rubicat Original fue creado a partir de la fórmula original (primera fórmula) con una molienda actualizada.",
+                keywords: "rubicat, rubicat original, bentonita, arena aglutinante, gatos, piedras sanitarias"
+              })}
       }
     
     

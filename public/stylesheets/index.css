@@ -185,6 +185,12 @@
     color: #fff;
 }
 
+.index .informacion .accordion #acordeon-original{
+    background-color: #95eb03;
+    font-weight: 600;
+    color: #fff;
+}
+
 .index .informacion .accordion-collapse{
     transition: 800ms;
 }
@@ -372,7 +378,8 @@
 
 .index .informacion .accordion #acordeon-classic,
 .index .informacion .accordion #acordeon-premium,
-.index .informacion .accordion #acordeon-sensitive{
+.index .informacion .accordion #acordeon-sensitive,
+.index .informacion .accordion #acordeon-original{
     font-size: 1.35rem;
 }
 
@@ -536,7 +543,7 @@
     }
     
     .index .banner .presentacion .redes .fa-whatsapp{
-        background-color: #00ACBB;
+        background-color: #95eb03;
     }
 
     .index .banner .presentacion .redes .fa-whatsapp:hover{
@@ -623,13 +630,15 @@
 
 .index .informacion .accordion #acordeon-classic,
 .index .informacion .accordion #acordeon-premium,
-.index .informacion .accordion #acordeon-sensitive{
+.index .informacion .accordion #acordeon-sensitive,
+.index .informacion .accordion #acordeon-original{
     opacity: 0.95;
 }
 
 .index .informacion .accordion #acordeon-classic:hover,
 .index .informacion .accordion #acordeon-premium:hover,
-.index .informacion .accordion #acordeon-sensitive:hover{
+.index .informacion .accordion #acordeon-sensitive:hover,
+.index .informacion .accordion #acordeon-original:hover{
     opacity: 1;
 }
 

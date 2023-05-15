@@ -54,6 +54,17 @@
     color: #dc5572;
 }
 
+#OriginalMenu{
+    background-color:#95eb03;
+    color: #fff;
+    font-weight: 600;
+}
+
+#OriginalMenu:hover{
+    background-color: #fff;
+    color: #95eb03;
+}
+
 #headerBoton,
 #headerBoton2,
 #navbarDropdown{

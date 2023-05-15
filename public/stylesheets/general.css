@@ -36,6 +36,11 @@ a{
     border: #dc5572;
 }
 
+.original{
+    background-color: #95eb03;
+    border: #95eb03;
+}
+
 
 .Classic{
     color: #00ACBB;
@@ -51,6 +56,10 @@ a{
 
 .Sensitive{
     color: #dc5572;
+}
+
+.Original{
+    color: #95eb03;
 }
 
 .white {
