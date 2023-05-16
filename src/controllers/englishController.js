@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
 
@@ -30,7 +31,7 @@ module.exports = {
             .send(msg)
             .then(() => {
               console.log('Email sent');
-              res.redirect('/eng/formulario-enviado');
+              res.redirect('/eng/formulario-enviado'); 
             })
             .catch((error) => {
               console.error(error)
@@ -54,4 +55,4 @@ module.exports = {
               keywords: "rubicat, rubicat premium, bentonita, cats, lumping cat litter"
             })}, 
 
-        }
+        } 
