@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator');
 const sgMail = require('@sendgrid/mail')
 sgMail.setTimeout(3000);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+console.log('key: ', process.env.SENDGRID_API_KEY);
 module.exports = {
 
     indexEng: (req, res) => {
