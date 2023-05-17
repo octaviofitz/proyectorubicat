@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setTimeout(3000);
+sgMail.setApiKey("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");
 
 module.exports = {
 
@@ -18,10 +19,10 @@ module.exports = {
 
           const {nombre, email, telefono, asunto, mensaje} = req.body;
 
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+          sgMail.setApiKey("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")
           const msg = {
             to: 'octaviofitz@gmail.com',
-            from: 'webrubicat@gmail.com', 
+            from: 'webrubicat@gmail.com',
             subject: asunto,
             text: mensaje,
             html: `<p><strong>Nombre:</strong> ${nombre}</p><p><strong>Correo:</strong> ${email}</p><p><strong>Número de contacto:</strong> ${telefono}</p> <p><strong>Mensaje:</strong> ${mensaje}</p> <br> <p>Correo enviado desde www.rubicat.com.ar en su <strong>versión en inglés</strong></p>`
