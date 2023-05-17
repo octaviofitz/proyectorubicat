@@ -5,8 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var compression = require ('compression')
-/* require('dotenv').config();
- */
+
 /* Requiriendo Rutas */
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');

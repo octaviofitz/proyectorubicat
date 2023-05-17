@@ -1,5 +1,7 @@
 const { validationResult } = require('express-validator');
 const sgMail = require('@sendgrid/mail')
+sgMail.setTimeout(2000);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
 
@@ -19,7 +21,7 @@ module.exports = {
 
           sgMail.setApiKey(process.env.SENDGRID_API_KEY)
           const msg = {
-            to: 'info@rubicat.com.ar',
+            to: 'octaviofitz@gmail.com',
             from: 'webrubicat@gmail.com', 
             subject: asunto,
             text: mensaje,
