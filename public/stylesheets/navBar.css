@@ -9,6 +9,10 @@
     border: none;
 }
 
+.navbar>.container-fluid{
+    border: none;
+}
+
 .navbar-toggler:hover{
     border: 1px solid #fff;
  }
@@ -55,14 +59,14 @@
 }
 
 #OriginalMenu{
-    background-color:#95eb03;
+    background-color:#98c21e;
     color: #fff;
     font-weight: 600;
 }
 
 #OriginalMenu:hover{
     background-color: #fff;
-    color: #95eb03;
+    color: #98c21e;
 }
 
 #headerBoton,

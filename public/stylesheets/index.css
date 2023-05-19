@@ -186,7 +186,7 @@
 }
 
 .index .informacion .accordion #acordeon-original{
-    background-color: #95eb03;
+    background-color: #98c21e;
     font-weight: 600;
     color: #fff;
 }
@@ -523,7 +523,8 @@
         padding: 1rem 1.2rem;
         border-radius: 50%;
         margin: 0 0.7rem;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    } 
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+     } 
 
     .index .banner .presentacion .redes .fa-instagram{
         background-color: #dc5572;
@@ -543,7 +544,7 @@
     }
     
     .index .banner .presentacion .redes .fa-whatsapp{
-        background-color: #95eb03;
+        background-color: #98c21e;
     }
 
     .index .banner .presentacion .redes .fa-whatsapp:hover{

@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+require('dotenv').config();
 const sgMail = require('@sendgrid/mail')
 sgMail.setTimeout(2000);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);

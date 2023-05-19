@@ -52,6 +52,12 @@
     border-color: #00ACBB;
 }
 
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle):hover,
+.btn-group>:not(.btn-check)+.btn:hover {
+   background-color: #2a2c2e;
+   color: #fff;
+}
+
 .btn-group>:not(.btn-check)+.btn {
     color: #fff;
     background-color: #8B85CA;
