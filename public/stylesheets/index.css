@@ -242,6 +242,7 @@
     color: #44464B;
     font-size: 4vh;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .index .contacto .texto {
@@ -424,7 +425,6 @@
     
     .index .contacto .titulo{
         font-size: 5vh;
-        text-transform: uppercase;
     }
     
     .index .contacto .texto {
@@ -790,14 +790,8 @@
 
      .index .bannerMLDesktopMax{
         display: block;
-        opacity: 0.85;
      }
 
-     .index .bannerMLDesktopMax:hover{
-        transition: 1.5s;
-        opacity: 1;
-     }
-     
      .index .bannerMLDesktopMax .imagen{
         margin: auto;
         max-width: 100%;
