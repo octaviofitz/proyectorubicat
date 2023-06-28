@@ -170,25 +170,31 @@
 .index .informacion .accordion #acordeon-classic{
     background-color: #00ACBB;
     font-weight: 600;
-    color: #fff;
+    color: #000;
 }
 
 .index .informacion .accordion #acordeon-premium{
     background-color: #FF8C1E;
     font-weight: 600;
-    color: #fff;
+    color: #000;
 }
 
 .index .informacion .accordion #acordeon-sensitive{
     background-color: #dc5572;
     font-weight: 600;
-    color: #fff;
+    color: #000;
 }
 
 .index .informacion .accordion #acordeon-original{
     background-color: #98c21e;
     font-weight: 600;
-    color: #fff;
+    color: #000;
+}
+
+.index .informacion .accordion #acordeon-detox{
+    background-color: #cedd00;
+    font-weight: 600;
+    color: #000;
 }
 
 .index .informacion .accordion-collapse{
@@ -380,7 +386,8 @@
 .index .informacion .accordion #acordeon-classic,
 .index .informacion .accordion #acordeon-premium,
 .index .informacion .accordion #acordeon-sensitive,
-.index .informacion .accordion #acordeon-original{
+.index .informacion .accordion #acordeon-original,
+.index .informacion .accordion #acordeon-detox{
     font-size: 1.35rem;
 }
 
@@ -632,14 +639,17 @@
 .index .informacion .accordion #acordeon-classic,
 .index .informacion .accordion #acordeon-premium,
 .index .informacion .accordion #acordeon-sensitive,
-.index .informacion .accordion #acordeon-original{
+.index .informacion .accordion #acordeon-original,
+.index .informacion .accordion #acordeon-detox{
     opacity: 0.95;
 }
 
 .index .informacion .accordion #acordeon-classic:hover,
 .index .informacion .accordion #acordeon-premium:hover,
 .index .informacion .accordion #acordeon-sensitive:hover,
-.index .informacion .accordion #acordeon-original:hover{
+.index .informacion .accordion #acordeon-original:hover,
+.index .informacion .accordion #acordeon-detox
+    {
     opacity: 1;
 }
 

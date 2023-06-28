@@ -29,45 +29,43 @@
 #classicMenu{
     background-color: #00ACBB;
     font-weight: 600;
+    color: #000;
 }
 
-#classicMenu:hover{
+#classicMenu:hover,
+#premiumMenu:hover,
+#SensitiveMenu:hover,
+#OriginalMenu:hover,
+#DetoxMenu:hover{
     background-color: #fff;
-    color: #00ACBB;
+    font-weight: 900;
+    transition: 2500;
 }
 
 #premiumMenu{
     background-color: #FF8C1E;
     font-weight: 600;
-}
-
-#premiumMenu:hover{
-    transition: 2500;
-    background-color: #fff;
-    color: #FF8C1E;
-    font-weight: 900;
+    color: #000;
 }
 
 #SensitiveMenu{
     background-color: #dc5572;
     font-weight: 600;
-}
-
-#SensitiveMenu:hover{
-    background-color: #fff;
-    color: #dc5572;
+    color: #000;
 }
 
 #OriginalMenu{
     background-color:#98c21e;
-    color: #fff;
+    color: #000;
     font-weight: 600;
 }
 
-#OriginalMenu:hover{
-    background-color: #fff;
-    color: #98c21e;
+#DetoxMenu{
+    background-color:#cedd00;
+    color: #000;
+    font-weight: 600;
 }
+
 
 #headerBoton,
 #headerBoton2,

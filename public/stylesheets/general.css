@@ -41,6 +41,11 @@ a{
     border: #98c21e;
 }
 
+.detox{
+    background-color: #cedd00;
+    border: #cedd00;
+}
+
 
 .Classic{
     color: #00ACBB;
@@ -60,6 +65,10 @@ a{
 
 .Original{
     color: #98c21e;
+}
+
+.Detox{
+    color: #cedd00;
 }
 
 .white {

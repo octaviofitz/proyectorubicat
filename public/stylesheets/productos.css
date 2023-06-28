@@ -430,12 +430,12 @@
 
     .DetalleProductos .tarjetasDesktop{
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         padding: 2rem 0;
     }
 
     .DetalleProductos .tarjetasDesktop .card{
-        margin: -1rem 7rem -1rem 7rem;
+        margin: 0;
         font-size: 17px;
     }
 
