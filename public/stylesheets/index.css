@@ -648,7 +648,7 @@
 .index .informacion .accordion #acordeon-premium:hover,
 .index .informacion .accordion #acordeon-sensitive:hover,
 .index .informacion .accordion #acordeon-original:hover,
-.index .informacion .accordion #acordeon-detox
+.index .informacion .accordion #acordeon-detox:hover
     {
     opacity: 1;
 }
