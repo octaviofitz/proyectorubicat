@@ -119,6 +119,17 @@
     padding-bottom: 1rem;
 }
 
+.nosotros .redes .contenedor .galide-link{
+    color: #000;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.nosotros .redes .contenedor .galide-link:hover{
+    font-weight: 900;
+}
+
+
 @media (min-width: 768px){
      .nosotros .contador{
         flex-direction: row;
@@ -134,19 +145,24 @@
         font-size: 4.25rem;
     }
 
+    
+    .nosotros .contenedorImagenes{
+        display: flex;
+        justify-content: center;
+    }
+
+
     .nosotros .imgGalide{
-        width: 50%;
+        width: 500px;
         display: flex;
         margin: 2rem auto;
-        padding-top: 1rem;
+        padding-top: 2rem;
         margin-left: 1.5rem;
     }
 
 }
 
 @media (min-width: 1024px){
-
- 
 
   .nosotros .historia,
   .nosotros .objetivos
@@ -229,7 +245,7 @@
 .nosotros .imgGalide{
     width: 80%;
     display: flex;
-    margin-top: 4rem;
+    margin-top: 5rem;
     padding-top: 1rem;
 }
 
@@ -286,7 +302,7 @@
 .nosotros .imgGalide{
     width: 68%;
     display: flex;
-    margin-top: 4rem;
+    margin-top: 5rem;
     padding-top: 1rem;
     margin-left: 4rem;
 }

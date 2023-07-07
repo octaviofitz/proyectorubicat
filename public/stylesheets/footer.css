@@ -94,7 +94,7 @@
     font-weight: 400;
     margin-top: -1rem;
     margin-bottom: 0rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     font-size: 3.35vw;
 }
 
@@ -114,6 +114,37 @@
     padding: 0 1rem;
 }
 
+.hosting{
+    background-color: #2a2c2e!important;
+    color: #fff!important;
+    margin: 0;
+}
+
+.galide{
+    font-size: 3.5vw;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.galide:hover{
+    font-weight: 900;
+}
+
+.galide strong{
+    color: white
+}
+
+a{
+    color: rgb(220, 217, 217);
+}
+
+a:hover{
+    color: rgb(220, 217, 217);
+    font-weight: 900;
+}
+
 /* Tablet */
 @media (min-width: 768px){
 
@@ -125,6 +156,10 @@
 
     .footer .iconosMenu .derechos{
         font-size: 2.5vw;
+    }
+
+     .galide{
+        font-size: 2.35vw;
     }
 }
     
@@ -168,5 +203,9 @@
     .footer .iconosMenu .derechos {
         font-size: 1.10rem;
         margin-top: -1.5rem;
+    }
+
+    .galide{
+        display: none;
     }
 }
