@@ -259,7 +259,7 @@
 }
 
 .index .contacto .datos .tarjeta1{
-    display: flex;
+    display: none;
     justify-content: center;
     background-color: #dc5572;
     border-radius: 6px;
@@ -716,6 +716,7 @@
     }
 
     .index .contacto .datos .tarjeta1{
+        display: flex;
         margin: 0 1rem 1rem 1rem;
         padding: 1.5rem 3.5rem;
         opacity: 0.95;
