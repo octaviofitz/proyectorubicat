@@ -22,7 +22,7 @@ module.exports = {
 
           sgMail.setApiKey(process.env.SENDGRID_API_KEY)
           const msg = {
-            to: 'octaviofitz@gmail.com',
+            to: 'info@rubicat.com.ar',
             from: 'webrubicat@gmail.com', 
             subject: asunto,
             text: mensaje,
