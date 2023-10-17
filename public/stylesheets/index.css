@@ -677,9 +677,15 @@
     order: -1;
 }
 
+.index .containerBotones{
+    display: flex;
+    justify-content: center;
+}
+
 .index .informacion .accordion .boton-carrusel{
     margin-bottom: 1.5rem;
     margin-top: 0rem;
+    margin: 0 2rem 1.5rem;
 }
 
  /* .contacto */   
