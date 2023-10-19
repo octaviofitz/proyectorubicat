@@ -167,34 +167,50 @@
     text-align: center;
 }
 
-.index .informacion .accordion #acordeon-classic{
+.index .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+ }
+
+
+.index .informacion .accordion #acordeon-classic,
+.index .informacion .accordion #acordeon-premium,
+.index .informacion .accordion #acordeon-sensitive,
+.index .informacion .accordion #acordeon-original,
+.index .informacion .accordion #acordeon-detox
+    {
+    background-color: #2a2c2e;
+    font-weight: 600;
+    color: #fff;
+}
+
+.index .informacion .accordion #acordeon-classic:hover{
     background-color: #00ACBB;
     font-weight: 600;
-    color: #000;
+    color: #fff;
 }
 
-.index .informacion .accordion #acordeon-premium{
+.index .informacion .accordion #acordeon-premium:hover{
     background-color: #FF8C1E;
     font-weight: 600;
-    color: #000;
+        color: #fff;
 }
 
-.index .informacion .accordion #acordeon-sensitive{
+.index .informacion .accordion #acordeon-sensitive:hover{
     background-color: #dc5572;
     font-weight: 600;
-    color: #000;
+        color: #fff;
 }
 
-.index .informacion .accordion #acordeon-original{
+.index .informacion .accordion #acordeon-original:hover{
     background-color: #98c21e;
     font-weight: 600;
-    color: #000;
+        color: #fff;
 }
 
-.index .informacion .accordion #acordeon-detox{
+.index .informacion .accordion #acordeon-detox:hover{
     background-color: #cedd00;
     font-weight: 600;
-    color: #000;
+        color: #fff;
 }
 
 .index .informacion .accordion-collapse{
