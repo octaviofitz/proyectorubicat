@@ -200,11 +200,15 @@
 .DetalleProductos .masproductos .tarjeta1,
 .DetalleProductos .masproductos .tarjeta2{
     width: 50vw;
+    height: 200px; /* Altura fija */
+    overflow: hidden;
 }
 
 .DetalleProductos .masproductos .tarjeta1 .imagenTarjeta,
 .DetalleProductos .masproductos .tarjeta2 .imagenTarjeta{
     width: 48vw;
+    height: auto;
+    object-fit: cover;
     border-radius: 3%;
 }
 
@@ -218,12 +222,24 @@
     background-color:#2a2c2e;
 }
 
+.DetalleProductos .carousel-item img {
+    transition: none!important;
+}
 
 @media (min-width: 768px){
 
     .DetalleProductos .containerNav{
         display: flex;
         justify-content: space-between;
+    }
+
+    .DetalleProductos .carousel{
+        margin-left: 2rem;
+    }
+
+    .DetalleProductos #carrusel{
+        display: FLEX;
+        justify-content: space-around;
     }
 
     .DetalleProductos .btn-group{
@@ -263,7 +279,7 @@
 
 .DetalleProductos .producto .imagen-precio .data{
     margin-top: 3rem;
-    padding: 1rem 1rem 0 4rem;
+    padding: 1rem 1rem 0 2rem;
 }
 
 .DetalleProductos .producto .imagen-precio .data .titulo{
@@ -337,6 +353,10 @@
 .DetalleProductos .masproductos .tarjeta1 .imagenTarjeta,
 .DetalleProductos .masproductos .tarjeta2 .imagenTarjeta{
     width: 30vw;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
 }
 
 .DetalleProductos .masproductos .BtnTarjeta{
@@ -358,6 +378,28 @@
 
 @media (min-width: 1024px){
 
+    .DetalleProductos #carrusel{
+        margin-left: 6vw;
+    }
+
+    .carrousel-container{
+        max-width: 100vw;
+        overflow: hidden;
+        overflow-x: hidden;
+    }
+
+
+    .carrousel img {
+        width: 100%;
+        height: auto;
+      }
+
+    .DetalleProductos.carousel {
+        margin-left: 8vw;
+        margin-right: 10vw;
+      }
+
+
     .DetalleProductos .producto,
     .DetalleProductos .masproductos{
         margin: 1rem 5rem;
@@ -366,6 +408,12 @@
         margin-bottom: 3rem;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
+
+    .DetalleProductos .carousel{
+        margin-left: 6VW;
+        margin-right: 10vw;
+    }
+
 
     .DetalleProductos .nav .boton{
         margin-left: 5rem;
@@ -457,6 +505,22 @@
     .DetalleProductos .masproductos{
         margin: 1rem 12rem 4rem 12rem;
     }
+
+    .DetalleProductos #carrusel{
+        margin-left: 0VW;
+        display: FLEX;
+        justify-content: space-around;
+    }
+
+    .DetalleProductos .producto .imagen-precio .data{
+        max-width: 40vw;
+        padding-left: 4vw;
+    }
+    
+
+    /* .DetalleProductos .producto .imagen-precio .data{
+        max-width: 40vw;
+    } */
 
     .DetalleProductos .producto .imagen-precio{
         margin-left: 9rem;
