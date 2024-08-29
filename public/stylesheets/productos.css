@@ -197,10 +197,9 @@
     text-align: center;
 }
 
-.DetalleProductos .masproductos .tarjeta1,
-.DetalleProductos .masproductos .tarjeta2{
+.DetalleProductos .masproductos .tarjetasMobile .tarjeta1,
+.DetalleProductos .masproductos .tarjetasMobile .tarjeta2{
     width: 50vw;
-    height: 200px; /* Altura fija */
     overflow: hidden;
 }
 
@@ -213,7 +212,7 @@
 }
 
 .DetalleProductos .masproductos .BtnTarjeta{
-    margin-top: 0.5rem;
+    margin-top: 2rem;
 }
 
 .DetalleProductos .masproductos .BtnTarjeta:hover{
@@ -350,17 +349,13 @@
     width: 30vw;
 }
 
-.DetalleProductos .masproductos .tarjeta1 .imagenTarjeta,
-.DetalleProductos .masproductos .tarjeta2 .imagenTarjeta{
-    width: 30vw;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
+.DetalleProductos .masproductos .tarjetasMobile .tarjeta1 .imagenTarjeta,
+.DetalleProductos .masproductos .tarjetasMobile .tarjeta2 .imagenTarjeta{
+    width: 35vw;
 }
 
 .DetalleProductos .masproductos .BtnTarjeta{
-    margin-top: 0.5rem;
+    margin-top: 2rem;
     padding: 0.8rem 2.5rem;
     margin-bottom: 0.5rem;
 }
