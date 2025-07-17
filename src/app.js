@@ -12,6 +12,7 @@ var productsRouter = require('./routes/products');
 var englishRouter = require('./routes/english');
 
 var app = express();
+app.set('trust proxy', true);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -49,3 +50,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
