@@ -106,7 +106,6 @@
 .index .bannerMLDesktop,
 .index .bannerMLDesktopMax{
     background-color: #f4f6f7;
-    cursor: pointer;
 }
 
 .index .bannerML .imagen{
@@ -331,6 +330,7 @@
 .index .formulario .textoError{
     padding: 0.3rem 0 0 0.1rem;
 }
+
 
 /* TABLET */
 

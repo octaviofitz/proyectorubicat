@@ -139,6 +139,7 @@
 .DetalleProductos .producto .descripcion .textoDescriptivo{
     font-size: 18px;
     padding: 0 1.5rem;
+    text-align: left;
 }
 
 .DetalleProductos .producto .descripcion .texto{
