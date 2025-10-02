@@ -172,10 +172,10 @@
  .formulario{
   background-color: #f4f6f7;
   margin: 1rem 1rem 0rem;
-  padding: 1rem;
+  padding: 1rem 1.75rem;
   border: 1px solid #f4f6f7;
   border-radius: 5px;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  /* box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
 }
 
 .formulario .form-label{
