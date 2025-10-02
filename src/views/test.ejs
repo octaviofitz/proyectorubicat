@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+  <%- include('./partials/head')  %> 
+  <body>
+    <%- include('partials/navBar.ejs') %>
+    <%- include('partials/scriptNavbar') %>
+    <main class="test">
+      
+      <div class="hero hero--video">
+        <video
+          id="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          class="video-bg"
+          aria-hidden="true"
+          poster="/images/NewVideo/poster.jpg"
+        >
+          <!-- De ser posible, ofrece ambos formatos -->
+          <!-- <source src="/images/NewVideo/Presentacion.webm" type="video/webm"> -->
+          <source src="/images/NewIndex/Presentacion.mp4" type="video/mp4">
+        </video>
+      </div>
+
+<!-- <article class="hero">
+  <img class="background" src="../images/NewIndex/backgrounds/background1.png" alt="fondo">
+  <div class="container">
+    <h2 class="reveal">Somos Rubicat.</h2>
+    <p class="reveal">Estamos comprometidos con el cuidado de tus gatos.</p>
+    <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
+    <p class="reveal delay-2">Cuidamos lo que amás.</p>
+  </div>
+</article> -->
+
+<!-- <article id="firstArticle">
+  <div class="container">
+    <h2 class="reveal">Somos <b>Rubicat</b></h2>
+    <p class="reveal delay-0">Estamos comprometidos con el cuidado de tus gatos.</p>
+    <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
+    <p class="reveal delay-2"><b>Cuidamos lo que amás</b></p>
+    <p class="reveal delay-3">Conocenos ➜</p>
+  </div>
+</article> -->
+
+<article class="hero">
+  <img class="background" src="../images/NewIndex/backgrounds/FondoNegro.jpg"></img>
+  <div class="container">
+    <h2 class="reveal"><strong>Rubicat.</strong></h2>
+    <br>
+    <p class="reveal"><strong>Cuidamos lo que amás.</strong></p>
+    <br>
+    <p class="reveal delay-3">Conocenos ➜</p>
+   <!--  <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
+    <p class="reveal delay-2">Cuidamos lo que amás.</p> -->
+  </div>
+</article>
+
+<article class="hero">
+  <img class="background" src="../images/NewIndex/backgrounds/background2.png"></img>
+  <div class="container">
+    <h2 class="reveal" id="productoElegir">¿No sabés qué producto elegir?</h2>
+    <p class="reveal"><strong>¡Te ayudamos!</strong></p>
+   <!--  <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
+    <p class="reveal delay-2">Cuidamos lo que amás.</p> -->
+  </div>
+</article>
+
+<article class="hero">
+  <img class="background" src="../images/NewIndex/backgrounds/background3.png"></img>
+  <div class="container">
+    <h2 class="reveal"><strong>Novedades</strong></h2>
+    <p class="reveal" id="textoNovedades">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    <!-- <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
+    <p class="reveal delay-2">Cuidamos lo que amás.</p>  -->
+  </div>
+</article>
+
+
+<section class="contacto" id="contacto">
+       
+  <div class="informacionContacto">
+  <h3 class="titulo">Contacto</h3>
+  <p class="texto">Si tenés alguna pregunta o querés distribuir Rubicat, completá el siguiente formulario. Estamos atentos a tu consulta y responderemos a la brevedad.</p>
+
+  <article class="datos">
+      <div class="tarjeta1">
+        <i class="fa-solid fa-envelope"> </i>
+         <a href="mailto:info@rubicat.com.ar" class="texto"> info@rubicat.com.ar</a> 
+      </div>
+  </article>
+
+</div>
+
+<article class="formulario" id="formulario">
+  
+  <form action="/" method="POST" novalidate id="index">
+
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+    <input class="form-control" type="text" id="exampleFormControlInput1" name="nombre" value="<%= locals.old && old.nombre ? old.nombre : null %>" required>
+   <div class="textoError">
+     <span class="text-danger"> <%= locals.errores && errores.nombre ? errores.nombre.msg : null %> </span>
+    </div>
+  </div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput2" class="form-label">Email</label>
+  <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null %>" required>
+  <div class="textoError"> 
+    <span class="text-danger"> <%= locals.errores && errores.email ? errores.email.msg : null %> </span>
+  </div>
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput3" class="form-label">Número de teléfono / Whatsapp</label>
+  <input class="form-control" id="exampleFormControlInput3" type="number" name="telefono" value="<%= locals.old && old.telefono ? old.telefono : null %>" required>
+  <div class="textoError"> 
+    <span class="text-danger"> <%= locals.errores && errores.telefono ? errores.telefono.msg : null %> </span>
+  </div>
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput4" class="form-label">Asunto</label>
+  <input class="form-control" id="exampleFormControlInput4" type="text" name="asunto" value="<%= locals.old && old.asunto ? old.asunto : null %>" required>
+  <div class="textoError"> 
+     <span class="text-danger"> <%= locals.errores && errores.asunto ? errores.asunto.msg : null %> </span>
+    </div>
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="mensaje"><%= locals.old && old.mensaje ? old.mensaje : null%></textarea required>
+  <div class="textoError"> 
+  <span class="text-danger"> <%= locals.errores && errores.mensaje ? errores.mensaje.msg : null %> </span>
+</div>
+</div>
+
+<button class="boton" id="botonFormularioDisabled" disabled>Enviar</button>
+<button class="boton" id="botonFormulario">Enviar</button>
+    
+</form>
+</article>
+
+</section>
+
+
+    </main>
+    <%- include('partials/newFooter') %>
+    <%- include('partials/scripts') %>
+    <script>
+      const els = document.querySelectorAll('.reveal');
+    
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          } else {
+            entry.target.classList.remove('is-visible');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -10% 0px"
+      });
+    
+      els.forEach(el => observer.observe(el));
+    </script>
+    
+    
+  </body>
+</html>

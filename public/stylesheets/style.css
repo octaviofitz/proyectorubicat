@@ -8,6 +8,10 @@
  @import url("./nosotros.css");
  @import url("./banner.css");
  @import url("./eng.css");
+ @import url("./Newnav.css");
+ @import url("./NewIndex.css");
+ @import url("./newFooter.css");
+
 
  @font-face {
     font-family: 'made sans';

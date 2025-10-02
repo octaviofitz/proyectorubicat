@@ -1,0 +1,153 @@
+/* =========================
+   Helpers
+========================= */
+.no-scroll { overflow: hidden; }
+
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* =========================
+   NAVBAR (desktop)
+========================= */
+.sr-nav{
+  position: sticky; top: 0; z-index: 50;
+  background: #000;               /* navbar negro */
+  border-bottom: 1px solid #111;  /* detalle sutil */
+}
+.sr-nav__inner{
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 16px;
+  padding: 14px 20px;
+}
+.sr-nav__brand{ display:inline-flex; align-items:center; text-decoration:none; color:#fff; }
+.sr-wordmark{ color:#fff; font-weight:700; letter-spacing:.12em; font-size:14px; line-height:1; }
+
+.sr-nav__toggle{
+  display:none; border:0; background:transparent; color:#fff;
+  padding:8px; border-radius:10px; cursor:pointer;
+}
+.sr-nav__toggle:focus-visible{ outline:2px solid rgba(255,255,255,.35); outline-offset:2px; }
+.sr-icon{ width:24px; height:24px; stroke:#fff; fill:none; stroke-width:2; }
+
+.sr-nav__desktop{ justify-self:end; }
+.sr-nav__list{ display:flex; align-items:center; gap:8px; margin:0; padding:0; list-style:none; }
+.sr-nav__link{
+  display:inline-flex; align-items:center;
+  padding: 8px 12px; border-radius:8px;
+  text-decoration:none; color:#fff; font-weight:500;
+}
+.sr-nav__link:hover, .sr-nav__link:focus-visible{ background:#111; }
+
+/* =========================
+   OVERLAY MOBILE (con transición)
+========================= */
+.sr-overlay{
+  position: fixed; inset: 0; z-index: 60;
+  background: #000; color:#fff;
+  height: 100dvh; padding: 20px 24px;
+
+  /* Animación: usamos opacity + visibility + pointer-events */
+  display: flex;                  /* mantenemos el layout flexible */
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .28s ease, visibility .28s ease;
+}
+
+/* Estado abierto */
+.sr-overlay[data-open="true"]{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Header del overlay */
+.sr-overlay__header{
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:48px;
+  /* pequeño fade/slide */
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: transform .28s ease .06s, opacity .28s ease .06s;
+}
+.sr-overlay__brand{ text-decoration:none; color:#fff; display:inline-flex; align-items:center; gap:10px; }
+.sr-overlay__close{
+  background:transparent; border:0; color:#fff;
+  font-size:32px; line-height:1; cursor:pointer; padding:4px 8px;
+  padding-right: 1.5rem;
+  padding-top: -1rem;
+  margin-top: -1rem;
+}
+
+/* Links del overlay con slide suave */
+.sr-overlay__nav{
+  display:flex; flex-direction:column; gap:16px;
+  margin: 20vh 0;                 /* separa del header/footer */
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform .32s ease .08s, opacity .32s ease .08s;
+}
+.sr-overlay__link{
+  color:#fff; text-decoration:none; font-weight:500;
+  font-size: clamp(32px, 7vw, 52px); letter-spacing:.02em;
+}
+.sr-overlay__link:hover, .sr-overlay__link:focus-visible{
+  opacity:.9; text-decoration:none;
+}
+
+/* Footer del overlay */
+.sr-overlay__footer{
+  margin-top:auto; display:flex; align-items:center; justify-content:space-between;
+  color:#bbb; font-size:14px;
+
+  /* mismo fade/slide que header */
+  transform: translateY(6px);
+  opacity: 0;
+  transition: transform .28s ease .1s, opacity .28s ease .1s;
+}
+.sr-overlay__legal{ color:#bbb; text-decoration:none; }
+.sr-overlay__legal:hover, .sr-overlay__legal:focus-visible{ text-decoration: underline; }
+
+/* Activación de animaciones internas cuando el overlay está abierto */
+.sr-overlay[data-open="true"] .sr-overlay__header,
+.sr-overlay[data-open="true"] .sr-overlay__nav,
+.sr-overlay[data-open="true"] .sr-overlay__footer{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Logo en navbar */
+.imgNavbar{
+  width: 5vw;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 860px){
+  .sr-nav__toggle{ display:inline-flex; justify-self:end; }
+  .sr-nav__desktop{ display:none; } /* oculta links horizontales en mobile */
+}
+
+@media (min-width: 1024px){
+  .imgNavbar{
+    width: 2vw;
+    padding: 1.25rem 0;
+  }
+}
+
+/* =========================
+   Accesibilidad: reduce motion
+========================= */
+@media (prefers-reduced-motion: reduce){
+  .sr-overlay,
+  .sr-overlay__header,
+  .sr-overlay__nav,
+  .sr-overlay__footer{
+    transition: none !important;
+  }
+}

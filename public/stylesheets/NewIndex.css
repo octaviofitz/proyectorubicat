@@ -1,0 +1,216 @@
+.test{
+  font-family: "Montserrat", sans-serif;
+}
+
+.video-bg { width: 100%; height: auto; display: block; pointer-events: none; }
+
+/* aseguremos el fill completo del contenedor hero de video */
+.hero--video { position: relative; min-height: 100vh; overflow: hidden; }
+.hero--video > .video-bg {
+  position: absolute;
+  inset: 0;           /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* que recorte y no deforme */
+}
+
+
+.background{
+  width: 100vw; /* se aplica a los artículos NO-hero */
+}
+
+/* ===== SOLO PARA EL HERO CON TEXTO ENCIMA ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;    /* le da altura al hero */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.hero .background {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z: 1;
+  cursor: pointer;
+}
+
+.hero .container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+  color: white;
+  z: 2;
+  max-width: 700px;
+  padding: 0 1rem;
+}
+
+/* fondo translúcido opcional detrás del texto */
+.hero .container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+/*   background: rgba(0,0,0,0.35); */
+  z: -1;
+  border-radius: 8px;
+}
+
+/* Animación (lo tuyo) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+  font-size: 3.5rem;
+  font-weight: 600;
+  padding: 0 2vw;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+.delay-0,
+.delay-1{
+  font-size: 1.5rem;
+   font-family: "Montserrat", sans-serif;
+   font-weight: 400;
+}
+
+.delay-1 { 
+  transition-delay: 120ms;
+   font-family: "Montserrat", sans-serif;
+   font-weight: 400;
+
+}
+.delay-2 { transition-delay: 240ms; }
+.delay-3 { 
+  transition-delay: 360ms;
+  color: #dc5572; 
+  cursor: pointer;
+   font-family: "Montserrat", sans-serif;
+   font-weight: 400;
+  font-size: 1.65rem;
+}
+
+.delay-3:hover{
+  font-weight: 600;
+}
+
+
+/* #firstArticle{
+  padding: 14vw 10vw;
+  color: white;
+  background-color: rgb(44, 44, 44);
+} */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; opacity: 1; transform: none; }
+}
+
+
+/* Contacto */
+
+ .contacto .informacionContacto{
+  margin-top: 3rem;
+}
+
+.contacto{
+  background-color: white;
+  padding-bottom: 3rem;
+}
+
+ .contacto .titulo{
+  text-align: center;
+  margin-top: 3.5vh;
+  color: #44464B;
+  font-size: 4vh;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+}
+
+ .contacto .texto {
+  color: #76777B;
+  font-size: 2.5vh;
+  padding: 1rem 1.8rem 0;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+}
+
+ .contacto .datos .tarjeta1{
+  display: none;
+  justify-content: center;
+  background-color: #dc5572;
+  border-radius: 6px;
+  color: white;
+  padding: 2rem 0rem;
+  margin: 0 2.5rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+ .contacto .datos .texto{
+  color: white;
+  margin-top: -1vh;
+}
+
+.fa-envelope{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.15rem;
+  margin-top: 0rem;
+}
+
+
+/* Formulario */
+ .formulario{
+  background-color: #f4f6f7;
+  margin: 1rem 1rem 0rem;
+  padding: 1rem;
+  border: 1px solid #f4f6f7;
+  border-radius: 5px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.formulario .form-label{
+  font-family: "Montserrat", sans-serif;
+}
+
+ .formulario .boton,
+ .formulario #botonFormularioDisabled{
+  padding: 0.75rem 2rem;
+  background-color: #dc5572;
+  color: white;
+  border: 2px solid white;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border-radius: 4px;
+  display: none;
+}
+
+ .formulario #botonFormularioDisabled{
+  display: block;
+  background-color: #959595;
+}
+
+ .formulario .textoError{
+  padding: 0.3rem 0 0 0.1rem;
+}
+
+
+
+#productoElegir{
+  font-size: 2.25rem;
+}
+
+#textoNovedades{
+  font-size: 2.25rem;
+}

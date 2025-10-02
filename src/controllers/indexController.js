@@ -92,5 +92,12 @@ module.exports = {
               title: "Rubicat - Nosotros",
               descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat ",
               keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
-            })}    
+            })},
+            
+            test: (req, res) => {
+              return res.render("test", {
+                title: "Rubicat - test",
+                descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat ",
+                keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
+              })} 
       }

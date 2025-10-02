@@ -1,48 +1,38 @@
 <!-- bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+  crossorigin="anonymous"></script>
 
-<!-- cambié el .net por .xyz 02-05
-tanto en bootstrap como abajo en el script de youtube
-también lo cambié en el partials head --> 
-
-<!-- back to top -->
+<!-- back to top (con guardas para evitar errores cuando el botón no existe) -->
 <script>
-let mybutton = document.getElementById("btn-back-to-top");
+(function(){
+  const mybutton = document.getElementById("btn-back-to-top");
+  if (!mybutton) return; // ⬅️ Evita errores si el botón no está en esta vista
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function () {
-  scrollFunction();
-};
-
-function scrollFunction() {
-  if (
-    document.body.scrollTop > 20 ||
-    document.documentElement.scrollTop > 20
-  ) {
-    mybutton.style.display = 'block';
-  } else {
-    mybutton.style.display = 'none';
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = 'block';
+    } else {
+      mybutton.style.display = 'none';
+    }
   }
-}
-// When the user clicks on the button, scroll to the top of the document
-mybutton.addEventListener("click", backToTop);
 
-function backToTop() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
+  window.addEventListener('scroll', scrollFunction, { passive: true });
+  mybutton.addEventListener("click", function backToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  });
+
+  // estado inicial
+  scrollFunction();
+})();
 </script>
 
 <!-- Youtube Lite -->
 <script src="https://cdn.jsdelivr.net/npm/youtube-lite/dist/youtube-lite.min.js"></script>
 
-<!-- Bloqueo Renderizado  -->
-<script defer type="text/javascript" src='https://kit.fontawesome.com/77600c43ad.js' id="kit-awesome"></script>
+<!-- Bloqueo Renderizado -->
+<script defer type="text/javascript" src="https://kit.fontawesome.com/77600c43ad.js" id="kit-awesome"></script>
 
-
-
-
-
-
-
-
+<!-- ✅ Script del navbar -->
+<script src="./scriptNavbar.ejs" defer></script>

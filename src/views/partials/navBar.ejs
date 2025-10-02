@@ -1,0 +1,47 @@
+<nav class="sr-nav" aria-label="Primary">
+    <div class="sr-nav__inner">
+      <a href="/" class="sr-nav__brand" aria-label="Home">
+       <img src="../../../images/iconos/faviconwhite.png" class="imgNavbar"> </img>
+      </a>
+  
+      <!-- Desktop: links a la derecha -->
+      <div class="sr-nav__desktop">
+        <ul class="sr-nav__list" role="list">
+          <li><a class="sr-nav__link" href="/about">Nosotros</a></li>
+          <li><a class="sr-nav__link" href="/careers">Te ayudamos a elegir</a></li>
+          <li><a class="sr-nav__link" href="/careers">¿Dónde comprar?</a></li>
+          <li><a class="sr-nav__link" href="/media-assets">Novedades</a></li>
+        </ul>
+      </div>
+  
+      <!-- Botón hamburguesa (solo mobile) -->
+      <button class="sr-nav__toggle" aria-expanded="false" aria-controls="sr-menu">
+        <!-- <span class="sr-only">Abrir menú</span> -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="sr-icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  
+    <!-- Overlay mobile a pantalla completa -->
+    <div id="sr-menu" class="sr-overlay" aria-hidden="true">
+      <div class="sr-overlay__header">
+        <a href="/" class="sr-overlay__brand">
+          <!-- Podés poner tu logo acá -->
+          <img src="../../../images/iconos/faviconwhite.png" class="imgNavbar"> </img>
+        </a>
+        <button class="sr-overlay__close" aria-label="Cerrar menú">×</button>
+      </div>
+  
+      <nav class="sr-overlay__nav" aria-label="Mobile">
+        <a class="sr-overlay__link" href="/about">Nosotros</a>
+        <a class="sr-overlay__link" href="/careers">Te ayudamos a elegir</a>
+        <a class="sr-overlay__link" href="/media-assets">¿Dónde comprar?</a>
+        <a class="sr-overlay__link" href="/contact">Novedades</a>
+      </nav>
+  
+      <div class="sr-overlay__footer">
+       <!--  <a class="sr-overlay__legal" href="/privacy">Privacy &amp; Legal</a> -->
+        <span class="sr-overlay__copy">Todos los derechos reservados</span>
+      </div>
+    </div>
+  </nav>
+  

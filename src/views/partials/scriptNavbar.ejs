@@ -1,0 +1,43 @@
+<script>
+  (() => {
+    const toggle = document.querySelector('.sr-nav__toggle');
+    const menu = document.getElementById('sr-menu');
+    if (!toggle || !menu) return;
+  
+    const openMenu = () => {
+      menu.setAttribute('data-open', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.documentElement.classList.add('no-scroll');
+    };
+  
+    const closeMenu = () => {
+      menu.setAttribute('data-open', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.documentElement.classList.remove('no-scroll');
+    };
+  
+    // Toggle hamburguesa
+    toggle.addEventListener('click', () => {
+      const open = menu.getAttribute('data-open') === 'true';
+      open ? closeMenu() : openMenu();
+    });
+  
+    // Delegación: cerrar al tocar un link o el botón "×"
+    menu.addEventListener('click', (e) => {
+      if (e.target.closest('.sr-overlay__link') || e.target.closest('.sr-overlay__close')) {
+        closeMenu();
+      }
+    });
+  
+    // Sombra navbar al scrollear (opcional)
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      document.body.dataset.navScrolled = y > 2 ? 'true' : 'false';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+  </script>
+  
