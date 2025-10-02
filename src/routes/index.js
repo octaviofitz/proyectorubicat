@@ -8,7 +8,7 @@ const {validateCreate} = require ('../validations/indexValidator')
 router.get('/', index)
 router.post('/', validateCreate, formulario)
 router.get('/distribuidores', distribuidores)
-router.get('/test/?', test)
+router.get('/test', test)
 router.get('/nosotros', nosotros)
 router.get('/formulario-enviado', formularioenviado)
 
