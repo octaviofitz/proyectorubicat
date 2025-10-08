@@ -85,25 +85,24 @@
   display:flex;
   align-items:center;
   justify-content:center;
+  margin-top: -10vh;
+    margin-bottom: -25vh;
 }
 
 .test .cards-track{position:relative;width:100%;height:100%}
 
 .test .card{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:440px;
-  max-width:min(90vw,460px);
-  transform:translate(-50%,-50%);
-  border-radius:var(--card-radius);
-  background:var(--card-surface);
-  color:var(--card-text);
-  box-shadow:var(--shadow);
-  user-select:none;
-  overflow:visible;
-  transition:transform 650ms cubic-bezier(.2,.85,.25,1),filter 650ms ease,opacity 450ms ease,box-shadow 650ms cubic-bezier(.2,.85,.25,1);
-  will-change:transform,filter,opacity;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(320px, 70vw, 980px);
+  transform: translate(-50%,-50%); /* valor base; el JS lo actualizará */
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  color: var(--card-text);
+  box-shadow: var(--shadow);
+  will-change: transform, filter; /* SIN opacity */
+  transition: filter 300ms ease, box-shadow 300ms ease;
 }
 
 .test .card::before,
@@ -202,15 +201,13 @@
 }
 
 .test .card.active{
-  box-shadow:0 24px 60px rgba(0,0,0,0.55);
-  filter:none;
-  opacity:1;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+
 }
 .test .card.active .card-visual img{transform:scale(1.03)}
 
 .test .card.past{
-  opacity:calc(0.78 - min(var(--pos,0)*0.18,0.55));
-  filter:blur(calc(1px + var(--pos,0)*0.8px)) saturate(.9);
+  filter: blur(0.4px) saturate(.98);
 }
 
 .test .card.exit-right{
@@ -303,3 +300,70 @@
 .test .cards-viewport{
   touch-action: none;
 }
+
+
+
+/* prueba */
+
+/* === ESCENA DE CARDS (scroll-driven) === */
+
+.test .cards-section{
+  /* La altura real se setea por JS con --cards */
+  --cards: 5;                      /* fallback */
+  position: relative;
+  height: calc(var(--cards) * 100vh);
+  background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+  overflow: visible;               /* importante: NO ocultar, deja que el sticky trabaje */
+}
+
+/* El “visor” queda fijo mientras scrolleás dentro de la sección */
+.test .cards-viewport{
+  position: sticky;
+  top: 0;
+  height: 100vh;                   /* siempre pantalla completa */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;                /* ocultá excedentes de las cards al moverse */
+  outline: none;
+  margin-top: -18vh;
+  margin-bottom: -25vh;
+}
+
+.test .cards-track{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Las cards se apilan al centro; las animamos con transform desde JS */
+.test .card{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(320px, 70vw, 980px);
+  transform: translate(-50%,-50%);
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  color: var(--card-text);
+  box-shadow: var(--shadow);
+  will-change: transform, opacity, filter;
+  transition: filter 400ms ease, box-shadow 400ms ease; /* NO transition de transform para que siga el scroll */
+}
+
+/* Visual interno igual que tenías */
+.test .card-inner{ display:flex; flex-direction:column; overflow:hidden; border-radius:var(--card-radius); }
+.test .card-visual{ margin:0; padding:var(--img-pad); background:var(--card-surface); }
+.test .card-visual img{
+  display:block; width:100%;
+  height:auto; aspect-ratio:5/4; object-fit:cover; border-radius:var(--img-radius);
+}
+
+/* Hint */
+.test .cards-hint{ text-align:center; margin-top:18px; color:rgba(255,255,255,0.35); font-size:13px; }
+
+/* Scrollbar estable (sin saltos de layout al aparecer/desaparecer) */
+html { scrollbar-gutter: stable both-edges; }

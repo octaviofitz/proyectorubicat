@@ -42,324 +42,123 @@
   document.addEventListener('DOMContentLoaded', () => {
     const section  = document.getElementById('cardsSection');
     const viewport = document.querySelector('.cards-viewport');
-    const cards    = Array.from(document.querySelectorAll('.card'));
+    const cards    = Array.from(document.querySelectorAll('#cardsSection .card'));
     if (!section || !viewport || cards.length === 0) return;
   
-    let index = 0;
-    const len = cards.length;
+    // --- 1) escena alta
+    section.style.setProperty('--cards', String(cards.length));
   
-    // ===== Sensaciones / timings =====
-    const STEP_PX = 130;          // sensibilidad de rueda/trackpad (acumulador)
-    const SWIPE_THRESHOLD = 42;   // arrastre mínimo para cambiar
-    const EXIT_ANIM_MS = 520;     // duración animación de salida
-    const MOVE_COOLDOWN_MS = 360; // cooldown para evitar dobles disparos
-    let lastMoveAt = 0;
+    // --- 2) parámetros de “feel”
+    const SPREAD_X = 0.28;   // separación horizontal por “paso” (en anchos de viewport)
+    const SCALE_MIN = 0.92;  // escala mínima cuando está lejos del foco
+    const BLUR_MAX = 0.8;    // blur máximo fuera de foco (poné 0 si no querés nada)
+    const EASE = t => 1 - Math.pow(1 - t, 3); // easeOutCubic (si quisieras mezclar)
   
-    // ===== Estado de “lock” sin ocultar scrollbar =====
-    const lockState = { active:false, anchorY:0 };
+    // --- 3) estado
+    let ticking = false;
+    let lastNearest = 0;
+    const animatingCards = new Set(); // cards que están en animación de salida
   
-    // ----- Helpers de geometría / centrado -----
-    function sectionRect(){ return section.getBoundingClientRect(); }
-    function windowH(){ return window.innerHeight || document.documentElement.clientHeight; }
-  
-    function sectionCenterY() {
-      const r = sectionRect();
-      return window.scrollY + r.top + (r.height / 2);
-    }
-    function windowCenterY() {
-      return window.scrollY + (windowH() / 2);
-    }
-    function ensureSectionCentered(){
-      // Alinea el centro de la sección al centro de la ventana
-      const target = sectionCenterY() - (windowH()/2);
-      window.scrollTo({ top: target, behavior: 'auto' });
+    // helpers
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+    function getLocalT(){
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const sectionTopAbs = window.scrollY + rect.top;
+      const y = clamp(window.scrollY + vh/2 - sectionTopAbs, 0, rect.height - 1);
+      return clamp(y / vh, 0, cards.length - 1); // 0..N-1
     }
   
-    // La card activa está suficientemente centrada y visible (umbral ~50%)
-    function activeCardIsCentered(threshold = 0.5){
-      const curr = cards[index];
-      const rc = curr.getBoundingClientRect();
-      const vh = windowH();
-      const visible = Math.min(rc.bottom, vh) - Math.max(rc.top, 0);
-      const visRatio = Math.max(0, visible) / Math.min(vh, rc.height);
-      const cardCenterY = window.scrollY + rc.top + rc.height/2;
-      const distToWinCenter = Math.abs(cardCenterY - windowCenterY());
-      const centerOk = distToWinCenter <= (vh * (1 - threshold) * 0.5); // card dentro de la “zona media”
-      return visRatio >= threshold && centerOk;
-    }
+    // animación de “pase de página” hacia la izquierda
+    function pageLeaveLeft(card){
+      if (!card || animatingCards.has(card)) return;
+      animatingCards.add(card);
   
-    function lockIfCentered(){
-      if (!lockState.active && activeCardIsCentered(0.5)) {
-        lockState.active = true;
-        lockState.anchorY = window.scrollY;
-        viewport.focus({preventScroll:true});
-      }
-    }
-    function unlockScroll(){ lockState.active = false; }
-  
-    // ----- Helpers para “saltar” fuera de la sección al inicio/fin -----
-    function sectionTopY(){
-      const r = sectionRect();
-      return window.scrollY + r.top;
-    }
-    function sectionBottomY(){
-      const r = sectionRect();
-      return window.scrollY + r.bottom;
-    }
-    /** Empuja la ventana apenas fuera de la sección para que el scroll nativo “tome” */
-    function jumpPastSection(dir){
-      const vh = windowH();
-      if (dir === 'down') {
-        // 1px debajo del borde inferior de la sección
-        const target = sectionBottomY() - vh + 1;
-        window.scrollTo({ top: Math.max(target, window.scrollY + 1) });
-      } else {
-        // 1px por encima del borde superior
-        const target = sectionTopY() - 1;
-        window.scrollTo({ top: Math.min(target, window.scrollY - 1) });
-      }
-    }
-  
-    // Cuando la sección entra: centramos; el lock se activa recién al 50%
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(en=>{
-        if (en.isIntersecting) {
-          ensureSectionCentered();
-          lockIfCentered();
-        } else {
-          unlockScroll();
-        }
+      // Congelamos el transform actual (el que dejó el render en el frame anterior)
+      // y aplicamos una transición puntual de salida hacia la izquierda.
+      const DURATION = 520; // ms
+      // Ponemos una transición SOLO para esta animación puntual
+      card.style.transition = 'transform 520ms cubic-bezier(.22,.75,.25,1)';
+      // Empujamos al siguiente frame para que tome el transform actual como "from"
+      requestAnimationFrame(() => {
+        // la mandamos a la izquierda con leve rotación y leve shrink (sin opacidad)
+        card.style.transform = 'translate(-50%,-50%) translateX(-140vw) rotate(-6deg) scale(0.9)';
       });
-    }, { threshold: 0.4 });
-    obs.observe(section);
   
-    // Si intentan scrollear estando lockeados, mantené el ancla (sin ocultar scrollbar)
-    function keepAnchorIfLocked(){
-      if (!lockState.active) return;
-      const r = sectionRect();
-      const visible = r.bottom > 0 && r.top < windowH();
-      if (visible) {
-        if (Math.abs(window.scrollY - lockState.anchorY) > 1) {
-          window.scrollTo(0, lockState.anchorY);
-        }
-      } else {
-        unlockScroll();
-      }
+      // Al finalizar, limpiamos y volvemos a ceder control al render
+      setTimeout(() => {
+        card.style.transition = ''; // limpiamos transition puntual
+        animatingCards.delete(card);
+      }, DURATION + 40);
     }
-    window.addEventListener('scroll', keepAnchorIfLocked, { passive:true });
   
-    // ===== Layout =====
-    function layout(animate = true) {
-      if (!animate) cards.forEach(c => c.style.transition = 'none');
+    function render(){
+      ticking = false;
+      const t = getLocalT();          // 0..N-1 (float)
+      const nearest = Math.round(t);  // card “activa” (entera)
+  
+      // Si cambió la card activa => animá la que salió (si existe)
+      if (nearest !== lastNearest) {
+        const outgoing = cards[lastNearest];
+        // Efecto de página SIEMPRE hacia la izquierda (como pediste)
+        if (outgoing) pageLeaveLeft(outgoing);
+        lastNearest = nearest;
+      }
+  
+      const w = window.innerWidth || document.documentElement.clientWidth;
+  
       cards.forEach((card, i) => {
-        const dist = Math.abs(i - index);
-        const side = i < index ? -1 : 1;
-        card.style.setProperty('--pos', dist);
-        card.style.setProperty('--side', side);
-        card.classList.toggle('active', i === index);
-        card.classList.toggle('past',   i <  index);
-        const z = (i === index) ? 1000 : (1000 - dist - (i < index ? 200 : 0));
-        card.style.zIndex = z;
+        // si la card está animándose, no la toques
+        if (animatingCards.has(card)) return;
+  
+        const d = i - t;           // distancia continua al foco
+        const ad = Math.abs(d);
+  
+        // desplazamiento lateral respecto del centro de la escena
+        const tx = d * (w * SPREAD_X);
+  
+        // escala y blur según distancia (sin opacidad)
+        const s  = 1 - (1 - SCALE_MIN) * clamp(ad, 0, 1);
+        const bl = BLUR_MAX * clamp(ad, 0, 1);
+  
+        // z-index: la más cercana arriba
+        const z  = 1000 + (cards.length - Math.floor(ad * 10));
+  
+        card.style.transform = `translate(-50%,-50%) translateX(${tx}px) scale(${s})`;
+        card.style.filter    = `blur(${bl}px)`;
+        card.style.zIndex    = z;
+  
+        card.classList.toggle('active', i === nearest);
+        card.classList.toggle('past',   i <  nearest);
       });
-      if (!animate) requestAnimationFrame(() => cards.forEach(c => (c.style.transition = '')));
     }
-    layout(false);
   
-    function nowms(){ return (performance || Date).now(); }
-  
-    function tryMove(direction){
-      const now = nowms();
-      if (now - lastMoveAt < MOVE_COOLDOWN_MS) return true; // consume para evitar rebotes
-      lastMoveAt = now;
-  
-      const curr = cards[index];
-      if (direction === 'next') {
-        if (index < len - 1) {
-          curr.classList.add('exit-right');
-          setTimeout(() => curr.classList.remove('exit-right'), EXIT_ANIM_MS);
-          index++; layout(true);
-          requestAnimationFrame(()=>{
-            ensureSectionCentered();
-            lockState.anchorY = window.scrollY;
-            lockIfCentered();
-          });
-          return true;
-        } else {
-          // fin del carrusel → liberar y empujar fuera de la sección hacia abajo
-          unlockScroll();
-          requestAnimationFrame(()=> jumpPastSection('down'));
-          return false;
-        }
-      } else {
-        if (index > 0) {
-          curr.classList.add('exit-left');
-          setTimeout(() => curr.classList.remove('exit-left'), EXIT_ANIM_MS);
-          index--; layout(true);
-          requestAnimationFrame(()=>{
-            ensureSectionCentered();
-            lockState.anchorY = window.scrollY;
-            lockIfCentered();
-          });
-          return true;
-        } else {
-          // inicio del carrusel → liberar y empujar fuera de la sección hacia arriba
-          unlockScroll();
-          requestAnimationFrame(()=> jumpPastSection('up'));
-          return false;
-        }
+    function onScroll(){
+      if (!ticking){
+        ticking = true;
+        requestAnimationFrame(render);
       }
     }
   
-    // ===== RUEDA / TRACKPAD (acumulador suave) =====
-    let wheelAccum = 0;
-    let wheelRAF = null;
-    function flushWheel(){
-      wheelRAF = null;
-      if (Math.abs(wheelAccum) < 18) { wheelAccum = 0; return; }
-      const dir = wheelAccum > 0 ? 'next' : 'prev';
-      const moved = tryMove(dir);
-      if (moved) {
-        wheelAccum -= STEP_PX * Math.sign(wheelAccum);
-      } else {
-        wheelAccum = 0;
-      }
-    }
+    // eventos
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
   
-    function onWheel(e){
-      const dy = e.deltaY || 0;
-      const atFirst = (index === 0);
-      const atLast  = (index === len - 1);
-  
-      // Si estamos intentando SALIR por un borde, no bloquees: liberá y dejá pasar
-      if (!lockState.active && activeCardIsCentered(0.5)) {
-        if (dy > 0 && atLast) {
-          unlockScroll(); // salir por abajo
-          return;         // permití el scroll nativo
-        }
-        if (dy < 0 && atFirst) {
-          unlockScroll(); // salir por arriba
-          return;         // permití el scroll nativo
-        }
-      }
-  
-      // Dentro del carrusel o ya centrado → bloquear y usar acumulador
-      if (e.cancelable && (lockState.active || activeCardIsCentered(0.5))) {
-        e.preventDefault();
-        lockIfCentered();
-        wheelAccum += dy;
-        if (!wheelRAF) wheelRAF = requestAnimationFrame(flushWheel);
-      }
-    }
-    viewport.addEventListener('wheel', onWheel, { passive:false });
-  
-    // Seguridad: si llega rueda fuera del viewport pero estamos lockeados, prevení
-    window.addEventListener('wheel', (e)=>{
-      if (lockState.active && !viewport.contains(e.target)) {
-        if (e.cancelable) e.preventDefault();
-      }
-    }, { passive:false });
-  
-    // ===== TOUCH (swipe vertical) =====
-    let touchStartY = null, touchStartX = null, touchAccum = 0;
-    viewport.addEventListener('touchstart', (e) => {
-      const t = e.touches[0];
-      touchStartY = t.clientY; touchStartX = t.clientX; touchAccum = 0;
-    }, {passive:true});
-    viewport.addEventListener('touchmove', (e) => {
-      const t = e.touches[0];
-      const dy = touchStartY - t.clientY;
-      const dx = touchStartX - t.clientX;
-      // Permitimos que el scroll centre hasta 50%; luego bloqueamos y navegamos cards
-      if (Math.abs(dy) > Math.abs(dx) && (lockState.active || activeCardIsCentered(0.5))) {
-        if (e.cancelable) e.preventDefault();
-        lockIfCentered();
-        touchAccum += dy;
-        if (Math.abs(touchAccum) > SWIPE_THRESHOLD) {
-          const dir = touchAccum > 0 ? 'next' : 'prev';
-          const moved = tryMove(dir);
-          if (moved) touchAccum = 0;
-        }
-      }
-    }, {passive:false});
-    viewport.addEventListener('touchend', () => {
-      touchStartY = null; touchStartX = null; touchAccum = 0;
-    }, {passive:true});
-  
-    // ===== POINTER (drag mouse/trackpad) =====
-    let dragActive = false, dragLastY = 0, dragDelta = 0, pointerId = null;
-    function pointerDown(e){
-      if (e.button !== undefined && e.button !== 0) return;
-      if (e.pointerType && !['mouse','touch','pen'].includes(e.pointerType)) return;
-      dragActive = true;
-      pointerId = e.pointerId ?? 'ptr';
-      dragLastY  = (e.clientY ?? 0);
-      dragDelta  = 0;
-      viewport.setPointerCapture?.(pointerId);
-      viewport.classList.add('is-dragging');
-    }
-    function pointerMove(e){
-      if (!dragActive) return;
-      const y  = (e.clientY ?? dragLastY);
-      const dy = y - dragLastY;
-      dragLastY = y;
-      dragDelta += dy;
-      if (lockState.active || activeCardIsCentered(0.5)) {
-        if (e.cancelable) e.preventDefault();
-        lockIfCentered();
-        if (Math.abs(dragDelta) > SWIPE_THRESHOLD) {
-          const dir = (dragDelta < 0) ? 'next' : 'prev';
-          const moved = tryMove(dir);
-          if (moved) dragDelta = 0;
-        }
-      }
-    }
-    function pointerUpCancel(){
-      if (!dragActive) return;
-      if (Math.abs(dragDelta) > SWIPE_THRESHOLD * 0.7) {
-        const dir = (dragDelta < 0) ? 'next' : 'prev';
-        tryMove(dir);
-      }
-      dragActive = false;
-      viewport.releasePointerCapture?.(pointerId);
-      viewport.classList.remove('is-dragging');
-      dragDelta = 0;
-    }
-    viewport.addEventListener('pointerdown',   pointerDown,     { passive:true  });
-    viewport.addEventListener('pointermove',   pointerMove,     { passive:false });
-    viewport.addEventListener('pointerup',     pointerUpCancel, { passive:true  });
-    viewport.addEventListener('pointercancel', pointerUpCancel, { passive:true  });
-    viewport.addEventListener('lostpointercapture', pointerUpCancel, { passive:true });
-  
-    // ===== Teclado =====
-    viewport.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'ArrowDown') {
-        const c = tryMove('next'); if (c && e.cancelable) e.preventDefault();
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'ArrowUp') {
-        const c = tryMove('prev'); if (c && e.cancelable) e.preventDefault();
-      }
-    });
-  
-    // Click directo a una card
+    // click para centrar una card (opcional)
     cards.forEach((c, i) => {
       c.addEventListener('click', () => {
-        if (i === index) return;
-        const direction = i > index ? 'next' : 'prev';
-        const curr = cards[index];
-        curr.classList.add(direction === 'next' ? 'exit-right' : 'exit-left');
-        setTimeout(() => curr.classList.remove('exit-right','exit-left'), EXIT_ANIM_MS);
-        index = i;
-        layout(true);
-        requestAnimationFrame(()=>{
-          ensureSectionCentered();
-          lockState.anchorY = window.scrollY;
-          lockIfCentered();
-        });
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const rect = section.getBoundingClientRect();
+        const sectionTopAbs = window.scrollY + rect.top;
+        const targetY = sectionTopAbs + (i * vh) - vh/2;
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
       });
       c.addEventListener('dragstart', e => e.preventDefault());
     });
   
-    // Inicial
-    layout(false);
+    // inicial
+    lastNearest = Math.round(getLocalT());
+    render();
   });
   </script>
   
