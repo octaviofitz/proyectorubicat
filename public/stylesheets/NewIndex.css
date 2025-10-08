@@ -289,3 +289,17 @@
 }
 
 .test .cards-hint{font-size:1rem}
+
+
+
+.test .card{
+  transition:
+    transform 520ms cubic-bezier(.22,.75,.25,1),
+    filter   520ms ease,
+    opacity  360ms ease,
+    box-shadow 520ms cubic-bezier(.22,.75,.25,1);
+}
+
+.test .cards-viewport{
+  touch-action: none;
+}
