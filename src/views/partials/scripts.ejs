@@ -36,3 +36,240 @@
 
 <!-- ✅ Script del navbar -->
 <script src="./scriptNavbar.ejs" defer></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section  = document.getElementById('cardsSection');
+    const viewport = document.querySelector('.cards-viewport');
+    const track    = document.querySelector('.cards-track');
+    const cards    = Array.from(document.querySelectorAll('.card'));
+    if (!section || !viewport || cards.length === 0) return;
+  
+    let index = 0;
+    const len = cards.length;
+  
+    // ===== Config tiempos/umbrales =====
+    const THROTTLE_MS = 220;      // tu throttle original
+    let lastAt = 0;
+  
+    // Driver de scroll con la barra: acumulá píxeles hasta pasar este umbral
+    let lastScrollY = window.scrollY;
+    let scrollAccum = 0;
+    const SCROLL_STEP = 160;      // px de scroll ≈ 1 paso de card (ajustable)
+  
+    // ===== Drag (mouse/trackpad) =====
+    let dragActive = false;
+    let dragLastY  = 0;
+    let dragDelta  = 0;
+    const SWIPE_THRESHOLD = 48;
+    const POINTER_ID = { value: null };
+  
+    // ===== Layout =====
+    function layout(animate = true) {
+      if (!animate) cards.forEach(c => c.style.transition = 'none');
+  
+      cards.forEach((card, i) => {
+        const dist = Math.abs(i - index);
+        const side = i < index ? -1 : 1;
+        card.style.setProperty('--pos', dist);
+        card.style.setProperty('--side', side);
+  
+        card.classList.toggle('active', i === index);
+        card.classList.toggle('past',   i <  index);
+  
+        const z = (i === index) ? 1000 : (1000 - dist - (i < index ? 200 : 0));
+        card.style.zIndex = z;
+      });
+  
+      if (!animate) requestAnimationFrame(() => cards.forEach(c => (c.style.transition = '')));
+    }
+    layout(false);
+  
+    function nowms(){ return (performance || Date).now(); }
+  
+    function tryMove(direction){
+      const now = nowms();
+      if (now - lastAt < THROTTLE_MS) return true;  // consumimos para evitar rebotes
+      lastAt = now;
+  
+      const curr = cards[index];
+      if (direction === 'next') {
+        if (index < len - 1) {
+          curr.classList.add('exit-right');
+          setTimeout(() => curr.classList.remove('exit-right'), 650);
+          index++;
+          layout(true);
+          return true;
+        }
+        return false;
+      } else {
+        if (index > 0) {
+          curr.classList.add('exit-left');
+          setTimeout(() => curr.classList.remove('exit-left'), 650);
+          index--;
+          layout(true);
+          return true;
+        }
+        return false;
+      }
+    }
+  
+    // ===== Rueda / trackpad =====
+    function onWheel(e){
+      const dy = e.deltaY;
+      if (Math.abs(dy) < 10) return;
+      const dir = dy > 0 ? 'next' : 'prev';
+      const consumed = tryMove(dir);
+      if (consumed) e.preventDefault(); // prevenimos que la página se mueva si usamos la rueda “sobre” la sección
+    }
+    viewport.addEventListener('wheel', onWheel, { passive: false });
+  
+    // ===== Touch (swipe vertical) =====
+    let touchStartY = null, touchStartX = null;
+    viewport.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      touchStartY = t.clientY;
+      touchStartX = t.clientX;
+    }, {passive:true});
+  
+    viewport.addEventListener('touchmove', (e) => {
+      if (touchStartY == null) return;
+      const t = e.touches[0];
+      const dy = touchStartY - t.clientY;
+      const dx = touchStartX - t.clientX;
+      if (Math.abs(dy) > 20 && Math.abs(dy) > Math.abs(dx)) {
+        const dir = dy > 0 ? 'next' : 'prev';
+        const consumed = tryMove(dir);
+        if (consumed) e.preventDefault();
+        else touchStartY = null;
+      }
+    }, {passive:false});
+  
+    viewport.addEventListener('touchend', () => {
+      touchStartY = null; touchStartX = null;
+    }, {passive:true});
+  
+    // ===== Pointer (drag mouse/trackpad) =====
+    function pointerDown(e){
+      if (e.button !== undefined && e.button !== 0) return;
+      if (e.pointerType && !['mouse','touch','pen'].includes(e.pointerType)) return;
+  
+      dragActive = true;
+      POINTER_ID.value = e.pointerId ?? 'ptr';
+      dragLastY  = (e.clientY ?? 0);
+      dragDelta  = 0;
+  
+      viewport.setPointerCapture?.(POINTER_ID.value);
+      viewport.classList.add('is-dragging');
+    }
+  
+    function pointerMove(e){
+      if (!dragActive) return;
+      const y  = (e.clientY ?? dragLastY);
+      const dy = y - dragLastY;
+      dragLastY = y;
+      dragDelta += dy;
+  
+      if (Math.abs(dragDelta) > SWIPE_THRESHOLD) {
+        const dir = (dragDelta < 0) ? 'next' : 'prev';
+        const consumed = tryMove(dir);
+        if (consumed) dragDelta = 0; // permite cadena de pasos en un mismo arrastre
+        if (e.cancelable) e.preventDefault();
+      } else {
+        if (e.cancelable) e.preventDefault();
+      }
+    }
+  
+    function pointerUpCancel(){
+      if (!dragActive) return;
+      if (Math.abs(dragDelta) > SWIPE_THRESHOLD * 0.75) {
+        const dir = (dragDelta < 0) ? 'next' : 'prev';
+        tryMove(dir);
+      }
+      dragActive = false;
+      viewport.releasePointerCapture?.(POINTER_ID.value);
+      viewport.classList.remove('is-dragging');
+      dragDelta = 0;
+    }
+  
+    viewport.addEventListener('pointerdown',   pointerDown,     { passive: true  });
+    viewport.addEventListener('pointermove',   pointerMove,     { passive: false });
+    viewport.addEventListener('pointerup',     pointerUpCancel, { passive: true  });
+    viewport.addEventListener('pointercancel', pointerUpCancel, { passive: true  });
+    viewport.addEventListener('lostpointercapture', pointerUpCancel, { passive: true });
+  
+    // ===== Teclado (↑/↓ también) =====
+    viewport.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+        const c = tryMove('next'); if (c) e.preventDefault();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'ArrowUp') {
+        const c = tryMove('prev'); if (c) e.preventDefault();
+      }
+    });
+  
+    // ===== Helper: ¿la sección está suficientemente visible? =====
+    function sectionIsInView(threshold = 0.35){
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const r  = section.getBoundingClientRect();
+      const visible = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      const ratio = Math.max(0, visible) / vh;
+      return ratio >= threshold;
+    }
+  
+    // ===== Driver de SCROLL con la barra del navegador =====
+    function onScroll(){
+      const y = window.scrollY;
+      const dy = y - lastScrollY;
+      lastScrollY = y;
+  
+      if (!sectionIsInView(0.25)) {
+        scrollAccum = 0; // salimos de la sección, reseteamos acumulado
+        return;
+      }
+      // acumulamos sólo desplazamiento vertical relevante
+      scrollAccum += dy;
+  
+      // si se desplazó lo suficiente, avanzamos/retrocedemos 1 card por “tramo”
+      while (Math.abs(scrollAccum) >= SCROLL_STEP) {
+        const dir = (scrollAccum > 0) ? 'next' : 'prev';
+        const consumed = tryMove(dir);
+        // reducimos el acumulado por un paso para permitir múltiples pasos si arrastraste mucho la barra
+        scrollAccum -= SCROLL_STEP * Math.sign(scrollAccum);
+  
+        // si no se pudo mover (estamos en extremos), cortamos para evitar loops
+        if (!consumed) {
+          scrollAccum = 0;
+          break;
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  
+    // ===== Re-layout en resize =====
+    window.addEventListener('resize', () => layout(false));
+  
+    // Foco para teclado cuando la sección entra al viewport
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if (en.isIntersecting) viewport.focus({preventScroll:true});
+      });
+    }, {threshold: 0.6});
+    obs.observe(section);
+  
+    // Click para ir directo a una card
+    cards.forEach((c, i) => {
+      c.addEventListener('click', () => {
+        if (i === index) return;
+        const direction = i > index ? 'next' : 'prev';
+        const curr = cards[index];
+        curr.classList.add(direction === 'next' ? 'exit-right' : 'exit-left');
+        setTimeout(() => curr.classList.remove('exit-right','exit-left'), 650);
+        index = i;
+        layout(true);
+      });
+      c.addEventListener('dragstart', e => e.preventDefault());
+    });
+  });
+  </script>
+  

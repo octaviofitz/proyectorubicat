@@ -1,11 +1,36 @@
 /* =========================
    Helpers
 ========================= */
+@font-face{
+  font-family: 'bueno';
+  src: url('/fonts/bueno-regular.woff2') format('woff2'),
+       url('/fonts/bueno-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('/fonts/BebasNeue-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+
+#navBar{
+  font-family:'bueno';
+}
+
+
 .no-scroll { overflow: hidden; }
 
 .sr-only{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  font-family: 'bueno';
+  font-size: 4rem;
 }
 
 /* =========================
@@ -15,12 +40,16 @@
   position: sticky; top: 0; z-index: 50;
   background: #000;               /* navbar negro */
   border-bottom: 1px solid #111;  /* detalle sutil */
+  font-family: 'bueno';
+
 }
 .sr-nav__inner{
   max-width: 1120px; margin: 0 auto;
   display: grid; grid-template-columns: auto 1fr auto;
   align-items: center; gap: 16px;
   padding: 14px 20px;
+  font-family: 'bueno';
+
 }
 .sr-nav__brand{ display:inline-flex; align-items:center; text-decoration:none; color:#fff; }
 .sr-wordmark{ color:#fff; font-weight:700; letter-spacing:.12em; font-size:14px; line-height:1; }
@@ -35,9 +64,12 @@
 .sr-nav__desktop{ justify-self:end; }
 .sr-nav__list{ display:flex; align-items:center; gap:8px; margin:0; padding:0; list-style:none; }
 .sr-nav__link{
-  display:inline-flex; align-items:center;
+  display:inline-flex;
+  justify-content: space-between;
+  align-items:center;
   padding: 8px 12px; border-radius:8px;
   text-decoration:none; color:#fff; font-weight:500;
+  font-size: 2rem;
 }
 .sr-nav__link:hover, .sr-nav__link:focus-visible{ background:#111; }
 
@@ -56,6 +88,9 @@
   visibility: hidden;
   pointer-events: none;
   transition: opacity .28s ease, visibility .28s ease;
+  font-family: 'bueno';
+  font-size: 4rem;
+
 }
 
 /* Estado abierto */
@@ -63,6 +98,9 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  font-family: 'bueno';
+  font-size: 4rem;
+
 }
 
 /* Header del overlay */
@@ -73,6 +111,10 @@
   transform: translateY(-6px);
   opacity: 0;
   transition: transform .28s ease .06s, opacity .28s ease .06s;
+  font-family: 'bueno';
+  font-size: 4rem;
+
+
 }
 .sr-overlay__brand{ text-decoration:none; color:#fff; display:inline-flex; align-items:center; gap:10px; }
 .sr-overlay__close{
@@ -81,6 +123,9 @@
   padding-right: 1.5rem;
   padding-top: -1rem;
   margin-top: -1rem;
+  font-family: 'bueno';
+  font-size: 4rem;
+
 }
 
 /* Links del overlay con slide suave */
@@ -90,13 +135,22 @@
   transform: translateY(10px);
   opacity: 0;
   transition: transform .32s ease .08s, opacity .32s ease .08s;
+  font-size: 4rem;
+
 }
 .sr-overlay__link{
   color:#fff; text-decoration:none; font-weight:500;
   font-size: clamp(32px, 7vw, 52px); letter-spacing:.02em;
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-family: 'bueno';
 }
+
 .sr-overlay__link:hover, .sr-overlay__link:focus-visible{
   opacity:.9; text-decoration:none;
+  color: white;
+  text-decoration: underline;
 }
 
 /* Footer del overlay */

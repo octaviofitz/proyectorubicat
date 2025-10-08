@@ -1,3 +1,12 @@
+@font-face{
+    font-family:'bueno';
+    src: url('../fonts/bueno-regular.woff2') format('woff2'),
+         url('../fonts/bueno-regular.ttf') format('truetype');
+    font-weight:400;
+    font-style:normal;
+    font-display:swap;
+  }
+
 *{
     box-sizing: border-box;
     margin: 0;

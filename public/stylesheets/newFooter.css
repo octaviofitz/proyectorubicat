@@ -1,224 +1,162 @@
-/* ===== Footer ===== */
-.contacto{
-  margin: 1.5rem;
+.newFooter{
+  padding: 2rem 1.5rem;
+  font-family: "bueno"!important;
+  background-color: black;
+  color: white;
 }
 
-.site-footer {
-  background: white;                   /* tono claro */
-  color: #0f0f0f;
-  border-top: 1px solid rgba(0,0,0,.35);  /* línea finita arriba */
+.newFooter .containerTitulos{
+  display: flex;
+  flex-direction: column;
 }
 
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px 32px;
+.newFooter .titulo{
+  font-size: 5rem;
+  margin-bottom: -1rem;
+  font-family: "bueno"!important;
 }
 
-/* — Top: brand + nav — */
-.footer-top {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* mobile base: brand izq, nav der */
-  align-items: start;
-  gap: 24px;
+.newFooter .subtitulo{
+  font-size: 2.5rem;
+  font-family: "bueno"!important;
 }
 
-.footer-brand {
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  text-decoration: none;
-  color: #e53935;        /* rojo del brand */
+.newFooter .navs{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.75rem;
 }
 
-/* lista vertical de links */
-.footer-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
-}
-.footer-nav a {
-  text-decoration: none;
-  color: inherit;
-  opacity: .9;
-}
-.footer-nav a:hover {
-  opacity: 1;
+.newFooter .navs .links{
+  margin: 0 0.75rem;
+  font-size: 1.2rem;
+  list-style: none; 
   text-decoration: underline;
-  text-underline-offset: 2px;
+  cursor: pointer;
+  font-family: "bueno"!important;
 }
 
-/* — Bottom: legal + copyright — */
-.footer-bottom {
-  margin-top: 28px;
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* base mobile: izq / centro / der */
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
-  color: rgba(0,0,0,.6);
+.newFooter .containerData{
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
 }
 
-.footer-privacy {
-  justify-self: start;
-  color: inherit;
-  text-decoration: none;
-}
-.footer-privacy:hover { text-decoration: underline; }
-
-.footer-legal {
-  justify-self: center; /* centrado en mobile */
+.newFooter .containerData .titulo{
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-family: "bueno"!important;
 }
 
-.logoFooter {
-  width: 30vw;
+.newFooter .containerData .subtitulo{
+  font-size: 1.5rem;
+  font-family: "bueno"!important;
+
 }
 
-/* ===== Desktop (≥ 992px) ===== */
-@media (min-width: 992px) {
-  .footer-inner { padding: 32px 24px 40px; }
 
-  /* Top: 3 columnas, brand centrado, nav a la derecha */
-  .footer-top {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: start;
-  }
-  .footer-brand {
-    grid-column: 2;
-    justify-self: center;
-  }
-  .footer-nav {
-    grid-column: 3;
-    justify-self: end; /* pegado a la derecha */
-    text-align: left;
-  }
+/* iconos */
 
-  /* Bottom: extremos con flex (más robusto) */
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* izquierda / derecha */
-    margin-top: 28px;
-  }
-  /* limpiar cualquier centrado heredado */
-  .footer-legal, .footer-privacy { justify-self: auto; text-align: left; }
-  .footer-privacy { text-align: right; }
-
-  .logoFooter {
-    width: 18vw; /* un poco más chico en desktop si querés */
-  }
+.newFooter .iconosMenu .iconos{
+  display: flex;
+  margin-top: 1.25rem;
 }
 
-/* ===== Mobile override (≤ 1023px): dos columnas centradas ===== */
-/* Lo dejo al final para que tenga prioridad también entre 992–1023px */
-@media (max-width: 1023px) {
-  /* Top: dos columnas (logo / nav) */
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+.newFooter .iconosMenu .fa-instagram,
+.newFooter .iconosMenu .fa-tiktok,
+.newFooter .iconosMenu .fa-whatsapp{
+  color: #fff;
+  padding: 0.75rem;
+  margin-right: 1rem;
+  font-size: 1.75rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
   }
-
-  /* Logo centrado en su columna */
-  .logoFooter {
-    width: 40vw;
-    justify-self: center;
-  }
-
-  /* Nav centrado en su columna */
-  .footer-nav {
-    justify-self: center;
-    text-align: center;
-  }
-
-  /* Bottom: dos columnas (Hola debajo del logo / Galidé debajo del nav) */
-  .footer-bottom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-    gap: 8px 16px;
-    margin-top: 20px;
-  }
-
-  /* "Hola" debajo del logo, centrado */
-  .footer-privacy {
-    grid-column: 1 / 2;
-    justify-self: center;
-    margin-top: 12px;
-    text-align: center;
-  }
-
-  /* "Galidé - MKT Digital" debajo del nav, centrado */
-  .footer-legal {
-    grid-column: 2 / 3;
-    justify-self: center;
-    margin-top: 12px;
-    text-align: center;
-  }
+.newFooter .iconosMenu .fa-instagram{
+  background-color: #dc5572;
+  border-radius: 50%;
 }
 
-/* ===== Alineación final (≥ 1024px) ===== */
-@media (min-width: 1024px) {
+.newFooter .iconosMenu .fa-tiktok{
+  background-color: #FF8C1E;
+  border-radius: 50%;
+}
 
-  /* 3 columnas y 2 filas:
-     fila 1: logo (arriba)
-     fila 2: Buenos Aires / NAV / Galidé  → alineados en la MISMA altura  */
-  .footer-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;  /* izq / centro / der */
-    grid-template-rows: auto auto;       /* fila 1 (logo) + fila 2 (línea base) */
-    column-gap: 32px;
-    row-gap: 8px;
-    align-items: end; /* asegura base común en la fila 2 */
+.newFooter .iconosMenu .fa-whatsapp{
+  background-color: #98c21e;
+  border-radius: 50%;
+}
+
+.newFooter .iconosMenu .fa-instagram:hover,
+.newFooter .iconosMenu .fa-tiktok:hover,
+.newFooter .iconosMenu .fa-whatsapp:hover
+{
+  font-weight: 700;
+}
+
+
+.newFooter .iconosMenu .derechos{
+  text-align: center;
+  color: rgb(220, 217, 217);
+  font-weight: 400;
+  margin-top: -1rem;
+  margin-bottom: 0rem;
+  padding-bottom: 1rem;
+  font-size: 3.35vw;
+}
+
+
+@media (min-width: 1024px){
+  .newFooter{
+    padding: 2rem 1.5rem;
   }
-
-  /* Aplanamos wrappers para posicionar los hijos en el grid del padre */
-  .footer-top,
-  .footer-bottom {
-    display: contents;
-  }
-
-  .logoFooter {
-    grid-column: 1;
-    grid-row: 1;
-    width: 220px;
-    height: auto;
-    justify-self: center;
   
-    /* 🔹 centrado visualmente con el resto */
-    align-self: end;       /* antes estaba 'center', ahora baja el logo */
-    margin-bottom: 16px;   /* pequeño espacio con “Buenos Aires” */
-    margin-bottom: -7rem;
+  .newFooter .containerTitulos{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:first baseline;
   }
- 
-  .footer-privacy {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
-    text-align: center;
-    margin: 0;
-    align-self: end;
+  
+  .newFooter .titulo{
+    font-size: 9rem;
+  }
+  
+  .newFooter .subtitulo{
+    font-size: 4rem;
+  }
+  
+   .newFooter .navs{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -0.75rem;
+  }
+  
+  .newFooter .navs .links{
+    margin: 0 0.75rem;
+    font-size: 1.5rem;
+    list-style: none; 
+    text-decoration: underline;
+  }
+  
+  .newFooter .containerData{
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2rem;
+    align-items:first baseline
   }
 
-  /* === Columna central (nav) === */
-  .footer-nav {
-    grid-column: 2;
-    grid-row: 2;               /* ✅ pone "Novedades" en la misma altura */
-    justify-self: center;
-    text-align: left;
-    margin: 0;
-    align-self: end;
+  .newFooter .containerNavs{
+    display: flex;
+    justify-content: space-between;
+    align-items:first baseline;
+    margin-top: -2rem;
   }
-
-  /* === Columna derecha (crédito) === */
-  .footer-legal {
-    grid-column: 3;
-    grid-row: 2;               /* ✅ misma línea base */
-    justify-self: end;
-    text-align: right;
-    margin: 0;
-    align-self: end;
+  
+  .newFooter .containerData .titulo{
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .newFooter .containerData .subtitulo{
+    font-size: 1.5rem;
   }
 }

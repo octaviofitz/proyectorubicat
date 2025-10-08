@@ -24,106 +24,107 @@
       </div>
 
 
-<article class="hero">
-  <img class="background" src="../images/NewIndex/backgrounds/FondoNegro.jpg"></img>
-  <div class="container">
-    <h2 class="reveal"><strong>Rubicat.</strong></h2>
-    <br>
-    <p class="reveal"><strong>Cuidamos lo que amás.</strong></p>
-    <br>
-    <p class="reveal delay-3">Conocenos ➜</p>
-   <!--  <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
-    <p class="reveal delay-2">Cuidamos lo que amás.</p> -->
-  </div>
-</article>
+      <section class="cards-section" id="cardsSection">
 
-<article class="hero">
-  <img class="background" src="../images/NewIndex/backgrounds/background2.png"></img>
-  <div class="container">
-    <h2 class="reveal" id="productoElegir">¿No sabés qué producto elegir?</h2>
-    <p class="reveal"><strong>¡Te ayudamos!</strong></p>
-   <!--  <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
-    <p class="reveal delay-2">Cuidamos lo que amás.</p> -->
-  </div>
-</article>
-
-<article class="hero">
-  <img class="background" src="../images/NewIndex/backgrounds/background3.png"></img>
-  <div class="container">
-    <h2 class="reveal"><strong>Novedades</strong></h2>
-    <p class="reveal" id="textoNovedades">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    <!-- <p class="reveal delay-1">Porque cuidar de ellos es cuidar de vos.</p>
-    <p class="reveal delay-2">Cuidamos lo que amás.</p>  -->
-  </div>
-</article>
-
-
-<section class="contacto" id="contacto">
-       
-  <div class="informacionContacto">
-  <h3 class="titulo">Contacto</h3>
-  <p class="texto">Si tenés alguna pregunta o querés distribuir Rubicat, completá el siguiente formulario. Estamos atentos a tu consulta y responderemos a la brevedad.</p>
-
-  <article class="datos">
-      <div class="tarjeta1">
-        <i class="fa-solid fa-envelope"> </i>
-         <a href="mailto:info@rubicat.com.ar" class="texto"> info@rubicat.com.ar</a> 
-      </div>
-  </article>
-
-</div>
-
-<article class="formulario" id="formulario">
+        <h3 class="TituloCards">Nuestras secciones</h3>
+        <div class="cards-viewport" tabindex="0" aria-label="Galería de trabajos">
+          <div class="cards-track">
   
-  <form action="/" method="POST" novalidate id="index">
+            <!-- CARD 1 -->
+            <article class="card">
+              <div class="card-inner"  id="firstCard">
+                <figure class="card-visual"  id="firstCard">
+                  <img src="../images/NewIndex/backgrounds/background1.png" alt="Retrato de De Visdeurbel">
+                </figure>
+                <div class="card-body">
+                  <h3 class="card-title">NOSOTROS</h3>
+                  <div class="card-tags">
+                    <span class="tag">Historia</span>
+                    <span class="tag">Fábrica</span>
+                    <span class="tag">MOTION</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+  
+            <!-- CARD 2 -->
+            <article class="card">
+              <div class="card-inner"  id="secondCard">
+                <figure class="card-visual"  id="secondCard">
+                  <img src="../images/NewIndex/backgrounds/background2.png" alt="Retrato de Exposjoo">
+                </figure>
+                <div class="card-body">
+                  <h3 class="card-title">Te ayudamos a elegir</h3>
+                  <div class="card-tags">
+                    <span class="tag">Classic</span>
+                    <span class="tag">Original</span>
+                    <span class="tag">Detox</span>
+                    <span class="tag">Premium</span>
+                    <span class="tag">Sensitive</span>
+                    
+                  </div>
+                </div>
+              </div>
+            </article>
+  
+            <!-- CARD 3 -->
+            <article class="card">
+              <div class="card-inner" id="thirdCard">
+                <figure class="card-visual" id="thirdCard">
+                  <img src="../images/NewIndex/backgrounds/background3.png" alt="Retrato de Sophie Zwartkruis">
+                </figure>
+                <div class="card-body">
+                  <h3 class="card-title">¿Dónde comprar?</h3>
+                  <div class="card-tags">
+                    <span class="tag">2024</span>
+                    <span class="tag">DEV</span>
+                    <span class="tag">GSAP</span>
+                    <span class="tag">MOTION</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+  
+            <!-- CARD 4 -->
+            <article class="card">
+              <div class="card-inner" id="forCard">
+                <figure class="card-visual" id="forCard">
+                  <img src="../images/NewIndex/backgrounds/background1.png" alt="Retrato de Broed">
+                </figure>
+                <div class="card-body">
+                  <h3 class="card-title">Educate con nosotros</h3>
+                  <div class="card-tags">
+                    <span class="tag">2024</span>
+                    <span class="tag">GSAP</span>
+                    <span class="tag">3D</span>
+                  </div>
+                </div>
+              </div>
+            </article>
 
-  <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-    <input class="form-control" type="text" id="exampleFormControlInput1" name="nombre" value="<%= locals.old && old.nombre ? old.nombre : null %>" required>
-   <div class="textoError">
-     <span class="text-danger"> <%= locals.errores && errores.nombre ? errores.nombre.msg : null %> </span>
-    </div>
-  </div>
-
-<div class="mb-3">
-  <label for="exampleFormControlInput2" class="form-label">Email</label>
-  <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="nombre@ejemplo.com" name="email" value="<%= locals.old && old.email ? old.email : null %>" required>
-  <div class="textoError"> 
-    <span class="text-danger"> <%= locals.errores && errores.email ? errores.email.msg : null %> </span>
-  </div>
-</div>
-
-<div class="mb-3">
-  <label for="exampleFormControlInput3" class="form-label">Número de teléfono / Whatsapp</label>
-  <input class="form-control" id="exampleFormControlInput3" type="number" name="telefono" value="<%= locals.old && old.telefono ? old.telefono : null %>" required>
-  <div class="textoError"> 
-    <span class="text-danger"> <%= locals.errores && errores.telefono ? errores.telefono.msg : null %> </span>
-  </div>
-</div>
-
-<div class="mb-3">
-  <label for="exampleFormControlInput4" class="form-label">Asunto</label>
-  <input class="form-control" id="exampleFormControlInput4" type="text" name="asunto" value="<%= locals.old && old.asunto ? old.asunto : null %>" required>
-  <div class="textoError"> 
-     <span class="text-danger"> <%= locals.errores && errores.asunto ? errores.asunto.msg : null %> </span>
-    </div>
-</div>
-
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="mensaje"><%= locals.old && old.mensaje ? old.mensaje : null%></textarea required>
-  <div class="textoError"> 
-  <span class="text-danger"> <%= locals.errores && errores.mensaje ? errores.mensaje.msg : null %> </span>
-</div>
-</div>
-
-<button class="boton" id="botonFormularioDisabled" disabled>Enviar</button>
-<button class="boton" id="botonFormulario">Enviar</button>
-    
-</form>
-</article>
-
-</section>
+             <!-- CARD 5 -->
+             <article class="card">
+              <div class="card-inner" id="fifthCard">
+                <figure class="card-visual" id="fifthCard">
+                  <img src="../images/NewIndex/backgrounds/background2.png" alt="Retrato de Broed">
+                </figure>
+                <div class="card-body">
+                  <h3 class="card-title">Novedades</h3>
+                  <div class="card-tags">
+                    <span class="tag">2024</span>
+                    <span class="tag">GSAP</span>
+                    <span class="tag">3D</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+  
+          </div>
+        </div>
+        <div class="cards-hint">
+          Usá la rueda del mouse o scroll táctil dentro de este bloque
+        </div>
+      </section>
 
 
     </main>
