@@ -39,74 +39,63 @@
 
 
 <script>
+  /**
+   * Sticky scene como cydstumpel.nl (SELECT worked):
+   * - La barra SIEMPRE funciona (no hacemos preventDefault).
+   * - La sección mide N * 100vh y el viewport es sticky.
+   * - Scroll -> transform de cards (translate3d/scale, sin opacity/filtros).
+   * - “Pase de página a la izquierda” SOLO en no-touch (para no trabar mobile).
+   */
   document.addEventListener('DOMContentLoaded', () => {
     const section  = document.getElementById('cardsSection');
     const viewport = document.querySelector('.cards-viewport');
     const cards    = Array.from(document.querySelectorAll('#cardsSection .card'));
     if (!section || !viewport || cards.length === 0) return;
   
-    // ====== Detección MOBILE: usar sólo CSS scroll-snap, sin JS pesado ======
-    const isMobile = window.matchMedia('(max-width: 768px)').matches 
-                     || (navigator.maxTouchPoints > 0 && window.innerWidth < 900);
-  
-    // Ayuda opcional para mobile: marcar la card "más centrada" (clase sólo estética)
-    if (isMobile) {
-      // IO barato para añadir/quitar .is-near-center
-      const io = new IntersectionObserver((entries) => {
-        let best = null, bestRatio = 0;
-        entries.forEach(en => {
-          if (en.intersectionRatio > bestRatio) { best = en.target; bestRatio = en.intersectionRatio; }
-        });
-        if (!best) return;
-        cards.forEach(c => c.classList.remove('is-near-center'));
-        best.classList.add('is-near-center');
-      }, { threshold: [0.25, 0.5, 0.75, 1.0] });
-      cards.forEach(c => io.observe(c));
-      // No scene logic
-      return;
-    }
-  
-    // ====== DESKTOP “scene” ======
+    // Altura de escena = cantidad de cards * 100vh
     section.style.setProperty('--cards', String(cards.length));
   
-    // Parámetros “feel” (GPU-friendly)
-    const SPREAD_X = 0.28;   // separación horizontal por “paso”
+    // Parámetros del “feel”
+    const SPREAD_X = 0.28;   // separación horizontal por “paso” (en vw)
     const SCALE_MIN = 0.94;  // escala mínima fuera de foco
-    const PAGE_LEAVE_MS = 520;
+    const PAGE_LEAVE_MS = 460;
   
-    // Estado
+    // Page-leave SOLO si no es touch (para que mobile no se trabe)
+    const isTouch = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+  
+    // Estado y cachés
     let ticking = false;
     let lastNearest = 0;
     const animatingCards = new Set();
   
-    // Cache de métricas para evitar reflows en cada frame
-    let sectionTopAbs = 0;
     let vh = window.innerHeight || document.documentElement.clientHeight;
-    let vw = window.innerWidth || document.documentElement.clientWidth;
+    let vw = window.innerWidth  || document.documentElement.clientWidth;
+    let sectionTopAbs = 0;
   
     function updateMetrics(){
-      // Obtener posición absoluta del inicio de la sección una sola vez (o en resize)
-      const rect = section.getBoundingClientRect();
-      sectionTopAbs = window.scrollY + rect.top;
+      const r = section.getBoundingClientRect();
+      sectionTopAbs = window.scrollY + r.top;
       vh = window.innerHeight || document.documentElement.clientHeight;
-      vw = window.innerWidth || document.documentElement.clientWidth;
+      vw = window.innerWidth  || document.documentElement.clientWidth;
     }
     updateMetrics();
   
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
   
+    // Progreso 0..(N-1) sin medir layout por frame
     function getLocalT(scrollY){
-      // Progreso 0 .. (N-1) sin leer rect en cada frame
       const yCenter = scrollY + vh/2;
-      const rel = clamp(yCenter - sectionTopAbs, 0, (cards.length*vh) - 1);
+      const rel = clamp(yCenter - sectionTopAbs, 0, (cards.length * vh) - 1);
       return clamp(rel / vh, 0, cards.length - 1);
     }
   
     function pageLeaveLeft(card){
+      if (isTouch) return;                // desactivado en touch
       if (!card || animatingCards.has(card)) return;
       animatingCards.add(card);
+  
+      // trans puntual sobre transform
       card.style.transition = `transform ${PAGE_LEAVE_MS}ms cubic-bezier(.22,.75,.25,1)`;
-      // Empuja a la izquierda, leve giro y scale
       requestAnimationFrame(() => {
         card.style.transform = 'translate3d(-50%, -50%, 0) translate3d(-140vw, 0, 0) rotate(-6deg) scale(0.9)';
       });
@@ -118,36 +107,33 @@
   
     function render(){
       ticking = false;
-      const t = getLocalT(window.scrollY);    // 0..N-1 (float)
+      const t = getLocalT(window.scrollY);   // 0..N-1 float
       const nearest = Math.round(t);
   
+      // Si cambió la card “activa”, animamos salida de la anterior (solo no-touch)
       if (nearest !== lastNearest) {
         const outgoing = cards[lastNearest];
         if (outgoing) pageLeaveLeft(outgoing);
         lastNearest = nearest;
       }
   
-      // Actualizar transform de cada card (si no está en animación)
       const txFactor = vw * SPREAD_X;
-      for (let i=0; i<cards.length; i++){
-        const card = cards[i];
-        if (animatingCards.has(card)) continue;
   
-        const d = i - t;                 // distancia al foco
+      for (let i = 0; i < cards.length; i++){
+        const card = cards[i];
+        if (animatingCards.has(card)) continue; // no pisar animación puntual
+  
+        const d  = i - t;                 // distancia continua al foco
         const ad = Math.abs(d);
-        const tx = d * txFactor;         // desplazamiento horizontal
-        const s  = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad); // escala lineal 0..1
+        const tx = d * txFactor;
+        const s  = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad);
         const z  = 1000 + (cards.length - Math.floor(ad * 10));
   
         card.style.transform = `translate3d(-50%, -50%, 0) translate3d(${tx}px, 0, 0) scale(${s})`;
-        card.style.zIndex = z;
-        // clases utilitarias por si querés estilos
-        if (i === nearest) {
-          card.classList.add('active'); 
-        } else {
-          card.classList.remove('active');
-        }
-        if (i < nearest) card.classList.add('past'); else card.classList.remove('past');
+        card.style.zIndex    = z;
+  
+        card.classList.toggle('active', i === nearest);
+        card.classList.toggle('past',   i <  nearest);
       }
     }
   
@@ -162,11 +148,11 @@
       requestAnimationFrame(render);
     }
   
-    // Eventos
+    // Eventos (pasivos: no bloqueamos la rueda ni el touch)
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize, { passive: true });
   
-    // Click para saltar a una card (centra esa “etapa”)
+    // Click para centrar una card (comodidad)
     cards.forEach((c, i) => {
       c.addEventListener('click', () => {
         const targetY = sectionTopAbs + (i * vh) - vh/2;
@@ -175,7 +161,7 @@
       c.addEventListener('dragstart', e => e.preventDefault());
     });
   
-    // Inicial
+    // Primer pintado
     requestAnimationFrame(render);
   });
   </script>
