@@ -297,9 +297,6 @@
     box-shadow 520ms cubic-bezier(.22,.75,.25,1);
 }
 
-.test .cards-viewport{
-  touch-action: none;
-}
 
 
 
@@ -430,4 +427,70 @@ html { scrollbar-gutter: stable both-edges; }
 }
 
 /* Mantiene el gutter de la barra estable */
+html { scrollbar-gutter: stable both-edges; }
+
+
+
+/* === ESCENA STICKY (desktop + mobile real) === */
+.test .cards-section{
+  --cards: 5; /* fallback; JS setea el real */
+  position: relative;
+  height: calc(var(--cards) * 100vh);
+  background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+  overflow: visible; /* necesario para sticky */
+}
+/* iOS/Android modernos: usar unidades "estables" de viewport */
+@supports (height: 100svh){
+  .test .cards-section{ height: calc(var(--cards) * 100svh); }
+}
+
+.test .cards-viewport{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* oculta excedentes del efecto */
+  /* ✅ habilita gesto vertical en móviles (si antes quedó "none") */
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch; /* suaviza en iOS */
+}
+@supports (height: 100svh){
+  .test .cards-viewport{ height: 100svh; }
+}
+
+.test .cards-track{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.test .card{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(320px, 70vw, 980px);
+  transform: translate3d(-50%, -50%, 0); /* el JS actualiza */
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  color: var(--card-text);
+  box-shadow: var(--shadow);
+  will-change: transform;            /* nada de filters/opacity en mobile */
+  transition: box-shadow 240ms ease; /* detalle visual */
+}
+
+.test .card.active{ box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.test .card.past{}
+
+.test .cards-hint{
+  text-align:center;
+  margin-top:18px;
+  color:rgba(255,255,255,0.35);
+  font-size:13px;
+}
+
 html { scrollbar-gutter: stable both-edges; }

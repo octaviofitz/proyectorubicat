@@ -16,7 +16,27 @@
     })(window,document,'script','dataLayer','GTM-KVPHD6Z');</script>
     <!-- End Google Tag Manager -->
 
-    
+    <script>
+        // Limpia estilos inline “fijos” si quedaron de scripts anteriores
+        (function(){
+          function resetBody(){
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+          }
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', resetBody, { once:true });
+          } else {
+            resetBody();
+          }
+        })();
+      </script>
+
+
     <!-- Font -->
         <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
 
