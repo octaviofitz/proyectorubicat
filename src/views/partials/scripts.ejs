@@ -38,13 +38,15 @@
 <script src="./scriptNavbar.ejs" defer></script>
 
 
+
+
 <script>
   /**
-   * Sticky scene tipo cydstumpel.nl:
-   * - No hacemos preventDefault en ningún evento → la barra/gesto SIEMPRE funciona.
-   * - Sección mide N*100vh (o N*100svh) y el viewport es sticky.
-   * - Scroll → transforms GPU (translate3d/scale). Nada de filters/opacity.
-   * - “Pase de página a la izquierda” solo en no-touch (para no frenar móviles).
+   * Sticky scene con suavizado:
+   * - Lerp del progreso (SMOOTHING) = “inercia” al cambiar de card.
+   * - Easing en la escala.
+   * - Page-leave a la izquierda sólo en no-touch (para no frenar móviles).
+   * - Opcional: micro-snap al frenar el scroll (SNAP_ON_IDLE).
    */
   document.addEventListener('DOMContentLoaded', () => {
     const section  = document.getElementById('cardsSection');
@@ -52,25 +54,38 @@
     const cards    = Array.from(document.querySelectorAll('#cardsSection .card'));
     if (!section || !viewport || cards.length === 0) return;
   
-    // Altura de escena = cantidad de cards * 100vh/svh
+    // Altura de escena = N * 100vh (o svh si tu CSS la usa por @supports)
     section.style.setProperty('--cards', String(cards.length));
   
-    // Parámetros del “feel”
-    const SPREAD_X = 0.28;   // separación horizontal por “paso” (en vw)
-    const SCALE_MIN = 0.94;  // escala mínima fuera de foco
-    const PAGE_LEAVE_MS = 460;
-  
-    // Page-leave SOLO si no es touch (mobile se mantiene liviano)
+    // ===== Parámetros de "feel" =====
+    const SPREAD_X = 0.28;         // separación horizontal por “paso” (en vw)
+    const SCALE_MIN = 0.94;        // escala mínima fuera de foco
+    const PAGE_LEAVE_MS = 420;     // duración del “pase de página” (no-touch)
     const isTouch = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
   
-    // Estado y cachés
-    let ticking = false;
-    let lastNearest = 0;
-    const animatingCards = new Set();
+    // Suavizado (lerp): más alto = más “manteca”; demasiado alto = sensación gomosa
+    const SMOOTHING = isTouch ? 0.14 : 0.20;
   
+    // Micro-snap al detenerse (opcional, suave)
+    const SNAP_ON_IDLE = true;
+    const SNAP_IDLE_MS = 140;      // tiempo sin scroll para snap
+    const SNAP_EPS     = 0.12;     // si el progreso está cerca (en fracción de card), centra
+  
+    // Easing para la escala (más orgánico que lineal)
+    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+  
+    // ===== Estado y cachés =====
     let vh = window.innerHeight || document.documentElement.clientHeight;
     let vw = window.innerWidth  || document.documentElement.clientWidth;
     let sectionTopAbs = 0;
+  
+    let rawT = 0;          // progreso crudo 0..N-1 (desde scroll)
+    let smoothT = 0;       // progreso suavizado (lerp)
+    let lastNearest = 0;   // índice entero de la card “más cercana”
+    let ticking = false;
+    let idleTimer = null;
+  
+    const animatingCards = new Set(); // para el page-leave puntual
   
     function updateMetrics(){
       const r = section.getBoundingClientRect();
@@ -82,7 +97,7 @@
   
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
   
-    // Progreso 0..(N-1) sin medir layout por frame
+    // Progreso crudo 0..(N-1)
     function getLocalT(scrollY){
       const yCenter = scrollY + vh/2;
       const rel = clamp(yCenter - sectionTopAbs, 0, (cards.length * vh) - 1);
@@ -90,7 +105,7 @@
     }
   
     function pageLeaveLeft(card){
-      if (isTouch) return;                // desactivado en touch
+      if (isTouch) return;                     // desactivado en touch
       if (!card || animatingCards.has(card)) return;
       animatingCards.add(card);
       card.style.transition = `transform ${PAGE_LEAVE_MS}ms cubic-bezier(.22,.75,.25,1)`;
@@ -105,9 +120,12 @@
   
     function render(){
       ticking = false;
-      const t = getLocalT(window.scrollY);   // 0..N-1 float
-      const nearest = Math.round(t);
   
+      // Lerp del progreso
+      smoothT += (rawT - smoothT) * SMOOTHING;
+  
+      const t = smoothT;                   // 0..N-1 (float suavizado)
+      const nearest = Math.round(t);       // card “activa”
       if (nearest !== lastNearest) {
         const outgoing = cards[lastNearest];
         if (outgoing) pageLeaveLeft(outgoing);
@@ -122,9 +140,16 @@
   
         const d  = i - t;                 // distancia continua al foco
         const ad = Math.abs(d);
+  
+        // desplazamiento x
         const tx = d * txFactor;
-        const s  = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad);
-        const z  = 1000 + (cards.length - Math.floor(ad * 10));
+  
+        // escala con easing (ad normalizado a [0,1])
+        const ad01 = Math.min(1, ad);
+        const eased = easeOutCubic(1 - ad01); // 1 cerca del foco → 0 lejos
+        const s = SCALE_MIN + (1 - SCALE_MIN) * eased;
+  
+        const z = 1000 + (cards.length - Math.floor(ad * 10));
   
         card.style.transform = `translate3d(-50%, -50%, 0) translate3d(${tx}px, 0, 0) scale(${s})`;
         card.style.zIndex    = z;
@@ -132,24 +157,52 @@
         card.classList.toggle('active', i === nearest);
         card.classList.toggle('past',   i <  nearest);
       }
+  
+      // Si el suavizado dejó muy cerca del target, “engancha” exacto para evitar micro-vibración
+      if (Math.abs(rawT - smoothT) < 0.001) smoothT = rawT;
     }
   
-    function onScroll(){
+    function scheduleRAF(){
       if (!ticking){
         ticking = true;
         requestAnimationFrame(render);
       }
     }
-    function onResize(){
-      updateMetrics();
-      requestAnimationFrame(render);
+  
+    // Micro-snap cuando el scroll se detiene cerca de una etapa
+    function scheduleIdleSnap(){
+      if (!SNAP_ON_IDLE) return;
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        const stage = Math.round(rawT);
+        const diff = Math.abs(rawT - stage);
+        if (diff <= SNAP_EPS){
+          // centra exactamente esa etapa
+          const targetY = sectionTopAbs + (stage * vh) - vh/2;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+      }, SNAP_IDLE_MS);
     }
   
-    // Eventos pasivos (no bloquean el scroll nativo)
+    function onScroll(){
+      rawT = getLocalT(window.scrollY);
+      scheduleRAF();
+      scheduleIdleSnap();
+    }
+  
+    function onResize(){
+      updateMetrics();
+      // Recalcular progreso con nuevas métricas y alinear el suavizado
+      rawT = getLocalT(window.scrollY);
+      if (Math.abs(smoothT - rawT) > 1) smoothT = rawT; // evita saltos grandes
+      scheduleRAF();
+    }
+  
+    // Eventos (pasivos: nunca bloqueamos el scroll nativo)
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize, { passive: true });
   
-    // Click para centrar una card (comodidad)
+    // Click: centrar una card
     cards.forEach((c, i) => {
       c.addEventListener('click', () => {
         const targetY = sectionTopAbs + (i * vh) - vh/2;
@@ -158,7 +211,9 @@
       c.addEventListener('dragstart', e => e.preventDefault());
     });
   
-    // Primer pintado
+    // Inicial
+    rawT = getLocalT(window.scrollY);
+    smoothT = rawT;             // arrancar sin “arrastre”
     requestAnimationFrame(render);
   });
   </script>
