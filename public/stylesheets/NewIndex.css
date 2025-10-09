@@ -18,479 +18,188 @@
   --stack-blur: 0.6px;
 }
 
-.test body{
-  margin:0;
-  color:#eee;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  background-color: red;
-}
 
-.test{
+/* ESTILOS DEL CONTENEDOR PRINCIPAL: SOLO APLICA A .test main */
+.test main {
   background-color: black;
+  color: #eee;
+  min-height: 100vh;
 }
 
-.test .video-bg{width:100%;height:auto;display:block;pointer-events:none}
-.test .hero--video{position:relative;min-height:100vh;overflow:hidden}
-.test .hero--video>.video-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.test .background{width:100vw}
-
-.test *{box-sizing:border-box}
-.test body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,"Helvetica Neue",Arial;
-  background:var(--bg);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-
-.test .site-header{
-  padding:40px 24px;
-  text-align:center;
-  background:linear-gradient(180deg,rgba(0,0,0,0.6),transparent);
-}
-.test main{min-height:100vh}
-
-.test .intro,
-.test .after{
-  padding:120px 24px;
-  text-align:center;
-  background:#0b0b0c;
-  border-bottom:1px solid rgba(255,255,255,0.02);
-}
-
-.test .cards-section{
-  padding:60px 0;
-  background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-  position:relative;
-  overflow:hidden;
-}
-
-.test .cards-viewport{
-  width:100%;
-  max-width:1200px;
-  margin:0 auto;
-  height:560px;
-  outline:none;
-  position:relative;
-  overflow:hidden;
-  padding:20px 12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-top: -10vh;
-    margin-bottom: -25vh;
-}
-
-.test .cards-track{position:relative;width:100%;height:100%}
-
-.test .card{
+.test * { box-sizing: border-box; }
+.test .video-bg { width: 100%; height: auto; display: block; pointer-events: none; }
+.test .hero--video { position: relative; min-height: 100vh; overflow: hidden; }
+.test .hero--video > .video-bg {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(320px, 70vw, 980px);
-  transform: translate(-50%,-50%); /* valor base; el JS lo actualizará */
-  border-radius: var(--card-radius);
-  background: var(--card-surface);
-  color: var(--card-text);
-  box-shadow: var(--shadow);
-  will-change: transform, filter; /* SIN opacity */
-  transition: filter 300ms ease, box-shadow 300ms ease;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.test .card::before,
-.test .card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:calc(var(--card-radius) + 4px);
-  z-index:-2;
-  transform:translate(-50%,-50%);
-}
-.test .card::before{
-  left:50%;
-  top:50%;
-  width:100%;
-  height:100%;
-  background:var(--paper-left);
-  transform:translate(-56%,-48%) rotate(-4deg);
-  filter:blur(.2px);
-  opacity:.8;
-}
-.test .card::after{
-  left:50%;
-  top:50%;
-  width:100%;
-  height:100%;
-  background:var(--paper-right);
-  transform:translate(-44%,-52%) rotate(3deg);
-  filter:blur(.2px);
-  opacity:.9;
-}
-
-.test .card-inner{
-  display:flex;
-  flex-direction:column;
-  border-radius:var(--card-radius);
-  overflow:hidden;
-}
-
-.test .card-visual{
-  margin:0;
-  padding:var(--img-pad);
-  background:var(--card-surface);
-}
-.test .card-visual img{
-  display:block;
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  border-radius:var(--img-radius);
-  filter:none!important;
-  transition:transform 800ms cubic-bezier(.2,.85,.25,1);
-}
-
-.test .card-body{
-  padding:var(--body-pad-y) var(--body-pad-x) calc(var(--body-pad-y) + 8px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-}
-.test .card-title{
-  margin:8px 0 12px;
-  font-size:clamp(22px,3.2vw,28px);
-  line-height:1.02;
-  letter-spacing:.02em;
-  font-weight:800;
-  text-transform:uppercase;
-}
-
-.test .card-tags{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.test .tag{
-  display:inline-flex;
-  align-items:center;
-  height:28px;
-  padding:0 10px;
-  border-radius:8px;
-  background:var(--chip-bg);
-  color:var(--chip-text);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.02em;
-  border:2px solid rgba(0,0,0,.08);
-  box-shadow:0 2px 0 rgba(0,0,0,.06) inset;
-}
-
-.test .card{
-  transform:translate(-50%,-50%) translateX(calc(var(--side,1)*var(--pos,0)*var(--stack-shift-x))) rotate(calc(var(--side,1)*var(--pos,0)*var(--stack-rot))) scale(calc(1 - (var(--pos,0)*var(--stack-scale))));
-  filter:blur(calc(var(--pos,0)*var(--stack-blur)));
-  opacity:calc(1 - min(var(--pos,0)*0.14,0.56));
-}
-
-.test .card.active{
-  box-shadow: 0 24px 60px rgba(0,0,0,0.55);
-
-}
-.test .card.active .card-visual img{transform:scale(1.03)}
-
-.test .card.past{
-  filter: blur(0.4px) saturate(.98);
-}
-
-.test .card.exit-right{
-  transform:translate(-50%,-50%) translateX(65%) rotate(6deg) scale(0.9)!important;
-  opacity:0;
-  filter:blur(1.2px);
-}
-.test .card.exit-left{
-  transform:translate(-50%,-50%) translateX(-65%) rotate(-6deg) scale(0.9)!important;
-  opacity:0;
-  filter:blur(1.2px);
-}
-
-.test .cards-hint{
-  text-align:center;
-  margin-top:18px;
-  color:rgba(255,255,255,0.35);
-  font-size:13px;
-}
-
-@media (max-width:900px){
-  .test .cards-viewport{height:520px}
-  .test .card{width:400px}
-  .test .card-visual img{height:280px}
-}
-@media (max-width:520px){
-  .test .cards-viewport{height:500px}
-  .test .card{width:320px}
-  .test .card-visual img{height:250px}
-}
-
-.test .TituloCards{
-  font-size:3.5rem;
-  text-align:center;
-  font-weight:899;
-  padding:0 20vw;
-  text-transform:uppercase;
-  font-family: 'bueno';
+.page-header {
+  background-color: #1f2937;
   color: white;
+  padding: 1rem;
 }
-
-.test #firstCard{background-color:#dc5572}
-.test #secondCard{background-color:#FF8C1E}
-.test #thirdCard{background-color:#8B85CA}
-.test #forCard{background-color:#00ACBB}
-.test #fifthCard{background-color:#98c21e}
-
-@media (min-width:1024px){
-  .test .cards-viewport{
-    height:88vh;
-    max-width:1100px;
-  }
-  .test .card{
-    width:clamp(620px,80vw,980px);
-  }
-  .test .card-visual{padding:var(--img-pad)}
-  .test .card-visual img{
-    width:100%;
-    height:auto;
-    aspect-ratio:5/4;
-    object-fit:cover;
-    border-radius:var(--img-radius);
-    filter:grayscale(100%);
-  }
-  .test .card-body{
-    padding:calc(var(--body-pad-y)*1.25) calc(var(--body-pad-x)*1.25);
-  }
-  .test .card-title{
-    font-size:clamp(28px,3.4vw,44px);
-  }
-  .test .tag{
-    font-size:14px;
-    height:32px;
-    padding:0 12px;
-  }
-}
-
-.test .cards-hint{font-size:1rem}
-
-
-
-.test .card{
-  transition:
-    transform 520ms cubic-bezier(.22,.75,.25,1),
-    filter   520ms ease,
-    opacity  360ms ease,
-    box-shadow 520ms cubic-bezier(.22,.75,.25,1);
-}
-
-
-
-
-/* prueba */
-
-/* === ESCENA DE CARDS (scroll-driven) === */
-
-.test .cards-section{
-  /* La altura real se setea por JS con --cards */
-  --cards: 5;                      /* fallback */
-  position: relative;
-  height: calc(var(--cards) * 100vh);
-  background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-  overflow: visible;               /* importante: NO ocultar, deja que el sticky trabaje */
-}
-
-/* El “visor” queda fijo mientras scrolleás dentro de la sección */
-.test .cards-viewport{
-  position: sticky;
-  top: 0;
-  height: 100vh;                   /* siempre pantalla completa */
+.header-nav {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 32px 12px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;                /* ocultá excedentes de las cards al moverse */
-  outline: none;
-  margin-top: -18vh;
-  margin-bottom: -25vh;
+}
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
-.test .cards-track{
-  position: relative;
-  width: 100%;
-  height: 100%;
+.test .TituloCards {
+  font-size: 3.5rem;
+  text-align: center;
+  font-weight: 899;
+  padding: 0 20vw;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif; 
+  color: white;
+  padding-top: 15vh;
 }
 
-/* Las cards se apilan al centro; las animamos con transform desde JS */
-.test .card{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(320px, 70vw, 980px);
-  transform: translate(-50%,-50%);
-  border-radius: var(--card-radius);
-  background: var(--card-surface);
-  color: var(--card-text);
-  box-shadow: var(--shadow);
-  will-change: transform, opacity, filter;
-  transition: filter 400ms ease, box-shadow 400ms ease; /* NO transition de transform para que siga el scroll */
-}
-
-/* Visual interno igual que tenías */
-.test .card-inner{ display:flex; flex-direction:column; overflow:hidden; border-radius:var(--card-radius); }
-.test .card-visual{ margin:0; padding:var(--img-pad); background:var(--card-surface); }
-.test .card-visual img{
-  display:block; width:100%;
-  height:auto; aspect-ratio:5/4; object-fit:cover; border-radius:var(--img-radius);
-}
-
-/* Hint */
-.test .cards-hint{ text-align:center; margin-top:18px; color:rgba(255,255,255,0.35); font-size:13px; }
-
-/* Scrollbar estable (sin saltos de layout al aparecer/desaparecer) */
-html { scrollbar-gutter: stable both-edges; }
-
-
-
-
-
-
-/* === ESCENA STICKY === */
-.test .cards-section{
-  /* JS setea --cards al cargar; fallback por si acaso */
-  --cards: 5;
-  position: relative;
-  height: calc(var(--cards) * 100vh);
-  background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-  overflow: visible; /* importante para sticky */
-}
-
-.test .cards-viewport{
-  position: sticky;
-  top: 0;
-  height: 100vh;                /* pantalla completa */
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 32px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;             /* oculta excedentes durante el efecto */
-}
-
-.test .cards-track{
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* CARD base: solo transform/scale (GPU) — sin opacity/filters */
-.test .card{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(320px, 70vw, 980px);
-  transform: translate3d(-50%, -50%, 0); /* el JS actualiza */
-  border-radius: var(--card-radius);
-  background: var(--card-surface);
-  color: var(--card-text);
-  box-shadow: var(--shadow);
-  will-change: transform;
-  transition: box-shadow 240ms ease;      /* detalle visual suave */
-}
-
-/* Estados opcionales: no toques opacity/filters */
-.test .card.active{ box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
-.test .card.past{}
-
-/* Hint */
-.test .cards-hint{
-  text-align:center;
-  margin-top:18px;
-  color:rgba(255,255,255,0.35);
-  font-size:13px;
-}
-
-/* Mantiene el gutter de la barra estable */
-html { scrollbar-gutter: stable both-edges; }
-
-
-
-/* === ESCENA STICKY (desktop + mobile real) === */
-.test .cards-section{
-  --cards: 5; /* fallback; JS setea el real */
-  position: relative;
-  height: calc(var(--cards) * 100vh);
-  background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-  overflow: visible; /* necesario para sticky */
-}
-/* iOS/Android modernos: usar unidades "estables" de viewport */
-@supports (height: 100svh){
-  .test .cards-section{ height: calc(var(--cards) * 100svh); }
-}
-
-.test .cards-viewport{
-  position: sticky;
-  top: 0;
+.test .next-section {
+  background-color: #1a1a2e;
+  color: white;
+  padding: 150px 24px;
+  text-align: center;
   height: 100vh;
+}
+.test .next-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.test .next-section p {
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin: 1rem auto 0;
+  max-width: 800px;
+}
+
+/* ================= Sticky Cards ================= */
+.test .cards-section {
+  --cards: 5; /* fallback */
+  position: relative;
+  height: 200vh; /* será sobreescrita por JS */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  overflow: visible; 
+}
+
+.test .cards-viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh; /* desktop */
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* oculta excedentes del efecto */
-  /* ✅ habilita gesto vertical en móviles (si antes quedó "none") */
-  touch-action: pan-y !important;
-  -webkit-overflow-scrolling: touch; /* suaviza en iOS */
+  overflow: hidden; 
+  outline: none;
+  touch-action: pan-y;
 }
 @supports (height: 100svh){
   .test .cards-viewport{ height: 100svh; }
 }
 
-.test .cards-track{
+/* Mobile: viewport fijo para evitar saltos */
+@media (max-width: 520px) {
+  .test .cards-viewport { height: 500px; }
+  .test .card { width: 320px; }
+  .test .card-visual img { height: 250px; }
+  .test .TituloCards {
+     padding-top: 5vh;
+    font-size: 3.5rem;
+    color: black;  
+    font-family: 'bueno';
+  }
+  .test .card-visual img { filter: none; }
+}
+
+.test .cards-track {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.test .card{
+.test .card {
   position: absolute;
   top: 50%;
   left: 50%;
   width: clamp(320px, 70vw, 980px);
-  transform: translate3d(-50%, -50%, 0); /* el JS actualiza */
+  transform: translate3d(-50%, -50%, 0);
   border-radius: var(--card-radius);
-  background: var(--card-surface);
   color: var(--card-text);
   box-shadow: var(--shadow);
-  will-change: transform;            /* nada de filters/opacity en mobile */
-  transition: box-shadow 240ms ease; /* detalle visual */
+  transition: box-shadow 240ms ease;
+  will-change: transform, z-index;
 }
 
-.test .card.active{ box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
-.test .card.past{}
-
-.test .cards-hint{
-  text-align:center;
-  margin-top:18px;
-  color:rgba(255,255,255,0.35);
-  font-size:13px;
+.test .card::before, .test .card::after{
+  content:""; position:absolute; inset:0;
+  border-radius:calc(var(--card-radius) + 4px); z-index:-2;
+}
+.test .card::before{
+  left:50%; top:50%; width:100%; height:100%; background:var(--paper-left);
+  transform:translate(-56%,-48%) rotate(-4deg); filter:blur(.2px); opacity:.8;
+}
+.test .card::after{
+  left:50%; top:50%; width:100%; height:100%; background:var(--paper-right);
+  transform:translate(-44%,-52%) rotate(3deg); filter:blur(.2px); opacity:.9;
 }
 
-html { scrollbar-gutter: stable both-edges; }
+.test .card-inner {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+}
+.test .card-visual { margin: 0; padding: var(--img-pad); }
+.test .card-visual img {
+  display: block; width: 100%; height: auto; aspect-ratio: 5/4;
+  object-fit: cover; border-radius: var(--img-radius);
+  transition: transform 800ms cubic-bezier(.2,.85,.25,1);
+  filter: grayscale(100%);
+}
+
+.test .card-body {
+  padding: var(--body-pad-y) var(--body-pad-x) calc(var(--body-pad-y) + 8px);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.test .card-title {
+  margin: 8px 0 12px; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.02;
+  font-weight: 800; text-transform: uppercase;
+}
+.test .card-tags {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+}
+.test .tag {
+  display: inline-flex; align-items: center; height: 32px; padding: 0 12px;
+  border-radius: 8px; background: var(--chip-bg); color: var(--chip-text);
+  font-size: 14px; font-weight: 800; border: 2px solid rgba(0,0,0,.08);
+  box-shadow: 0 2px 0 rgba(0,0,0,.06) inset;
+}
+
+.test .card.active { box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.test .card.active .card-visual img { transform: scale(1.03); filter: grayscale(0%); }
+
+/* Colores por card */
+.test #firstCard { background-color: #dc5572; }
+.test #secondCard { background-color: #FF8C1E; }
+.test #thirdCard { background-color: #8B85CA; }
+.test #forCard   { background-color: #00ACBB; }
+.test #fifthCard { background-color: #98c21e; }
+
+.test .cards-hint {
+  text-align: center; margin-top: 18px; color: rgba(255,255,255,0.35); font-size: 1rem;
+}

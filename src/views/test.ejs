@@ -5,129 +5,116 @@
     <%- include('partials/navBar.ejs') %>
     <%- include('partials/scriptNavbar') %>
     <main class="test">
-      
+      <!-- HERO SECTION (Placeholder de video) -->
       <div class="hero hero--video">
-        <video
-          id="hero-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          class="video-bg"
-          aria-hidden="true"
-          poster="/images/NewVideo/poster.jpg"
-        >
-        
-          <source src="/images/NewIndex/Presentacion.mp4" type="video/mp4">
-        </video>
+          <video
+              id="hero-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              class="video-bg"
+              aria-hidden="true"
+              poster="https://placehold.co/1920x1080/000000/ffffff?text=Video+Poster"
+          >
+              <!-- Usando un video de ejemplo, reemplaza con tu archivo: /images/NewIndex/Presentacion.mp4 -->
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-waving-and-sunset-on-the-beach-1402-large.mp4" type="video/mp4">
+          </video>
       </div>
 
-
+      <!-- SECCIÓN DE CARDS STICKY (Scroll-driven) -->
       <section class="cards-section" id="cardsSection">
+          <h3 class="TituloCards">Nuestras secciones</h3>
+          <div class="cards-viewport" tabindex="0" aria-label="Galería de trabajos">
+              <div class="cards-track">
+      
+                  <!-- CARD 1 -->
+                  <article class="card">
+                      <div class="card-inner" id="firstCard">
+                          <figure class="card-visual">
+                              <!-- Placeholder de imagen, reemplaza con tu ruta -->
+                              <img src="https://placehold.co/800x640/dc5572/ffffff?text=NOSOTROS" alt="Retrato de De Visdeurbel">
+                          </figure>
+                          <div class="card-body">
+                              <h3 class="card-title">NOSOTROS</h3>
+                              <div class="card-tags">
+                                  <span class="tag">Historia</span><span class="tag">Fábrica</span><span class="tag">MOTION</span>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+      
+                  <!-- CARD 2 -->
+                  <article class="card">
+                      <div class="card-inner" id="secondCard">
+                          <figure class="card-visual">
+                              <img src="https://placehold.co/800x640/FF8C1E/ffffff?text=ELEGIR" alt="Retrato de Exposjoo">
+                          </figure>
+                          <div class="card-body">
+                              <h3 class="card-title">Te ayudamos a elegir</h3>
+                              <div class="card-tags">
+                                  <span class="tag">Classic</span><span class="tag">Original</span><span class="tag">Detox</span>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+      
+                  <!-- CARD 3 -->
+                  <article class="card">
+                      <div class="card-inner" id="thirdCard">
+                          <figure class="card-visual">
+                              <img src="https://placehold.co/800x640/8B85CA/ffffff?text=COMPRAR" alt="Retrato de Sophie Zwartkruis">
+                          </figure>
+                          <div class="card-body">
+                              <h3 class="card-title">¿Dónde comprar?</h3>
+                              <div class="card-tags">
+                                  <span class="tag">2024</span><span class="tag">DEV</span><span class="tag">GSAP</span>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+      
+                  <!-- CARD 4 -->
+                  <article class="card">
+                      <div class="card-inner" id="forCard">
+                          <figure class="card-visual">
+                              <img src="https://placehold.co/800x640/00ACBB/ffffff?text=EDUCATE" alt="Retrato de Broed">
+                          </figure>
+                          <div class="card-body">
+                              <h3 class="card-title">Educate con nosotros</h3>
+                              <div class="card-tags">
+                                  <span class="tag">2024</span><span class="tag">GSAP</span><span class="tag">3D</span>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
 
-        <h3 class="TituloCards">Nuestras secciones</h3>
-        <div class="cards-viewport" tabindex="0" aria-label="Galería de trabajos">
-          <div class="cards-track">
-  
-            <!-- CARD 1 -->
-            <article class="card">
-              <div class="card-inner"  id="firstCard">
-                <figure class="card-visual"  id="firstCard">
-                  <img src="../images/NewIndex/backgrounds/background1.png" alt="Retrato de De Visdeurbel">
-                </figure>
-                <div class="card-body">
-                  <h3 class="card-title">NOSOTROS</h3>
-                  <div class="card-tags">
-                    <span class="tag">Historia</span>
-                    <span class="tag">Fábrica</span>
-                    <span class="tag">MOTION</span>
-                  </div>
-                </div>
+                  <!-- CARD 5 -->
+                  <article class="card">
+                      <div class="card-inner" id="fifthCard">
+                          <figure class="card-visual">
+                              <img src="https://placehold.co/800x640/98c21e/ffffff?text=NOVEDADES" alt="Retrato de Broed">
+                          </figure>
+                          <div class="card-body">
+                              <h3 class="card-title">Novedades</h3>
+                              <div class="card-tags">
+                                  <span class="tag">2024</span><span class="tag">GSAP</span><span class="tag">3D</span>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+      
               </div>
-            </article>
-  
-            <!-- CARD 2 -->
-            <article class="card">
-              <div class="card-inner"  id="secondCard">
-                <figure class="card-visual"  id="secondCard">
-                  <img src="../images/NewIndex/backgrounds/background2.png" alt="Retrato de Exposjoo">
-                </figure>
-                <div class="card-body">
-                  <h3 class="card-title">Te ayudamos a elegir</h3>
-                  <div class="card-tags">
-                    <span class="tag">Classic</span>
-                    <span class="tag">Original</span>
-                    <span class="tag">Detox</span>
-                    <span class="tag">Premium</span>
-                    <span class="tag">Sensitive</span>
-                    
-                  </div>
-                </div>
-              </div>
-            </article>
-  
-            <!-- CARD 3 -->
-            <article class="card">
-              <div class="card-inner" id="thirdCard">
-                <figure class="card-visual" id="thirdCard">
-                  <img src="../images/NewIndex/backgrounds/background3.png" alt="Retrato de Sophie Zwartkruis">
-                </figure>
-                <div class="card-body">
-                  <h3 class="card-title">¿Dónde comprar?</h3>
-                  <div class="card-tags">
-                    <span class="tag">2024</span>
-                    <span class="tag">DEV</span>
-                    <span class="tag">GSAP</span>
-                    <span class="tag">MOTION</span>
-                  </div>
-                </div>
-              </div>
-            </article>
-  
-            <!-- CARD 4 -->
-            <article class="card">
-              <div class="card-inner" id="forCard">
-                <figure class="card-visual" id="forCard">
-                  <img src="../images/NewIndex/backgrounds/background1.png" alt="Retrato de Broed">
-                </figure>
-                <div class="card-body">
-                  <h3 class="card-title">Educate con nosotros</h3>
-                  <div class="card-tags">
-                    <span class="tag">2024</span>
-                    <span class="tag">GSAP</span>
-                    <span class="tag">3D</span>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-             <!-- CARD 5 -->
-             <article class="card">
-              <div class="card-inner" id="fifthCard">
-                <figure class="card-visual" id="fifthCard">
-                  <img src="../images/NewIndex/backgrounds/background2.png" alt="Retrato de Broed">
-                </figure>
-                <div class="card-body">
-                  <h3 class="card-title">Novedades</h3>
-                  <div class="card-tags">
-                    <span class="tag">2024</span>
-                    <span class="tag">GSAP</span>
-                    <span class="tag">3D</span>
-                  </div>
-                </div>
-              </div>
-            </article>
-  
           </div>
-        </div>
-        <div class="cards-hint">
-          Usá la rueda del mouse o scroll táctil dentro de este bloque
-        </div>
+          <div class="cards-hint">
+              Usá la rueda del mouse o scroll táctil para navegar entre las secciones
+          </div>
       </section>
 
 
-    </main>
+  </main>
+
     <%- include('partials/newFooter') %>
     <%- include('partials/scripts') %>
     <script>

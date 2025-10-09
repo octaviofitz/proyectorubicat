@@ -38,183 +38,187 @@
 <script src="./scriptNavbar.ejs" defer></script>
 
 
-
-
 <script>
-  /**
-   * Sticky scene con suavizado:
-   * - Lerp del progreso (SMOOTHING) = “inercia” al cambiar de card.
-   * - Easing en la escala.
-   * - Page-leave a la izquierda sólo en no-touch (para no frenar móviles).
-   * - Opcional: micro-snap al frenar el scroll (SNAP_ON_IDLE).
-   */
   document.addEventListener('DOMContentLoaded', () => {
-    const section  = document.getElementById('cardsSection');
-    const viewport = document.querySelector('.cards-viewport');
-    const cards    = Array.from(document.querySelectorAll('#cardsSection .card'));
-    if (!section || !viewport || cards.length === 0) return;
+      const section  = document.getElementById('cardsSection');
+      const viewport = document.querySelector('.cards-viewport');
+      const cards    = Array.from(document.querySelectorAll('#cardsSection .card'));
+      if (!section || !viewport || cards.length === 0) return;
   
-    // Altura de escena = N * 100vh (o svh si tu CSS la usa por @supports)
-    section.style.setProperty('--cards', String(cards.length));
+      // Config inicial
+      section.style.setProperty('--cards', String(cards.length)); 
   
-    // ===== Parámetros de "feel" =====
-    const SPREAD_X = 0.28;         // separación horizontal por “paso” (en vw)
-    const SCALE_MIN = 0.94;        // escala mínima fuera de foco
-    const PAGE_LEAVE_MS = 420;     // duración del “pase de página” (no-touch)
-    const isTouch = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+      // Parámetros
+      const SPREAD_X       = 0.28;     // separación horizontal (en proporción del ancho)
+      const SCALE_MIN      = 0.94;     // escala mínima
+      const PAGE_LEAVE_MS  = 460;
+      const isTouch        = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
   
-    // Suavizado (lerp): más alto = más “manteca”; demasiado alto = sensación gomosa
-    const SMOOTHING = isTouch ? 0.14 : 0.20;
+      // Estado
+      let ticking = false;
+      let lastNearest = 0;
+      const animatingCards = new Set();
   
-    // Micro-snap al detenerse (opcional, suave)
-    const SNAP_ON_IDLE = true;
-    const SNAP_IDLE_MS = 140;      // tiempo sin scroll para snap
-    const SNAP_EPS     = 0.12;     // si el progreso está cerca (en fracción de card), centra
+      // Métricas
+      let vh, vw, sectionTopAbs, animationUnitHeight, startOriginY;
   
-    // Easing para la escala (más orgánico que lineal)
-    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+      function updateMetrics(){
+        vh = window.innerHeight || document.documentElement.clientHeight;
+        vw = window.innerWidth  || document.documentElement.clientWidth;
   
-    // ===== Estado y cachés =====
-    let vh = window.innerHeight || document.documentElement.clientHeight;
-    let vw = window.innerWidth  || document.documentElement.clientWidth;
-    let sectionTopAbs = 0;
+        // Altura real del sticky viewport (100vh/100svh en desktop, 500px en mobile)
+        animationUnitHeight = viewport.offsetHeight;
   
-    let rawT = 0;          // progreso crudo 0..N-1 (desde scroll)
-    let smoothT = 0;       // progreso suavizado (lerp)
-    let lastNearest = 0;   // índice entero de la card “más cercana”
-    let ticking = false;
-    let idleTimer = null;
+        // Posición absoluta de la sección y del viewport sticky
+        const sectionRect  = section.getBoundingClientRect();
+        sectionTopAbs      = window.scrollY + sectionRect.top;
   
-    const animatingCards = new Set(); // para el page-leave puntual
+        // ***** MODIFICACIÓN CLAVE AQUI *****
+        // Queremos que t=0 (el inicio del scroll de cards) ocurra cuando
+        // la parte superior de la sección de cards (sectionTopAbs) esté 
+        // a (vh / 2) - (animationUnitHeight / 2) de distancia del top del viewport.
+        
+        // Esto calcula el punto de scroll Y en el que la card 1 está en el centro 
+        // vertical de la pantalla.
+        // La distancia que necesitamos scrollear antes de que t=0.
+        const initialScrollOffset = (vh / 2); // Queremos el centro de la pantalla
   
-    function updateMetrics(){
-      const r = section.getBoundingClientRect();
-      sectionTopAbs = window.scrollY + r.top;
-      vh = window.innerHeight || document.documentElement.clientHeight;
-      vw = window.innerWidth  || document.documentElement.clientWidth;
-    }
-    updateMetrics();
+        // El valor de 'startOriginY' debe ser el scrollY donde el efecto comienza.
+        // El efecto comienza cuando sectionTopAbs es igual a initialScrollOffset.
+        startOriginY = sectionTopAbs - initialScrollOffset;
+        // **********************************
   
-    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+        // Altura mínima para que haya espacio de:
+        // 1. Pre-scroll (para centrar la primera card)
+        // 2. (N-1) transiciones de cards
+        // 3. Post-scroll (para que la última card salga del centro)
+        // Ajustamos la altura requerida para que haya espacio para que la última card se centre (cards.length - 1) * unitHeight, 
+        // y luego espacio para que salga completamente (animationUnitHeight) + (vh / 2) de post-scroll.
+        const requiredHeight = initialScrollOffset + ((cards.length - 1) * animationUnitHeight) + animationUnitHeight + (vh / 2);
   
-    // Progreso crudo 0..(N-1)
-    function getLocalT(scrollY){
-      const yCenter = scrollY + vh/2;
-      const rel = clamp(yCenter - sectionTopAbs, 0, (cards.length * vh) - 1);
-      return clamp(rel / vh, 0, cards.length - 1);
-    }
+        if (section.offsetHeight < requiredHeight) {
+          section.style.height = `${requiredHeight}px`;
+        }
+      
+        // Esto asegura que la card se quede 'sticky' en el centro del viewport 
+        // (que es lo que se busca visualmente)
+        viewport.style.top = `calc(50% - ${animationUnitHeight / 2}px)`;
   
-    function pageLeaveLeft(card){
-      if (isTouch) return;                     // desactivado en touch
-      if (!card || animatingCards.has(card)) return;
-      animatingCards.add(card);
-      card.style.transition = `transform ${PAGE_LEAVE_MS}ms cubic-bezier(.22,.75,.25,1)`;
-      requestAnimationFrame(() => {
-        card.style.transform = 'translate3d(-50%, -50%, 0) translate3d(-140vw, 0, 0) rotate(-6deg) scale(0.9)';
-      });
-      setTimeout(() => {
-        card.style.transition = '';
-        animatingCards.delete(card);
-      }, PAGE_LEAVE_MS + 40);
-    }
+      }
+      updateMetrics();
   
-    function render(){
-      ticking = false;
+      function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
   
-      // Lerp del progreso
-      smoothT += (rawT - smoothT) * SMOOTHING;
+      // t en [0, N-1] usando origen centro-a-centro
+      function getLocalT(scrollY){
+        // Aquí el cálculo de scrollDistance ya usa el nuevo startOriginY
+        let scrollDistance = scrollY - startOriginY;
+        
+        // El máximo scroll animado es (N) * unitHeight.
+        const maxScrollForAnimation = (cards.length) * animationUnitHeight; 
+        const rel = clamp(scrollDistance, 0, maxScrollForAnimation);
+        
+        // t ahora puede ir hasta N.
+        return rel / animationUnitHeight;
+      }
   
-      const t = smoothT;                   // 0..N-1 (float suavizado)
-      const nearest = Math.round(t);       // card “activa”
-      if (nearest !== lastNearest) {
-        const outgoing = cards[lastNearest];
-        if (outgoing) pageLeaveLeft(outgoing);
-        lastNearest = nearest;
-      }
+      // Animación de salida a la izquierda (desktop)
+      function pageLeaveLeft(card){
+        if (isTouch || animatingCards.has(card)) return;
   
-      const txFactor = vw * SPREAD_X;
+        animatingCards.add(card);
+        card.style.transition = `transform ${PAGE_LEAVE_MS}ms cubic-bezier(.22,.75,.25,1)`;
   
-      for (let i = 0; i < cards.length; i++){
-        const card = cards[i];
-        if (animatingCards.has(card)) continue; // no pisar animación puntual
+        requestAnimationFrame(() => {
+          card.style.transform = 'translate3d(-50%, -50%, 0) translate3d(-140vw, 0, 0) rotate(-6deg) scale(0.9)';
+        });
   
-        const d  = i - t;                 // distancia continua al foco
-        const ad = Math.abs(d);
+        setTimeout(() => {
+          card.style.transition = '';
+          animatingCards.delete(card);
+        }, PAGE_LEAVE_MS + 40);
+      }
   
-        // desplazamiento x
-        const tx = d * txFactor;
+      // Render principal
+      function render(){
+        ticking = false;
+        const t = getLocalT(window.scrollY);
+        const nearest = Math.round(t);
   
-        // escala con easing (ad normalizado a [0,1])
-        const ad01 = Math.min(1, ad);
-        const eased = easeOutCubic(1 - ad01); // 1 cerca del foco → 0 lejos
-        const s = SCALE_MIN + (1 - SCALE_MIN) * eased;
+        // Disparo de animación al avanzar de índice
+        // Solo se dispara la animación de salida si el índice que pasa (lastNearest) no es el último.
+        if (nearest > lastNearest && lastNearest < cards.length - 1) {
+          const outgoing = cards[lastNearest];
+          if (outgoing) pageLeaveLeft(outgoing);
+        }
+        lastNearest = nearest;
   
-        const z = 1000 + (cards.length - Math.floor(ad * 10));
+        const txFactor = vw * SPREAD_X;
   
-        card.style.transform = `translate3d(-50%, -50%, 0) translate3d(${tx}px, 0, 0) scale(${s})`;
-        card.style.zIndex    = z;
+        for (let i = 0; i < cards.length; i++){
+          const card = cards[i];
+          if (animatingCards.has(card)) continue;
   
-        card.classList.toggle('active', i === nearest);
-        card.classList.toggle('past',   i <  nearest);
-      }
+          const d  = i - t;               // distancia al índice virtual
+          const ad = Math.abs(d);
+          
+          let tx = d * txFactor;
+          let s = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad);
   
-      // Si el suavizado dejó muy cerca del target, “engancha” exacto para evitar micro-vibración
-      if (Math.abs(rawT - smoothT) < 0.001) smoothT = rawT;
-    }
+          // MODIFICACIÓN CLAVE: Fija la última card cuando t >= cards.length - 1 (mientras sale)
+          if (i === cards.length - 1 && t >= cards.length - 1) {
+              // Mantener la última card centrada y a escala 1 
+              // Esto asegura que la última tarjeta (i) no se mueva horizontalmente (tx=0)
+              // y mantenga la escala 1 (s=1) mientras t avanza más allá de su punto de anclaje (cards.length - 1)
+              tx = 0; 
+              s = 1; 
+          } else {
+              // Se calcula la escala normal solo si no es la última card o si t aún no ha llegado a su posición
+              // escala entre 1 y SCALE_MIN según cercanía
+              s = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad);
+          }
   
-    function scheduleRAF(){
-      if (!ticking){
-        ticking = true;
-        requestAnimationFrame(render);
-      }
-    }
+          const z = 1000 + (cards.length - Math.floor(ad * 10));
   
-    // Micro-snap cuando el scroll se detiene cerca de una etapa
-    function scheduleIdleSnap(){
-      if (!SNAP_ON_IDLE) return;
-      if (idleTimer) clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        const stage = Math.round(rawT);
-        const diff = Math.abs(rawT - stage);
-        if (diff <= SNAP_EPS){
-          // centra exactamente esa etapa
-          const targetY = sectionTopAbs + (stage * vh) - vh/2;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        }
-      }, SNAP_IDLE_MS);
-    }
+          card.style.transform = `translate3d(-50%, -50%, 0) translate3d(${tx}px, 0, 0) scale(${s})`;
+          card.style.zIndex    = z;
   
-    function onScroll(){
-      rawT = getLocalT(window.scrollY);
-      scheduleRAF();
-      scheduleIdleSnap();
-    }
+          card.classList.toggle('active', i === nearest);
+          card.classList.toggle('past',   i <  nearest);
   
-    function onResize(){
-      updateMetrics();
-      // Recalcular progreso con nuevas métricas y alinear el suavizado
-      rawT = getLocalT(window.scrollY);
-      if (Math.abs(smoothT - rawT) > 1) smoothT = rawT; // evita saltos grandes
-      scheduleRAF();
-    }
+          const img = card.querySelector('.card-visual img');
+          if (img) {
+            img.style.filter = (i === nearest) ? 'grayscale(0%)' : 'grayscale(100%)';
+          }
+        }
+      }
   
-    // Eventos (pasivos: nunca bloqueamos el scroll nativo)
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize, { passive: true });
+      function onScroll(){
+        if (!ticking){
+          ticking = true;
+          requestAnimationFrame(render);
+        }
+      }
+      function onResize(){
+        updateMetrics();
+        requestAnimationFrame(render);
+      }
   
-    // Click: centrar una card
-    cards.forEach((c, i) => {
-      c.addEventListener('click', () => {
-        const targetY = sectionTopAbs + (i * vh) - vh/2;
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
-      }, { passive: true });
-      c.addEventListener('dragstart', e => e.preventDefault());
-    });
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onResize, { passive: true });
   
-    // Inicial
-    rawT = getLocalT(window.scrollY);
-    smoothT = rawT;             // arrancar sin “arrastre”
-    requestAnimationFrame(render);
+      // Click: centra una card con scroll suave (usa el origen centro-a-centro)
+      cards.forEach((c, i) => {
+        c.addEventListener('click', () => {
+          // El nuevo cálculo de targetY asegura que la card se alinee al centro
+          const targetY = startOriginY + (i * animationUnitHeight);
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        });
+        c.addEventListener('dragstart', e => e.preventDefault());
+      });
+  
+      // Primer render
+      requestAnimationFrame(render);
   });
   </script>
   

@@ -17,12 +17,8 @@
 
 html{
     scroll-behavior: smooth;
-    scrollbar-gutter: stable both-edges;
 }
 
-.test .cards-viewport{
-    touch-action: none; /* ya evita el scroll nativo dentro del viewport */
-  }
 
 a{
     text-decoration: none;
