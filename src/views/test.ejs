@@ -6,22 +6,7 @@
     <%- include('partials/scriptNavbar') %>
     <main class="test">
       <!-- HERO SECTION (Placeholder de video) -->
-      <div class="hero hero--video">
-          <video
-              id="hero-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-              class="video-bg"
-              aria-hidden="true"
-              poster="https://placehold.co/1920x1080/000000/ffffff?text=Video+Poster"
-          >
-              <!-- Usando un video de ejemplo, reemplaza con tu archivo: /images/NewIndex/Presentacion.mp4 -->
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-waving-and-sunset-on-the-beach-1402-large.mp4" type="video/mp4">
-          </video>
-      </div>
+      <div class="hero hero--video"> <video id="hero-video" autoplay muted loop playsinline preload="auto" class="video-bg" aria-hidden="true" poster="/images/NewVideo/poster.jpg" > <source src="/images/NewIndex/Presentacion.mp4" type="video/mp4"> </video> </div>
 
       <!-- SECCIÓN DE CARDS STICKY (Scroll-driven) -->
       <section class="cards-section" id="cardsSection">
@@ -107,11 +92,13 @@
       
               </div>
           </div>
-          <div class="cards-hint">
-              Usá la rueda del mouse o scroll táctil para navegar entre las secciones
-          </div>
+
+
       </section>
 
+      <div class="prueba">
+        Usá la rueda del mouse o scroll táctil para navegar entre las secciones
+    </div>
 
   </main>
 

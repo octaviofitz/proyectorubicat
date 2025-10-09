@@ -91,6 +91,7 @@
   height: 200vh; /* será sobreescrita por JS */
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   overflow: visible; 
+  background-color: black;
 }
 
 .test .cards-viewport {
@@ -117,9 +118,10 @@
   .test .card { width: 320px; }
   .test .card-visual img { height: 250px; }
   .test .TituloCards {
-     padding-top: 5vh;
+     padding-top: 10vh;
+     padding-bottom: 2vh;
     font-size: 3.5rem;
-    color: black;  
+    color: white;  
     font-family: 'bueno';
   }
   .test .card-visual img { filter: none; }
@@ -202,4 +204,13 @@
 
 .test .cards-hint {
   text-align: center; margin-top: 18px; color: rgba(255,255,255,0.35); font-size: 1rem;
+}
+
+
+.test .prueba{
+  color: gray;
+  font-size: 1rem;
+  padding: 2rem;
+  text-align: center;
+  background-color: black;
 }
