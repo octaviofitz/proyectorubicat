@@ -53,9 +53,15 @@
       const SCALE_MIN      = 0.94;     // escala mínima
       const PAGE_LEAVE_MS  = 460;
       const isTouch        = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+      
+      // === Variables para el Suavizado (Smoothing / LERP) ===
+      let t_current = 0;
+      let t_target = 0;
+      // Factor de Interpolación (LERP). Menor valor = más suave, pero más lag.
+      const LERP_FACTOR = 0.1; 
+      
   
       // Estado
-      let ticking = false;
       let lastNearest = 0;
       const animatingCards = new Set();
   
@@ -73,27 +79,13 @@
         const sectionRect  = section.getBoundingClientRect();
         sectionTopAbs      = window.scrollY + sectionRect.top;
   
-        // ***** MODIFICACIÓN CLAVE AQUI *****
-        // Queremos que t=0 (el inicio del scroll de cards) ocurra cuando
-        // la parte superior de la sección de cards (sectionTopAbs) esté 
-        // a (vh / 2) - (animationUnitHeight / 2) de distancia del top del viewport.
-        
-        // Esto calcula el punto de scroll Y en el que la card 1 está en el centro 
-        // vertical de la pantalla.
         // La distancia que necesitamos scrollear antes de que t=0.
         const initialScrollOffset = (vh / 2); // Queremos el centro de la pantalla
   
-        // El valor de 'startOriginY' debe ser el scrollY donde el efecto comienza.
-        // El efecto comienza cuando sectionTopAbs es igual a initialScrollOffset.
+        // El scrollY donde el efecto comienza (t=0)
         startOriginY = sectionTopAbs - initialScrollOffset;
-        // **********************************
-  
-        // Altura mínima para que haya espacio de:
-        // 1. Pre-scroll (para centrar la primera card)
-        // 2. (N-1) transiciones de cards
-        // 3. Post-scroll (para que la última card salga del centro)
-        // Ajustamos la altura requerida para que haya espacio para que la última card se centre (cards.length - 1) * unitHeight, 
-        // y luego espacio para que salga completamente (animationUnitHeight) + (vh / 2) de post-scroll.
+        
+        // Altura total de la sección para el scroll
         const requiredHeight = initialScrollOffset + ((cards.length - 1) * animationUnitHeight) + animationUnitHeight + (vh / 2);
   
         if (section.offsetHeight < requiredHeight) {
@@ -101,7 +93,6 @@
         }
       
         // Esto asegura que la card se quede 'sticky' en el centro del viewport 
-        // (que es lo que se busca visualmente)
         viewport.style.top = `calc(50% - ${animationUnitHeight / 2}px)`;
   
       }
@@ -109,16 +100,15 @@
   
       function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
   
-      // t en [0, N-1] usando origen centro-a-centro
+      // Retorna el valor 't' [0, N] no suavizado
       function getLocalT(scrollY){
-        // Aquí el cálculo de scrollDistance ya usa el nuevo startOriginY
+        
         let scrollDistance = scrollY - startOriginY;
         
         // El máximo scroll animado es (N) * unitHeight.
         const maxScrollForAnimation = (cards.length) * animationUnitHeight; 
         const rel = clamp(scrollDistance, 0, maxScrollForAnimation);
         
-        // t ahora puede ir hasta N.
         return rel / animationUnitHeight;
       }
   
@@ -139,10 +129,8 @@
         }, PAGE_LEAVE_MS + 40);
       }
   
-      // Render principal
-      function render(){
-        ticking = false;
-        const t = getLocalT(window.scrollY);
+      // Render principal (ahora recibe 't' como valor ya suavizado)
+      function render(t){
         const nearest = Math.round(t);
   
         // Disparo de animación al avanzar de índice
@@ -159,22 +147,18 @@
           const card = cards[i];
           if (animatingCards.has(card)) continue;
   
-          const d  = i - t;               // distancia al índice virtual
+          const d  = i - t;               // distancia al índice virtual (ahora suavizada)
           const ad = Math.abs(d);
           
           let tx = d * txFactor;
           let s = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad);
   
-          // MODIFICACIÓN CLAVE: Fija la última card cuando t >= cards.length - 1 (mientras sale)
+          // Fijar la última card cuando t >= cards.length - 1
           if (i === cards.length - 1 && t >= cards.length - 1) {
-              // Mantener la última card centrada y a escala 1 
-              // Esto asegura que la última tarjeta (i) no se mueva horizontalmente (tx=0)
-              // y mantenga la escala 1 (s=1) mientras t avanza más allá de su punto de anclaje (cards.length - 1)
               tx = 0; 
               s = 1; 
           } else {
               // Se calcula la escala normal solo si no es la última card o si t aún no ha llegado a su posición
-              // escala entre 1 y SCALE_MIN según cercanía
               s = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad);
           }
   
@@ -193,21 +177,43 @@
         }
       }
   
+      // El loop de animación que maneja la interpolación
+      function animateLoop() {
+          // LERP: t_current se acerca a t_target en cada frame
+          t_current += (t_target - t_current) * LERP_FACTOR;
+  
+          // Si la diferencia es muy pequeña, podemos detener el loop para ahorrar recursos
+          const diff = Math.abs(t_target - t_current);
+          if (diff > 0.001) {
+              render(t_current);
+          } else {
+              // Aseguramos que la posición final sea precisa
+              if (t_current !== t_target) {
+                  t_current = t_target;
+                  render(t_current);
+              }
+          }
+  
+          requestAnimationFrame(animateLoop);
+      }
+      
+      // onScroll ahora solo actualiza la posición objetivo (t_target)
       function onScroll(){
-        if (!ticking){
-          ticking = true;
-          requestAnimationFrame(render);
-        }
+        t_target = getLocalT(window.scrollY);
       }
+  
       function onResize(){
         updateMetrics();
-        requestAnimationFrame(render);
+        // Asegura que la posición objetivo y actual se reseteen al redimensionar
+        t_target = getLocalT(window.scrollY);
+        t_current = t_target; // Evita saltos al cambiar tamaño
+        render(t_current);
       }
   
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onResize, { passive: true });
   
-      // Click: centra una card con scroll suave (usa el origen centro-a-centro)
+      // Click: centra una card con scroll suave 
       cards.forEach((c, i) => {
         c.addEventListener('click', () => {
           // El nuevo cálculo de targetY asegura que la card se alinee al centro
@@ -217,8 +223,8 @@
         c.addEventListener('dragstart', e => e.preventDefault());
       });
   
-      // Primer render
-      requestAnimationFrame(render);
+      // Iniciamos el loop de animación
+      animateLoop();
   });
   </script>
   
