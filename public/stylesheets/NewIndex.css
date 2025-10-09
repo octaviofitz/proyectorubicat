@@ -367,3 +367,92 @@
 
 /* Scrollbar estable (sin saltos de layout al aparecer/desaparecer) */
 html { scrollbar-gutter: stable both-edges; }
+
+
+
+/* ultima prueba */
+
+/* === Base: desktop “scene” (sticky) === */
+html { scrollbar-gutter: stable both-edges; }
+
+.test .cards-section{
+  --cards: 5; /* fallback, el JS setea el real */
+  position: relative;
+  height: calc(var(--cards) * 100vh);
+  background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+  overflow: visible;
+}
+
+.test .cards-viewport{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  outline: none;
+}
+
+.test .cards-track{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.test .card{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(320px, 70vw, 980px);
+  transform: translate3d(-50%, -50%, 0); /* GPU-friendly */
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  color: var(--card-text);
+  box-shadow: var(--shadow);
+  will-change: transform; /* sin filters ni opacity */
+  transition: box-shadow 280ms ease; /* suave */
+}
+
+.test .card.active{ box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.test .card.past{  /* si querés, dejalo vacío para 0 costo */ }
+
+/* Hint */
+.test .cards-hint{ text-align:center; margin-top:18px; color:rgba(255,255,255,0.35); font-size:13px; }
+
+/* ====== MOBILE FALLBACK (CSS-only, sin JS) ====== */
+@media (max-width: 768px){
+  .test .cards-section{
+    height: auto;                 /* la sección ya no es “escena alta” */
+    scroll-snap-type: y mandatory;/* snap vertical */
+  }
+  .test .cards-viewport{
+    position: static;
+    height: auto;
+    max-width: none;
+    padding: 0;
+    overflow: visible;
+  }
+  .test .cards-track{
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .test .card{
+    position: relative;           /* apiladas en flujo */
+    left: auto; top: auto;
+    width: min(92vw, 560px);
+    margin: 8vh auto;             /* respiración vertical */
+    transform: none;              /* sin transform fijo */
+    scroll-snap-align: center;    /* cada card se centra al soltar */
+    transition: transform 320ms cubic-bezier(.22,.75,.25,1), box-shadow 280ms ease;
+  }
+  /* efecto de entrada leve cuando la card es la que queda más centrada */
+  .test .card:target,             /* si alguna vez enlazás con #id */
+  .test .card.is-near-center{     /* clase que agregamos opcionalmente por IO */
+    transform: scale(0.98) translateZ(0);
+  }
+}

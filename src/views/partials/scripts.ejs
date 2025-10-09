@@ -45,92 +45,110 @@
     const cards    = Array.from(document.querySelectorAll('#cardsSection .card'));
     if (!section || !viewport || cards.length === 0) return;
   
-    // --- 1) escena alta
-    section.style.setProperty('--cards', String(cards.length));
+    // ====== Detección MOBILE: usar sólo CSS scroll-snap, sin JS pesado ======
+    const isMobile = window.matchMedia('(max-width: 768px)').matches 
+                     || (navigator.maxTouchPoints > 0 && window.innerWidth < 900);
   
-    // --- 2) parámetros de “feel”
-    const SPREAD_X = 0.28;   // separación horizontal por “paso” (en anchos de viewport)
-    const SCALE_MIN = 0.92;  // escala mínima cuando está lejos del foco
-    const BLUR_MAX = 0.8;    // blur máximo fuera de foco (poné 0 si no querés nada)
-    const EASE = t => 1 - Math.pow(1 - t, 3); // easeOutCubic (si quisieras mezclar)
-  
-    // --- 3) estado
-    let ticking = false;
-    let lastNearest = 0;
-    const animatingCards = new Set(); // cards que están en animación de salida
-  
-    // helpers
-    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
-    function getLocalT(){
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const sectionTopAbs = window.scrollY + rect.top;
-      const y = clamp(window.scrollY + vh/2 - sectionTopAbs, 0, rect.height - 1);
-      return clamp(y / vh, 0, cards.length - 1); // 0..N-1
+    // Ayuda opcional para mobile: marcar la card "más centrada" (clase sólo estética)
+    if (isMobile) {
+      // IO barato para añadir/quitar .is-near-center
+      const io = new IntersectionObserver((entries) => {
+        let best = null, bestRatio = 0;
+        entries.forEach(en => {
+          if (en.intersectionRatio > bestRatio) { best = en.target; bestRatio = en.intersectionRatio; }
+        });
+        if (!best) return;
+        cards.forEach(c => c.classList.remove('is-near-center'));
+        best.classList.add('is-near-center');
+      }, { threshold: [0.25, 0.5, 0.75, 1.0] });
+      cards.forEach(c => io.observe(c));
+      // No scene logic
+      return;
     }
   
-    // animación de “pase de página” hacia la izquierda
+    // ====== DESKTOP “scene” ======
+    section.style.setProperty('--cards', String(cards.length));
+  
+    // Parámetros “feel” (GPU-friendly)
+    const SPREAD_X = 0.28;   // separación horizontal por “paso”
+    const SCALE_MIN = 0.94;  // escala mínima fuera de foco
+    const PAGE_LEAVE_MS = 520;
+  
+    // Estado
+    let ticking = false;
+    let lastNearest = 0;
+    const animatingCards = new Set();
+  
+    // Cache de métricas para evitar reflows en cada frame
+    let sectionTopAbs = 0;
+    let vh = window.innerHeight || document.documentElement.clientHeight;
+    let vw = window.innerWidth || document.documentElement.clientWidth;
+  
+    function updateMetrics(){
+      // Obtener posición absoluta del inicio de la sección una sola vez (o en resize)
+      const rect = section.getBoundingClientRect();
+      sectionTopAbs = window.scrollY + rect.top;
+      vh = window.innerHeight || document.documentElement.clientHeight;
+      vw = window.innerWidth || document.documentElement.clientWidth;
+    }
+    updateMetrics();
+  
+    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+  
+    function getLocalT(scrollY){
+      // Progreso 0 .. (N-1) sin leer rect en cada frame
+      const yCenter = scrollY + vh/2;
+      const rel = clamp(yCenter - sectionTopAbs, 0, (cards.length*vh) - 1);
+      return clamp(rel / vh, 0, cards.length - 1);
+    }
+  
     function pageLeaveLeft(card){
       if (!card || animatingCards.has(card)) return;
       animatingCards.add(card);
-  
-      // Congelamos el transform actual (el que dejó el render en el frame anterior)
-      // y aplicamos una transición puntual de salida hacia la izquierda.
-      const DURATION = 520; // ms
-      // Ponemos una transición SOLO para esta animación puntual
-      card.style.transition = 'transform 520ms cubic-bezier(.22,.75,.25,1)';
-      // Empujamos al siguiente frame para que tome el transform actual como "from"
+      card.style.transition = `transform ${PAGE_LEAVE_MS}ms cubic-bezier(.22,.75,.25,1)`;
+      // Empuja a la izquierda, leve giro y scale
       requestAnimationFrame(() => {
-        // la mandamos a la izquierda con leve rotación y leve shrink (sin opacidad)
-        card.style.transform = 'translate(-50%,-50%) translateX(-140vw) rotate(-6deg) scale(0.9)';
+        card.style.transform = 'translate3d(-50%, -50%, 0) translate3d(-140vw, 0, 0) rotate(-6deg) scale(0.9)';
       });
-  
-      // Al finalizar, limpiamos y volvemos a ceder control al render
       setTimeout(() => {
-        card.style.transition = ''; // limpiamos transition puntual
+        card.style.transition = '';
         animatingCards.delete(card);
-      }, DURATION + 40);
+      }, PAGE_LEAVE_MS + 40);
     }
   
     function render(){
       ticking = false;
-      const t = getLocalT();          // 0..N-1 (float)
-      const nearest = Math.round(t);  // card “activa” (entera)
+      const t = getLocalT(window.scrollY);    // 0..N-1 (float)
+      const nearest = Math.round(t);
   
-      // Si cambió la card activa => animá la que salió (si existe)
       if (nearest !== lastNearest) {
         const outgoing = cards[lastNearest];
-        // Efecto de página SIEMPRE hacia la izquierda (como pediste)
         if (outgoing) pageLeaveLeft(outgoing);
         lastNearest = nearest;
       }
   
-      const w = window.innerWidth || document.documentElement.clientWidth;
+      // Actualizar transform de cada card (si no está en animación)
+      const txFactor = vw * SPREAD_X;
+      for (let i=0; i<cards.length; i++){
+        const card = cards[i];
+        if (animatingCards.has(card)) continue;
   
-      cards.forEach((card, i) => {
-        // si la card está animándose, no la toques
-        if (animatingCards.has(card)) return;
-  
-        const d = i - t;           // distancia continua al foco
+        const d = i - t;                 // distancia al foco
         const ad = Math.abs(d);
-  
-        // desplazamiento lateral respecto del centro de la escena
-        const tx = d * (w * SPREAD_X);
-  
-        // escala y blur según distancia (sin opacidad)
-        const s  = 1 - (1 - SCALE_MIN) * clamp(ad, 0, 1);
-        const bl = BLUR_MAX * clamp(ad, 0, 1);
-  
-        // z-index: la más cercana arriba
+        const tx = d * txFactor;         // desplazamiento horizontal
+        const s  = 1 - (1 - SCALE_MIN) * (ad > 1 ? 1 : ad); // escala lineal 0..1
         const z  = 1000 + (cards.length - Math.floor(ad * 10));
   
-        card.style.transform = `translate(-50%,-50%) translateX(${tx}px) scale(${s})`;
-        card.style.filter    = `blur(${bl}px)`;
-        card.style.zIndex    = z;
-  
-        card.classList.toggle('active', i === nearest);
-        card.classList.toggle('past',   i <  nearest);
-      });
+        card.style.transform = `translate3d(-50%, -50%, 0) translate3d(${tx}px, 0, 0) scale(${s})`;
+        card.style.zIndex = z;
+        // clases utilitarias por si querés estilos
+        if (i === nearest) {
+          card.classList.add('active'); 
+        } else {
+          card.classList.remove('active');
+        }
+        if (i < nearest) card.classList.add('past'); else card.classList.remove('past');
+      }
     }
   
     function onScroll(){
@@ -139,26 +157,26 @@
         requestAnimationFrame(render);
       }
     }
+    function onResize(){
+      updateMetrics();
+      requestAnimationFrame(render);
+    }
   
-    // eventos
+    // Eventos
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
   
-    // click para centrar una card (opcional)
+    // Click para saltar a una card (centra esa “etapa”)
     cards.forEach((c, i) => {
       c.addEventListener('click', () => {
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const rect = section.getBoundingClientRect();
-        const sectionTopAbs = window.scrollY + rect.top;
         const targetY = sectionTopAbs + (i * vh) - vh/2;
         window.scrollTo({ top: targetY, behavior: 'smooth' });
-      });
+      }, { passive: true });
       c.addEventListener('dragstart', e => e.preventDefault());
     });
   
-    // inicial
-    lastNearest = Math.round(getLocalT());
-    render();
+    // Inicial
+    requestAnimationFrame(render);
   });
   </script>
   
