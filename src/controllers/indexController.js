@@ -4,6 +4,9 @@ const sgMail = require('@sendgrid/mail')
 sgMail.setTimeout(2000);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1ywIdzVIcC43jaL01HGePKyg79aVEb2Xi23DSKWYDn-Q/viewform';
+
+
 module.exports = {
 
     index: (req, res) => {
@@ -99,5 +102,15 @@ module.exports = {
                 title: "Rubicat - test",
                 descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat ",
                 keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
-              })} 
+              })},
+
+              
+              riodejaneiro: (req, res) => {
+                // Si querés conservar UTM/params de Instagram:
+                const q = new URLSearchParams(req.query).toString();
+                const target = q ? `${GOOGLE_FORM_URL}?${q}` : GOOGLE_FORM_URL;
+            
+                // 302 temporal (campaña). Si querés “permanente” usar 301.
+                return res.redirect(302, target);
+              }
       }
