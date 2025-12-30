@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-require('dotenv').config();
+
 const sgMail = require('@sendgrid/mail')
 sgMail.setTimeout(2000);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -36,7 +36,7 @@ module.exports = {
     
           const msg = {
             to: 'info@rubicat.com.ar',
-            from: 'webrubicat@gmail.com', // <-- sin cambios
+            from: 'rubicat.web@gmail.com', // <-- sin cambios
             subject: asunto,
             text: mensaje,
             html: `
@@ -48,8 +48,11 @@ module.exports = {
               <p>Correo enviado desde www.rubicat.com.ar</p>
             `,
           };
+
     
           await sgMail.send(msg);
+
+          
     
           // Éxito: redirigimos
           return res.redirect('/formulario-enviado');
