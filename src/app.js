@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '/var/www/rubicat/.env' });
 /* if (!process.env.SENDGRID_API_KEY) {
   throw new Error("SENDGRID_API_KEY no definida");
 } */
