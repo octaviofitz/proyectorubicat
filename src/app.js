@@ -1,7 +1,7 @@
 require('dotenv').config();
-if (!process.env.SENDGRID_API_KEY) {
+/* if (!process.env.SENDGRID_API_KEY) {
   throw new Error("SENDGRID_API_KEY no definida");
-}
+} */
 
 var createError = require('http-errors');
 var express = require('express');
