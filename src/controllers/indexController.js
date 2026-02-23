@@ -45,7 +45,7 @@ module.exports = {
       }
 
       // En sandbox, el FROM tiene que ser el postmaster del sandbox domain
-      const from = `Rubicat Web <postmaster@${process.env.MAILGUN_DOMAIN}>`;
+      const from = "Rubicat Web <no-reply@mg.rubicat.com.ar>";
 
       // El TO: podés dejar fijo o por env
       const to = 'info@rubicat.com.ar';
