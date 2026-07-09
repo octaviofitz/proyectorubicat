@@ -493,6 +493,10 @@
         font-size: 25px;
         font-weight: 700;
     }
+
+    .DetalleProductos .producto .imagen-precio .data{
+        padding-left: 12vw;
+    }
 }
 
 @media (min-width: 1440px){
@@ -510,7 +514,7 @@
 
     .DetalleProductos .producto .imagen-precio .data{
         max-width: 40vw;
-        padding-left: 4vw;
+        padding-left: 12vw;
     }
     
 
