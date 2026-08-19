@@ -5,105 +5,104 @@
   color: white;
 }
 
-.newFooter .containerTitulos{
+.newFooter .LogoyRedes{
   display: flex;
   flex-direction: column;
 }
 
-.newFooter .titulo{
-  font-size: 5rem;
-  margin-bottom: -1rem;
-  font-family: "bueno"!important;
+
+.newFooter .LogoyRedes .iconosMenu .texto{
+  color: gray;
+  font-weight: 900;
 }
 
-.newFooter .subtitulo{
-  font-size: 2.5rem;
-  font-family: "bueno"!important;
-}
-
-.newFooter .navs{
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -0.75rem;
-}
-
-.newFooter .navs .links{
-  margin: 0 0.75rem;
-  font-size: 1.2rem;
-  list-style: none; 
-  text-decoration: underline;
-  cursor: pointer;
-  font-family: "bueno"!important;
-}
-
-.newFooter .containerData{
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
-}
-
-.newFooter .containerData .titulo{
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  font-family: "bueno"!important;
-}
-
-.newFooter .containerData .subtitulo{
-  font-size: 1.5rem;
-  font-family: "bueno"!important;
-
-}
-
-
-/* iconos */
-
-.newFooter .iconosMenu .iconos{
+.newFooter .LogoyRedes .iconosMenu .iconos{
   display: flex;
   margin-top: 1.25rem;
 }
 
-.newFooter .iconosMenu .fa-instagram,
-.newFooter .iconosMenu .fa-tiktok,
-.newFooter .iconosMenu .fa-whatsapp{
+.newFooter .LogoyRedes .iconosMenu .fa-instagram,
+.newFooter .LogoyRedes .iconosMenu .fa-tiktok,
+.newFooter .LogoyRedes .iconosMenu .fa-whatsapp{
   color: #fff;
-  padding: 0.75rem;
+  padding: 0.5rem;
   margin-right: 1rem;
   font-size: 1.75rem;
+  margin-top: -0.25rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
   }
-.newFooter .iconosMenu .fa-instagram{
+
+.newFooter .LogoyRedes .iconosMenu .fa-instagram{
   background-color: #dc5572;
   border-radius: 50%;
 }
 
-.newFooter .iconosMenu .fa-tiktok{
+.newFooter .LogoyRedes .iconosMenu .fa-tiktok{
   background-color: #FF8C1E;
   border-radius: 50%;
 }
 
-.newFooter .iconosMenu .fa-whatsapp{
+.newFooter .LogoyRedes .iconosMenu .fa-whatsapp{
   background-color: #98c21e;
   border-radius: 50%;
 }
 
-.newFooter .iconosMenu .fa-instagram:hover,
-.newFooter .iconosMenu .fa-tiktok:hover,
-.newFooter .iconosMenu .fa-whatsapp:hover
+.newFooter .LogoyRedes .iconosMenu .fa-instagram:hover,
+.newFooter .LogoyRedes .iconosMenu .fa-tiktok:hover,
+.newFooter .LogoyRedes .iconosMenu .fa-whatsapp:hover
 {
   font-weight: 700;
 }
 
 
-.newFooter .iconosMenu .derechos{
-  text-align: center;
-  color: rgb(220, 217, 217);
-  font-weight: 400;
-  margin-top: -1rem;
-  margin-bottom: 0rem;
-  padding-bottom: 1rem;
-  font-size: 3.35vw;
+.newFooter .links{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
+.newFooter .links .subtitulo{
+  font-weight: 900;
+  margin-top: 2rem;
+}
+
+.newFooter .links .quick,
+.newFooter .links .todaPagina{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.newFooter .links .quick nav,
+.newFooter .links .todaPagina nav{
+  display: flex;
+  flex-direction: column;
+}
+
+.newFooter .links .quick .items,
+.newFooter .links .todaPagina .items{
+  margin: 0.25rem 0;
+  color: gray;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.newFooter .links .quick .items:hover,
+.newFooter .links .todaPagina .items:hover{
+  font-weight: 700;
+  color: #fff;
+}
+
+.newFooter .linea{
+  margin-top: 2rem;
+  border-top: 2px solid gray;
+}
+
+.newFooter .textoFinal{
+  text-align: center;
+  color: gray;
+  margin: 1.5rem 0 1rem;
+}
 
 @media (min-width: 1024px){
   .newFooter{

@@ -49,7 +49,7 @@
   align-items: center; gap: 16px;
   padding: 14px 20px;
   font-family: 'bueno';
-
+  background-color: #fff;
 }
 .sr-nav__brand{ display:inline-flex; align-items:center; text-decoration:none; color:#fff; }
 .sr-wordmark{ color:#fff; font-weight:700; letter-spacing:.12em; font-size:14px; line-height:1; }
@@ -59,7 +59,7 @@
   padding:8px; border-radius:10px; cursor:pointer;
 }
 .sr-nav__toggle:focus-visible{ outline:2px solid rgba(255,255,255,.35); outline-offset:2px; }
-.sr-icon{ width:24px; height:24px; stroke:#fff; fill:none; stroke-width:2; }
+.sr-icon{ width:30px; height:30px; stroke:#000; fill:none; stroke-width:2; }
 
 .sr-nav__desktop{ justify-self:end; }
 .sr-nav__list{ display:flex; align-items:center; gap:8px; margin:0; padding:0; list-style:none; }
@@ -176,7 +176,7 @@
 
 /* Logo en navbar */
 .imgNavbar{
-  width: 5vw;
+  width: 25vw;
 }
 
 /* =========================

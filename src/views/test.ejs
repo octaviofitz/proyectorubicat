@@ -5,100 +5,86 @@
     <%- include('partials/navBar.ejs') %>
     <%- include('partials/scriptNavbar') %>
     <main class="test">
-      <!-- HERO SECTION (Placeholder de video) -->
-      <div class="hero hero--video"> <video id="hero-video" autoplay muted loop playsinline preload="auto" class="video-bg" aria-hidden="true" poster="/images/NewVideo/poster.jpg" > <source src="/images/NewIndex/Presentacion.mp4" type="video/mp4"> </video> </div>
+      <!-- Portada -->
+      <div class="portada">
+        <img src="../images/NewIndex/backgrounds/PortadaMobile.webp" alt="Rubicat Cuidamos lo que amás" class="img">
+        <button class="boton">Conocé más sobre nosotros 🡢</button> 
+      </div>
 
-      <!-- SECCIÓN DE CARDS STICKY (Scroll-driven) -->
-      <section class="cards-section" id="cardsSection">
-          <h3 class="TituloCards">Nuestras secciones</h3>
-          <div class="cards-viewport" tabindex="0" aria-label="Galería de trabajos">
-              <div class="cards-track">
+      <section class="preguntasFrecuentes">
+        <h2 class="tituloSeccion">Preguntas Frecuentes</h2>
       
-                  <!-- CARD 1 -->
-                  <article class="card">
-                      <div class="card-inner" id="firstCard">
-                          <figure class="card-visual">
-                              <!-- Placeholder de imagen, reemplaza con tu ruta -->
-                              <img src="../images/NewIndex/backgrounds/background1.png" alt="Retrato de De Visdeurbel">
-                          </figure>
-                          <div class="card-body">
-                              <h3 class="card-title">NOSOTROS</h3>
-                              <div class="card-tags">
-                                  <span class="tag">Historia</span><span class="tag">Fábrica</span><span class="tag">MOTION</span>
-                              </div>
-                          </div>
-                      </div>
-                  </article>
+        <div class="listaPreguntas">
       
-                  <!-- CARD 2 -->
-                  <article class="card">
-                      <div class="card-inner" id="secondCard">
-                          <figure class="card-visual">
-                              <img src="../images/NewIndex/backgrounds/background2.png" alt="Retrato de Exposjoo">
-                          </figure>
-                          <div class="card-body">
-                              <h3 class="card-title">Te ayudamos a elegir</h3>
-                              <div class="card-tags">
-                                  <span class="tag">Classic</span><span class="tag">Original</span><span class="tag">Detox</span>
-                              </div>
-                          </div>
-                      </div>
-                  </article>
-      
-                  <!-- CARD 3 -->
-                  <article class="card">
-                      <div class="card-inner" id="thirdCard">
-                          <figure class="card-visual">
-                              <img src="../images/NewIndex/backgrounds/background3.png" alt="Retrato de Sophie Zwartkruis">
-                          </figure>
-                          <div class="card-body">
-                              <h3 class="card-title">¿Dónde comprar?</h3>
-                              <div class="card-tags">
-                                  <span class="tag">2024</span><span class="tag">DEV</span><span class="tag">GSAP</span>
-                              </div>
-                          </div>
-                      </div>
-                  </article>
-      
-                  <!-- CARD 4 -->
-                  <article class="card">
-                      <div class="card-inner" id="forCard">
-                          <figure class="card-visual">
-                              <img src="../images/NewIndex/backgrounds/background1.png" alt="Retrato de Broed">
-                          </figure>
-                          <div class="card-body">
-                              <h3 class="card-title">Educate con nosotros</h3>
-                              <div class="card-tags">
-                                  <span class="tag">2024</span><span class="tag">GSAP</span><span class="tag">3D</span>
-                              </div>
-                          </div>
-                      </div>
-                  </article>
-
-                  <!-- CARD 5 -->
-                  <article class="card">
-                      <div class="card-inner" id="fifthCard">
-                          <figure class="card-visual">
-                              <img src="../images/NewIndex/backgrounds/background2.png" alt="Retrato de Broed">
-                          </figure>
-                          <div class="card-body">
-                              <h3 class="card-title">Novedades</h3>
-                              <div class="card-tags">
-                                  <span class="tag">2024</span><span class="tag">GSAP</span><span class="tag">3D</span>
-                              </div>
-                          </div>
-                      </div>
-                  </article>
-      
-              </div>
+          <div class="itemPregunta">
+            <div class="encabezadoPregunta">
+              <span class="icono">
+                <span class="iconoMas">+</span>
+                <span class="iconoCerrar">×</span>
+              </span>
+              <p class="textoPregunta">¿Cómo usarlo?</p>
+            </div>
+            <div class="contenidoRespuesta">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis porta libero, quis accumsan velit mollis vitae. Mauris eget enim eu diam viverra sagittis.</p>
+              <p>Mira el modo de uso.</p>
+            </div>
           </div>
-
-
+      
+          <div class="itemPregunta">
+            <div class="encabezadoPregunta">
+              <span class="icono">
+                <span class="iconoMas">+</span>
+                <span class="iconoCerrar">×</span>
+              </span>
+              <p class="textoPregunta">¿Dónde comprar?</p>
+            </div>
+            <div class="contenidoRespuesta">
+              <p>Texto de respuesta acá.</p>
+            </div>
+          </div>
+      
+          <div class="itemPregunta">
+            <div class="encabezadoPregunta">
+              <span class="icono">
+                <span class="iconoMas">+</span>
+                <span class="iconoCerrar">×</span>
+              </span>
+              <p class="textoPregunta">¿Es tóxica?</p>
+            </div>
+            <div class="contenidoRespuesta">
+              <p>Texto de respuesta acá.</p>
+            </div>
+          </div>
+      
+          <div class="itemPregunta">
+            <div class="encabezadoPregunta">
+              <span class="icono">
+                <span class="iconoMas">+</span>
+                <span class="iconoCerrar">×</span>
+              </span>
+              <p class="textoPregunta">¿Estás interesado en revender o distribuir?</p>
+            </div>
+            <div class="contenidoRespuesta">
+              <p>Texto de respuesta acá.</p>
+            </div>
+          </div>
+      
+          <div class="itemPregunta">
+            <div class="encabezadoPregunta">
+              <span class="icono">
+                <span class="iconoMas">+</span>
+                <span class="iconoCerrar">×</span>
+              </span>
+              <p class="textoPregunta">Vidrio</p>
+            </div>
+            <div class="contenidoRespuesta">
+              <p>Texto de respuesta acá.</p>
+            </div>
+          </div>
+      
+        </div>
       </section>
 
-      <div class="prueba">
-        Usá la rueda del mouse o scroll táctil para navegar entre las secciones
-    </div>
 
   </main>
 

@@ -18,6 +18,146 @@
   --stack-blur: 0.6px;
 }
 
+.test .portada{
+  position: relative;
+  display: inline-block; /* o block, según cómo esté armado el layout */
+  width: 100%;
+}
+
+.test .portada .img{
+  width: 100%;
+  height: 90%;
+  display: block;
+}
+
+.portada .boton {
+  position: absolute;
+  bottom: 15px; /* ajustá este valor para acercar o alejar del borde inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  border-radius: 30px;
+  padding: 1rem 1rem;
+  background-color: #fff;
+  border: 1px solid black;
+  width: 65vw;
+  font-weight: 600;
+}
+
+/* Preguntas frecuentes */
+.preguntasFrecuentes{
+  padding: 2rem 1.5rem;
+  background-color: #fff;
+}
+
+.tituloSeccion{
+  font-weight: 900;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.listaPreguntas{
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.itemPregunta{
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.encabezadoPregunta{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.icono{
+  position: relative;
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.icono .iconoMas,
+.icono .iconoCerrar{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icono .iconoCerrar{
+  display: none;
+}
+
+.textoPregunta{
+  font-weight: 600;
+  color: #1c1c1c;
+  margin: 0;
+  font-size: 1.15rem;
+  transition: color 0.2s ease;
+}
+
+.contenidoRespuesta{
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1.25rem;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.contenidoRespuesta p{
+  margin: 0 0 1rem 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.contenidoRespuesta p:last-child{
+  margin-bottom: 1.25rem;
+}
+
+/* --- Hover cuando está CERRADO: fondo celeste completo --- */
+.itemPregunta:not(.activo) .encabezadoPregunta:hover{
+  background-color: #00ACBB;
+}
+
+.itemPregunta:not(.activo) .encabezadoPregunta:hover .textoPregunta,
+.itemPregunta:not(.activo) .encabezadoPregunta:hover .icono{
+  color: #fff;
+}
+
+/* --- Estado ABIERTO: sigue blanco por default --- */
+.itemPregunta.activo .iconoMas{
+  display: none;
+}
+
+.itemPregunta.activo .iconoCerrar{
+  display: block;
+}
+
+.itemPregunta.activo .contenidoRespuesta{
+  max-height: 300px;
+}
+
+/* --- Hover cuando está ABIERTO: solo el título se pone celeste, fondo queda blanco --- */
+.itemPregunta.activo .encabezadoPregunta:hover .textoPregunta,
+.itemPregunta.activo .encabezadoPregunta:hover .icono{
+  color: #00ACBB;
+}
+
+
+
+
+
 
 /* ESTILOS DEL CONTENEDOR PRINCIPAL: SOLO APLICA A .test main */
 .test main {

@@ -227,4 +227,22 @@
       animateLoop();
   });
   </script>
-  
+
+
+<script>
+document.querySelectorAll('.encabezadoPregunta').forEach(encabezado => {
+  encabezado.addEventListener('click', () => {
+    const item = encabezado.closest('.itemPregunta');
+    const yaEstabaActivo = item.classList.contains('activo');
+
+    // Cierra todos los demás
+    document.querySelectorAll('.itemPregunta').forEach(otro => {
+      otro.classList.remove('activo');
+    });
+
+    // Si no estaba activo, lo abre. Si ya estaba, queda cerrado (toggle)
+    if (!yaEstabaActivo) {
+      item.classList.add('activo');
+    }
+  });
+});</script>
