@@ -4,6 +4,8 @@
   <body>
     <%- include('partials/navBar.ejs') %>
     <%- include('partials/scriptNavbar') %>
+    <%- include('partials/scriptLineaProductos') %>
+
     <main class="test">
       <!-- Portada -->
       <div class="portada">
@@ -11,7 +13,42 @@
         <button class="boton">Conocé más sobre nosotros 🡢</button> 
       </div>
 
+      <div class="portadaDesktop">
+        <img src="../images/NewIndex/backgrounds/PortadaDesktop.webp" alt="Rubicat Cuidamos lo que amás" class="imgDesktop">
+        <button class="boton">Conocé más sobre nosotros 🡢</button> 
+      </div>
+
+     <!--  <section class="lineaProductos">
+        <h2 class="titulo">LÍNEA COMPLETA DE RUBICAT</h2>
+
+
+      </section> -->
+
+      <section class="rc-section" aria-label="Catálogo de productos Rubicat">
+        <h2 class="titulo">LÍNEA COMPLETA DE RUBICAT</h2>
+ 
+        <div class="rc-filters" id="rcFilters" role="tablist" aria-label="Filtrar productos"></div>
+       
+        <p class="rc-copy">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis porta
+          libero, quis accumsan velit mollis vitae.
+        </p>
+       
+        <div class="rc-carousel">
+          <div class="rc-track-wrap">
+            <div class="rc-track" id="rcTrack"></div>
+          </div>
+          <div class="rc-dots" id="rcDots"></div>
+        </div>
+       
+      </section>
       <section class="preguntasFrecuentes">
+     
+        <div>
+          <img src="../../images/NewIndex/Cumulo.webp" alt="Cumulo de arena Rubicat" class="img">
+        </div>
+
+        <div class="containerPreguntas">
         <h2 class="tituloSeccion">Preguntas Frecuentes</h2>
       
         <div class="listaPreguntas">
@@ -82,6 +119,7 @@
             </div>
           </div>
       
+        </div>
         </div>
       </section>
 

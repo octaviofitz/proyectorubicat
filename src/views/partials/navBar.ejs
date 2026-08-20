@@ -1,47 +1,48 @@
-<nav class="sr-nav" aria-label="Primary" id="navBar">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegación</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="sr-nav" aria-label="Primary" id="navBar">
     <div class="sr-nav__inner">
+      <!-- El logo siempre se queda fijo en su posición -->
       <a href="/" class="sr-nav__brand" aria-label="Home">
-       <img src="../../../images/iconos/logo.webp" class="imgNavbar"> </img>
+        <img src="../../../images/iconos/logo.webp" class="imgNavbar" alt="Logo">
       </a>
   
-      <!-- Desktop: links a la derecha -->
+      <!-- Desktop (más de 1024px) -->
       <div class="sr-nav__desktop">
         <ul class="sr-nav__list" role="list">
           <li><a class="sr-nav__link" href="/about">Nosotros</a></li>
-          <li><a class="sr-nav__link" href="/careers">Te ayudamos a elegir</a></li>
-          <li><a class="sr-nav__link" href="/careers">¿Dónde comprar?</a></li>
-          <li><a class="sr-nav__link" href="/media-assets">Novedades</a></li>
-        </ul>
+          <li><a class="sr-nav__link" href="/careers">Productos</a></li>
+          <li><a class="sr-nav__link" href="/careers">Preguntas frecuentes</a></li>
+<!--           <li><a class="sr-nav__link" href="/media-assets">Novedades</a></li>
+ -->        </ul>
       </div>
   
-      <!-- Botón hamburguesa (solo mobile) -->
-      <button class="sr-nav__toggle" aria-expanded="false" aria-controls="sr-menu">
-        <!-- <span class="sr-only">Abrir menú</span> -->
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="sr-icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <!-- Botón hamburguesa que se anima a X (hasta 1024px) -->
+      <button class="sr-nav__toggle" id="menuToggle" aria-expanded="false" aria-controls="sr-menu" aria-label="Abrir menú">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
     </div>
   
-    <!-- Overlay mobile a pantalla completa -->
+    <!-- Desplegable inferior (solo la parte blanca con las opciones) -->
     <div id="sr-menu" class="sr-overlay" aria-hidden="true">
-      <div class="sr-overlay__header">
-        <a href="/" class="sr-overlay__brand">
-          <!-- Podés poner tu logo acá -->
-          <img src="../../../images/iconos/faviconwhite.png" class="imgNavbar"> </img>
-        </a>
-        <button class="sr-overlay__close" aria-label="Cerrar menú">×</button>
-      </div>
-  
       <nav class="sr-overlay__nav" aria-label="Mobile">
         <a class="sr-overlay__link" href="/about">Nosotros</a>
-        <a class="sr-overlay__link" href="/careers">Te ayudamos a elegir</a>
-        <a class="sr-overlay__link" href="/media-assets">¿Dónde comprar?</a>
-        <a class="sr-overlay__link" href="/contact">Novedades</a>
+        <a class="sr-overlay__link" href="/careers">Productos</a>
+        <a class="sr-overlay__link" href="/media-assets">Preguntas Frecuentes</a>
       </nav>
-  
-      <div class="sr-overlay__footer">
-       <!--  <a class="sr-overlay__legal" href="/privacy">Privacy &amp; Legal</a> -->
-        <span class="sr-overlay__copy">Todos los derechos reservados</span>
-      </div>
     </div>
   </nav>
-  
+
+  <script src="script.js"></script>
+</body>
+</html>
