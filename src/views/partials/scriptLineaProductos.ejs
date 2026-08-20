@@ -2,7 +2,11 @@
   /*
     rubicat-carousel.js
     Requiere el markup de rubicat-carousel.html en el DOM
-    (los ids #rcFilters, #rcTrack, #rcDots).
+    (los ids #rcFilters y #rcTrack).
+  
+    Mecánica: marquee continuo (tipo "trencito"), sin transición dura entre
+    slides. Al cambiar de filtro, se reconstruye la cinta solo con los
+    productos que matchean y arranca de nuevo desde el principio.
   */
   document.addEventListener("DOMContentLoaded", function(){
   
@@ -17,10 +21,12 @@
       { id:"microesferas",label:"Microesferas", color:"var(--c-microesferas)"}
     ];
   
+    // El ORDEN de este array = el orden en el que aparecen en la cinta.
+    // El primero que escribís es el primero que se ve (más a la izquierda).
     var PRODUCTS = [
-      { name:"Silica Aglutinante",   sub:"3.8 L",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"] },
+      { name:"Silica Aglutinante",   sub:"3.8 L",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/Silica.webp"},
       { name:"Bentonita Premium",    sub:"10 kg",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","bentonita"] },
-      { name:"Silica Cristales",     sub:"1.8 L",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"red",    cardBg:"cream", tags:["bolsas","5kg","silica"] },
+      { name:"Silica Aglutinante",   sub:"3.8 L",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"red",    cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/SilicaAglutinante.webp"},
       { name:"Bentonita Aroma",      sub:"20 kg",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"violet", cardBg:"dark",  tags:["bolsas","10kg","bentonita"] },
       { name:"Bentonita Clásica",    sub:"5 kg",   type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"teal",   cardBg:"cream", tags:["bolsas","5kg","bentonita"] },
       { name:"Silica Ultra",         sub:"8 kg",   type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"gold",   cardBg:"dark",  tags:["bolsas","5kg","silica"] },
@@ -32,35 +38,15 @@
       { name:"Microesferas Bidón",   sub:"5 L",    type:"MICROESFERAS",tagline:"BIDÓN AGLUTINANTE", theme:"green",  cardBg:"dark",  tags:["bidones","5kg","silica","microesferas"] }
     ];
   
-    var SWIRL_SVG =
-      '<svg viewBox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">' +
-      '<path d="M50 8 C68 8 60 30 78 28 C92 27 90 46 76 50 C92 54 90 74 74 72 C78 88 58 90 52 74 ' +
-      'C42 90 22 82 28 66 C10 68 8 48 24 42 C8 36 14 16 32 20 C30 4 46 -4 50 8 Z" ' +
-      'fill="url(#g1)" opacity=".9"/>' +
-      '<path d="M50 20 C60 20 56 34 68 33 C76 32 75 44 65 46 C76 48 74 60 64 59 C67 68 54 70 50 60 ' +
-      'C44 70 32 65 36 55 C25 56 24 44 34 40 C24 36 28 24 39 27 C37 17 46 12 50 20 Z" ' +
-      'fill="url(#g2)" opacity=".85"/>' +
-      '<defs>' +
-      '<linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0" stop-color="#FFD166"/><stop offset=".5" stop-color="#EF476F"/><stop offset="1" stop-color="#7C3AED"/>' +
-      '</linearGradient>' +
-      '<linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">' +
-      '<stop offset="0" stop-color="#06D6A0"/><stop offset="1" stop-color="#118AB2"/>' +
-      '</linearGradient>' +
-      '</defs></svg>';
-  
     /* ---------------- state ---------------- */
     var activeFilter = FILTERS[0].id;
-    var index = 0;
-    var timer = null;
-    var AUTO_MS = 3200;
+    var SPEED = 22; // píxeles por segundo. Subilo para más rápido, bajalo para más lento.
   
     var filtersEl = document.getElementById("rcFilters");
     var trackEl   = document.getElementById("rcTrack");
-    var dotsEl    = document.getElementById("rcDots");
   
-    if(!filtersEl || !trackEl || !dotsEl){
-      console.warn("rubicat-carousel: no se encontró el markup (#rcFilters/#rcTrack/#rcDots) en el DOM.");
+    if(!filtersEl || !trackEl){
+      console.warn("rubicat-carousel: no se encontró el markup (#rcFilters/#rcTrack) en el DOM.");
       return;
     }
   
@@ -85,97 +71,81 @@
         el.classList.toggle("is-active", on);
         el.setAttribute("aria-selected", on ? "true" : "false");
       });
-      index = 0;
-      renderCards();
-      restartAutoplay();
+      renderTrack();
     }
   
-    /* ---------------- render cards + dots ---------------- */
+    /* ---------------- build cards ---------------- */
     function getFiltered(){
       return PRODUCTS.filter(function(p){ return p.tags.indexOf(activeFilter) !== -1; });
     }
   
-    function renderCards(){
+    function cardHTML(p){
+      return (
+        '<div class="rc-card">' +
+          '<div class="rc-card-inner bg-' + p.cardBg + '">' +
+            '<span class="rc-card-badge">' + p.sub + '</span>' +
+            '<img class="rc-product-img" src="' + p.img + '" alt="Rubicat ' + p.name + '">' +
+          '</div>' +
+        '</div>'
+      );
+    }
+  
+    /* ---------------- render + marquee ---------------- */
+    function renderTrack(){
       var items = getFiltered();
+  
+      trackEl.style.animation = "none";
       trackEl.innerHTML = "";
-      dotsEl.innerHTML = "";
   
       if(items.length === 0){
         trackEl.innerHTML = '<div class="rc-empty">No hay productos en esta categoría todavía.</div>';
         return;
       }
   
-      items.forEach(function(p){
-        var card = document.createElement("div");
-        card.className = "rc-card";
-        card.innerHTML =
-          '<div class="rc-card-inner bg-' + p.cardBg + '">' +
-            '<span class="rc-card-badge">' + p.sub + '</span>' +
-            '<div class="pouch theme-' + p.theme + '">' +
-              '<div class="pouch-handle"></div>' +
-              '<div class="pouch-swirl">' + SWIRL_SVG + '</div>' +
-              '<div class="pouch-brand">Rubicat</div>' +
-              '<div class="pouch-type">' + p.type + '</div>' +
-              '<div class="pouch-sub">' + p.tagline + '</div>' +
-              '<div class="pouch-icons"><span></span><span></span><span></span><span></span></div>' +
-            '</div>' +
-          '</div>';
-        trackEl.appendChild(card);
+      // Duplicamos la lista para que el loop sea invisible: el track se mueve
+      // exactamente el ancho del primer set, y cuando llega ahí ya está mostrando
+      // una copia idéntica, así que el "salto" de vuelta al principio no se nota.
+      var loop = items.concat(items);
+      trackEl.innerHTML = loop.map(cardHTML).join("");
   
-        var dot = document.createElement("button");
-        dot.className = "rc-dot";
-        dot.setAttribute("aria-label", "Ver " + p.name);
-        dotsEl.appendChild(dot);
-        dot.addEventListener("click", function(){
-          index = Array.prototype.indexOf.call(dotsEl.children, dot);
-          applyPosition();
-          restartAutoplay();
-        });
+      // Esperamos un frame a que el layout esté calculado antes de medir anchos.
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ startMarquee(items.length); });
       });
-  
-      applyPosition();
     }
   
-    /* ---------------- position / autoplay ---------------- */
-    function applyPosition(){
-      var items = getFiltered();
-      if(items.length === 0) return;
-      if(index >= items.length) index = 0;
-  
-      var card = trackEl.children[0];
-      var cardWidth = card ? card.getBoundingClientRect().width : 0;
+    function startMarquee(originalCount){
       var gap = 14;
-      var offset = index * (cardWidth + gap);
-      trackEl.style.transform = "translateX(-" + offset + "px)";
+      var cards = trackEl.children;
+      var distance = 0;
+      for (var i = 0; i < originalCount; i++){
+        distance += cards[i].getBoundingClientRect().width + gap;
+      }
   
-      Array.prototype.forEach.call(dotsEl.children, function(d, i){
-        d.classList.toggle("is-active", i === index);
-      });
+      trackEl.style.setProperty("--rc-distance", -distance + "px");
+      var duration = distance / SPEED;
+  
+      trackEl.style.animation = "none";
+      void trackEl.offsetWidth; // fuerza reflow para poder reiniciar la animación
+      trackEl.style.animation = "rc-marquee " + duration + "s linear infinite";
     }
   
-    function tick(){
-      var items = getFiltered();
-      if(items.length === 0) return;
-      index = (index + 1) % items.length;
-      applyPosition();
-    }
-  
-    function restartAutoplay(){
-      if(timer) clearInterval(timer);
-      timer = setInterval(tick, AUTO_MS);
-    }
-  
+    /* ---------------- pausa con hover / touch ---------------- */
     var wrap = document.querySelector(".rc-carousel");
-    wrap.addEventListener("mouseenter", function(){ if(timer) clearInterval(timer); });
-    wrap.addEventListener("mouseleave", restartAutoplay);
-    wrap.addEventListener("touchstart", function(){ if(timer) clearInterval(timer); }, {passive:true});
-    wrap.addEventListener("touchend", restartAutoplay);
+    wrap.addEventListener("mouseenter", function(){ trackEl.style.animationPlayState = "paused"; });
+    wrap.addEventListener("mouseleave", function(){ trackEl.style.animationPlayState = "running"; });
+    wrap.addEventListener("touchstart", function(){ trackEl.style.animationPlayState = "paused"; }, {passive:true});
+    wrap.addEventListener("touchend", function(){ trackEl.style.animationPlayState = "running"; });
   
-    window.addEventListener("resize", applyPosition);
+    /* ---------------- resize: recalcular distancia/velocidad ---------------- */
+    var resizeTimer;
+    window.addEventListener("resize", function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(renderTrack, 200);
+    });
   
     /* ---------------- init ---------------- */
-    renderCards();
-    restartAutoplay();
+    renderTrack();
   
   });
   </script>
