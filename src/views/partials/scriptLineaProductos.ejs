@@ -12,6 +12,7 @@
   
     /* ---------------- data ---------------- */
     var FILTERS = [
+      { id:"todos",       label:"Todos",        color:"var(--ink)"           },
       { id:"bidones",     label:"Bidones",      color:"var(--c-bidones)"     },
       { id:"bolsas",      label:"Bolsas",       color:"var(--c-bolsas)"      },
       { id:"10kg",        label:"+10kg",        color:"var(--c-10kg)"        },
@@ -24,18 +25,20 @@
     // El ORDEN de este array = el orden en el que aparecen en la cinta.
     // El primero que escribís es el primero que se ve (más a la izquierda).
     var PRODUCTS = [
-      { name:"Silica Aglutinante",   sub:"3.8 L",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/Silica.webp"},
-      { name:"Bentonita Premium",    sub:"10 kg",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","bentonita"] },
-      { name:"Silica Aglutinante",   sub:"3.8 L",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"red",    cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/SilicaAglutinante.webp"},
-      { name:"Bentonita Aroma",      sub:"20 kg",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"violet", cardBg:"dark",  tags:["bolsas","10kg","bentonita"] },
-      { name:"Bentonita Clásica",    sub:"5 kg",   type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"teal",   cardBg:"cream", tags:["bolsas","5kg","bentonita"] },
-      { name:"Silica Ultra",         sub:"8 kg",   type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"gold",   cardBg:"dark",  tags:["bolsas","5kg","silica"] },
-      { name:"Bentonita Max",        sub:"15 kg",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","10kg","bentonita"] },
-      { name:"Silica Total",         sub:"12 kg",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","silica"] },
-      { name:"Microesferas Silica",  sub:"4 kg",   type:"MICROESFERAS",tagline:"BOLSA AGLUTINANTE", theme:"gold",   cardBg:"cream", tags:["bolsas","5kg","silica","microesferas"] },
-      { name:"Microesferas Total",   sub:"12 kg",  type:"MICROESFERAS",tagline:"BOLSA AGLUTINANTE", theme:"violet", cardBg:"dark",  tags:["bolsas","10kg","silica","microesferas"] },
-      { name:"Bentonita Líquida",    sub:"10 L",   type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"blue",   cardBg:"cream", tags:["bidones","5kg","bentonita"] },
-      { name:"Microesferas Bidón",   sub:"5 L",    type:"MICROESFERAS",tagline:"BIDÓN AGLUTINANTE", theme:"green",  cardBg:"dark",  tags:["bidones","5kg","silica","microesferas"] }
+      { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/Silica.webp"},
+      { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"red",    cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/SilicaAglutinante.webp"},
+      { name:"Classic bidón",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones","5kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBidon.webp" },
+      { name:"Classic bolson",    sub:"15 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBolsa.webp" },
+      { name:"Classic bolsón y bidón",    sub:"20.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicMixto.webp" },
+      { name:"Classic Lavanda",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Lavanda.webp" },
+      { name:"Original",    sub:"5 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Original.webp" },
+      { name:"Detox",    sub:"5 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Detox.webp" },
+      { name:"Premium Bolsa",    sub:"10 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBolsa.webp" },
+      { name:"Premium Bidón",    sub:"5.7 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBidon5KG.webp" },
+      { name:"Premium Bidón 11KG",    sub:"11 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBidon11KG.webp" },
+      { name:"Premium Bidones y Bolsa",    sub:"26.7 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumMixto.webp" },
+      { name:"Sensitive",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "5kg","bentonita"], img:"/images/NewIndex/Productos/Sensitive.webp" },
+      { name:"Sensitive Microesferas",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:[ "bolsas", "microesferas", "5kg","bentonita"], img:"/images/NewIndex/Productos/SensitiveMicroesferas.webp" },
     ];
   
     /* ---------------- state ---------------- */
@@ -76,6 +79,14 @@
   
     /* ---------------- build cards ---------------- */
     function getFiltered(){
+      if(activeFilter === "todos"){
+        // Todos los productos, pero mostrando primero los que son "bolsas".
+        return PRODUCTS.slice().sort(function(a, b){
+          var aBolsa = a.tags.indexOf("bolsas") !== -1 ? 0 : 1;
+          var bBolsa = b.tags.indexOf("bolsas") !== -1 ? 0 : 1;
+          return aBolsa - bBolsa;
+        });
+      }
       return PRODUCTS.filter(function(p){ return p.tags.indexOf(activeFilter) !== -1; });
     }
   
@@ -90,11 +101,23 @@
       );
     }
   
+    /* ---------------- medir ancho de un set de N cards ---------------- */
+    function measureSetWidth(count){
+      var gap = 14;
+      var cards = trackEl.children;
+      var width = 0;
+      for (var i = 0; i < count; i++){
+        width += cards[i].getBoundingClientRect().width + gap;
+      }
+      return width;
+    }
+  
     /* ---------------- render + marquee ---------------- */
     function renderTrack(){
       var items = getFiltered();
   
       trackEl.style.animation = "none";
+      trackEl.style.transform = "translateX(0)";
       trackEl.innerHTML = "";
   
       if(items.length === 0){
@@ -102,25 +125,36 @@
         return;
       }
   
-      // Duplicamos la lista para que el loop sea invisible: el track se mueve
-      // exactamente el ancho del primer set, y cuando llega ahí ya está mostrando
-      // una copia idéntica, así que el "salto" de vuelta al principio no se nota.
-      var loop = items.concat(items);
-      trackEl.innerHTML = loop.map(cardHTML).join("");
+      // Primero armamos un solo set (sin duplicar) para medir si entra
+      // completo en el ancho visible sin necesidad de scrollear.
+      trackEl.innerHTML = items.map(cardHTML).join("");
   
-      // Esperamos un frame a que el layout esté calculado antes de medir anchos.
       requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ startMarquee(items.length); });
+        requestAnimationFrame(function(){
+          var wrapWidth = trackEl.parentElement.clientWidth;
+          var singleWidth = measureSetWidth(items.length);
+  
+          if(singleWidth <= wrapWidth){
+            // Entran todas las cards sin necesidad de loop: quedan fijas,
+            // sin animación y sin repetirse.
+            trackEl.style.animation = "none";
+            trackEl.style.transform = "translateX(0)";
+            return;
+          }
+  
+          // No entran todas: armamos el loop duplicado y arrancamos el marquee.
+          var loop = items.concat(items);
+          trackEl.innerHTML = loop.map(cardHTML).join("");
+  
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){ startMarquee(items.length); });
+          });
+        });
       });
     }
   
     function startMarquee(originalCount){
-      var gap = 14;
-      var cards = trackEl.children;
-      var distance = 0;
-      for (var i = 0; i < originalCount; i++){
-        distance += cards[i].getBoundingClientRect().width + gap;
-      }
+      var distance = measureSetWidth(originalCount);
   
       trackEl.style.setProperty("--rc-distance", -distance + "px");
       var duration = distance / SPEED;

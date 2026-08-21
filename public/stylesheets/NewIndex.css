@@ -94,7 +94,6 @@
 .rc-section *{box-sizing:border-box;}
  
 .rc-section{
-  font-family:'Inter',sans-serif;
   background:var(--paper);
   color:var(--ink);
   padding:28px 20px 40px;
@@ -103,7 +102,17 @@
 }
  
 .rc-title{
-  display:none;
+  font-family: "Anton", sans-serif;
+  display:block;
+  text-align:center;
+  font-weight:700;
+  text-transform:uppercase;
+  font-size: 2.5rem;
+  letter-spacing:.01em;
+  margin:0 2rem 1rem;
+  color:var(--ink);
+  font-weight: 400;
+  font-style: normal;
 }
  
 /* ---------- Filter pills ---------- */
@@ -113,12 +122,12 @@
   overflow-x:auto;
   padding:4px 2px 14px;
   scrollbar-width:none;
+  margin-bottom: 1.5rem;
 }
 .rc-filters::-webkit-scrollbar{display:none;}
  
 .rc-pill{
   flex:0 0 auto;
-  font-family:'Inter',sans-serif;
   font-weight:600;
   font-size:14px;
   padding:9px 18px;
@@ -339,7 +348,6 @@
   .rc-title{
     display:block;
     text-align:center;
-    font-family:'Inter',sans-serif;
     font-weight:900;
     text-transform:uppercase;
     font-size:clamp(28px, 4vw, 40px);
