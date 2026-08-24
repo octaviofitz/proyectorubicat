@@ -51,16 +51,28 @@
 
 .portada .boton {
   position: absolute;
-  bottom: 15px; /* ajustá este valor para acercar o alejar del borde inferior */
+  bottom: 19px; /* ajustá este valor para acercar o alejar del borde inferior */
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   border-radius: 30px;
-  padding: 1rem 1rem;
+  padding: 0.8rem 1rem;
   background-color: #fff;
-  border: 1px solid black;
+  border: 0px solid black;
   width: 65vw;
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.portada .boton span{
+  font-family: 'Switzer', sans-serif;
+}
+
+
+.portada .flecha {
+  font-family: 'Switzer', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .portadaDesktop .boton {
@@ -151,10 +163,12 @@
  
 /* ---------- Copy ---------- */
 .rc-copy{
-  font-size:15px;
-  line-height:1.55;
-  color:var(--ink-soft);
-  margin:2px 4px 22px;
+  font-size: 1.06rem;
+  line-height:1.45;
+  color: #666;
+  margin:2px 10vw 22px;
+  font-family: 'Switzer', sans-serif;
+  text-align: center;
 }
  
 /* ---------- Carousel ---------- */
@@ -420,7 +434,7 @@
 
 /* Preguntas frecuentes */
 .preguntasFrecuentes{
-  padding: 2rem 1.5rem;
+  padding: 2rem 1.5rem 4rem;
   background-color: #fff;
 }
 
@@ -479,11 +493,12 @@
 }
 
 .textoPregunta{
-  font-weight: 600;
-  color: #1c1c1c;
+/*   font-weight: 600;
+ */  color: #1c1c1c;
   margin: 0;
   font-size: 1.15rem;
   transition: color 0.2s ease;
+  font-family: "Inter", sans-serif;
 }
 
 .contenidoRespuesta{
@@ -495,8 +510,9 @@
 
 .contenidoRespuesta p{
   margin: 0 0 1rem 0;
-  color: #666;
+  color: black;
   line-height: 1.5;
+  font-family: 'Switzer', sans-serif;
 }
 
 .contenidoRespuesta p:last-child{

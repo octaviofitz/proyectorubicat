@@ -68,6 +68,7 @@
 .newFooter .links .subtitulo{
   font-weight: 900;
   margin-top: 2rem;
+  font-family: "Inter", sans-serif;
 }
 
 .newFooter .links .quick,
@@ -89,6 +90,7 @@
   color: gray;
   text-decoration: none;
   cursor: pointer;
+  font-family: 'Switzer', sans-serif;
 }
 
 .newFooter .links .quick .items:hover,

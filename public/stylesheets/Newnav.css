@@ -51,6 +51,7 @@
   text-decoration: none; 
   color: #000; 
   font-weight: 500;
+  font-family: 'Switzer', sans-serif;
 }
 
 /* =========================
@@ -148,9 +149,10 @@
   color: gray;
   text-decoration: none;
   font-size: 1.8rem;
-  font-weight: 900;
+  font-weight: 700;
   text-align: center;
   transition: color 0.4s ease;
+  font-family: 'Switzer', sans-serif;
 }
 
 .sr-overlay__link:hover {
