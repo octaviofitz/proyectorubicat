@@ -45,22 +45,27 @@
 
 .test .portada .img{
   width: 100%;
-  height: 90%;
   display: block;
 }
 
 .portada .boton {
   position: absolute;
-  bottom: 19px; /* ajustá este valor para acercar o alejar del borde inferior */
+  top: 93%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 2;
-  border-radius: 30px;
-  padding: 0.8rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 0.8rem 1.25rem;
   background-color: #fff;
   border: 1px solid black;
-  width: 65vw;
+  width: max-content;
+  max-width: 92vw;
   font-weight: 500;
+  font-size: 1rem;
 }
 
 .portada .boton span{
@@ -173,8 +178,14 @@
  
 /* ---------- Carousel ---------- */
 .rc-carousel{
-  position:relative;
+  cursor:grab;
+  position: relative;
 }
+
+.rc-carousel:active{
+  cursor:grabbing;
+}
+
 .rc-track-wrap{
   overflow:hidden;
   border-radius:var(--radius-lg);
@@ -186,15 +197,20 @@
   will-change:transform;
 }
  
-@keyframes rc-marquee{
+/* @keyframes rc-marquee{
   from{ transform:translateX(0); }
   to{ transform:translateX(var(--rc-distance)); }
-}
+} */
  
 .rc-card{
   flex:0 0 78%;
   max-width:300px;
 }
+
+.rc-track--static{
+  margin:0 auto;
+}
+
 .rc-card-inner{
   position:relative;
   border-radius:var(--radius-lg);
@@ -323,8 +339,17 @@
  
 /* ---------- Dots ---------- */
 .rc-dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:2rem;
+  font-size: 100px;
+}
+
+.rc-dots:empty{
   display:none;
 }
+
 .rc-dot{
   width:7px; height:7px;
   border-radius:50%;
@@ -339,15 +364,52 @@
   transform:scale(1.25);
 }
  
-.rc-empty{
+/* .rc-empty{
   text-align:center;
   padding:60px 20px;
   color:var(--ink-soft);
   font-size:14px;
-}
+} */
  
-@media (prefers-reduced-motion: reduce){
+/* @media (prefers-reduced-motion: reduce){
   .rc-track{ animation:none !important; transform:none; }
+} */
+
+
+.rc-arrow{
+  display:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:4;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:none;
+  background:#fff;
+  color:var(--ink);
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  transition:background .2s ease, color .2s ease;
+}
+.rc-arrow:hover{
+  background:var(--ink);
+  color:#fff;
+}
+.rc-arrow--prev{ left:-8px; }
+.rc-arrow--next{ right:-8px; }
+
+/* Las flechas solo tienen sentido en desktop (en mobile ya se puede
+   deslizar con el dedo). El JS decide, además, si hace falta mostrarlas
+   según haya o no algo para scrollear. */
+@media (min-width:1024px){
+  .rc-arrow{
+    display:flex;
+  }
 }
  
 /* ==========================================================
@@ -368,6 +430,7 @@
     letter-spacing:.01em;
     margin:0 0 28px;
     color:var(--ink);
+    font-family: "Anton", sans-serif;
   }
  
   .rc-filters{
@@ -402,6 +465,7 @@
   .rc-title{
     font-size:clamp(40px, 3.4vw, 56px);
     margin-bottom:32px;
+    font-family: "Anton", sans-serif;
   }
  
   .rc-copy{
@@ -835,6 +899,8 @@
     text-transform: uppercase;
     font-weight: 900;
     font-size: 3rem;
+    font-family: "Anton", sans-serif;
+    /* margin-right: 5vw; */
   }
 
   .test .preguntasFrecuentes .containerPreguntas{

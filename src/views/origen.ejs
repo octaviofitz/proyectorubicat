@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+  <%- include('./partials/head')  %> 
+  <body>
+    <%- include('partials/navBar.ejs') %>
+    <%- include('partials/scriptNavbar') %>
+
+    <main class="origen">
+    <h1 class="titulo reveal-letters">EL ORIGEN: DONDE NACE LA ARMONÍA DE TU HOGAR</h1>
+    <p class="texto">Dicen que los gatos no son simples mascotas, sino pequeños guardianes de la energía. Quien comparte su vida con un michi sabe que ellos son los verdaderos maestros del bienestar: buscan el rayo de sol exacto para recargarse, exigen calma y, sobre todo, entienden que la limpieza no es solo estética, es <strong>equilibrio</strong>.</p>
+    <br>
+    <p class="texto">En <strong>Rubicat</strong> entendemos a tu familia como un ecosistema vivo donde todo está conectado.</p>
+    
+    <img src="../../images/NewIndex/origen/origenMobile.webp" alt="Rubicat origen" class="img">
+
+    <p class="texto">Imaginalo así: Tu hogar es un santuario y el "baño" de tu gato es el punto cero, <strong>el origen</strong>. Cuando ese espacio está impoluto, cuidado y fresco, la energía fluye libremente. Pero cuando se descuida, el brillo del hogar se opaca.</p>
+    <br>
+    <p class="texto">Por eso, nuestra misión va más allá de ofrecer un producto; nos dedicamos a crear consciencia sobre el cuidado.</p>
+    <br>
+    <p class="texto">Nos preguntamos: <i>¿Cómo podemos devolverle a ese pequeño guardián la paz que él nos da? </i> La respuesta está en la calidad responsable. Creamos una solución que facilita el cuidado diario, transformando la rutina de la higiene en un acto de amor y respeto. Porque cuando elegís Rubicat, no solo estás limpiando; estás despejando el camino para las <strong>buenas energías.</strong></p>
+    <br>
+    <p class="texto">Para nosotros, el bienestar es un círculo virtuoso:</p>
+
+    <ul class="lista-beneficios">
+        <li>
+          <span class="numero">01</span>
+          <p>Un espacio higiénico le da paz a tu michi.</p>
+        </li>
+        <li>
+          <span class="numero">02</span>
+          <p>Un michi feliz irradia su brillo único por toda la casa.</p>
+        </li>
+        <li>
+          <span class="numero">03</span>
+          <p>Y una casa que brilla, es una familia que vive en armonía.</p>
+        </li>
+      </ul>
+
+    <h2 class="ultimoTitulo reveal-letters">EL BIENESTAR DE TU FAMILIA EMPIEZA CUIDANDO LO ESENCIAL</h2>
+
+  </main>
+
+  <script>
+    // Parte cada texto .reveal-letters en spans por letra (agrupados por
+    // palabra, para que el salto de línea siga funcionando normal).
+    function splitIntoLetters(el){
+      var words = el.textContent.trim().split(/\s+/);
+      el.textContent = "";
+      var i = 0;
+      words.forEach(function(word, wIdx){
+        var wordSpan = document.createElement("span");
+        wordSpan.className = "word";
+        word.split("").forEach(function(ch){
+          var letterSpan = document.createElement("span");
+          letterSpan.className = "letter";
+          letterSpan.style.setProperty("--d", (i * 0.025) + "s");
+          letterSpan.textContent = ch;
+          wordSpan.appendChild(letterSpan);
+          i++;
+        });
+        el.appendChild(wordSpan);
+        if(wIdx < words.length - 1){
+          el.appendChild(document.createTextNode(" "));
+        }
+      });
+    }
+  
+    document.querySelectorAll(".reveal-letters").forEach(splitIntoLetters);
+  
+    var letterObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("is-visible");
+        } else {
+          entry.target.classList.remove("is-visible");
+        }
+      });
+    }, { threshold: 0.3 });
+  
+    document.querySelectorAll(".reveal-letters").forEach(function(el){
+      letterObserver.observe(el);
+    });
+  
+    // Si además usás .reveal (fade simple) en otro lado de esta página,
+    // dejá también este bloque; si no, lo podés borrar.
+    var els = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: "0px 0px -10% 0px"
+    });
+    els.forEach(el => observer.observe(el));
+  </script>
+
+  <%- include('partials/newFooter') %>
+  <%- include('./partials/scripts') %>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+.origen{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+.origen .titulo{
+    text-align: center;
+    font-weight: 600;
+    margin: 2rem 4rem 2rem;
+    padding-top: 1rem;
+    font-size: 3rem;
+}
+
+.origen .reveal-letters .word{
+    display: inline-block;
+    white-space: nowrap; /* que una palabra nunca se corte a la mitad */
+    font-family: "Anton", sans-serif;
+  }
+  
+  .origen .reveal-letters .letter{
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.3em);
+    transition: opacity .4s ease, transform .4s ease;
+    transition-delay: var(--d, 0s);
+    font-family: "Anton", sans-serif;
+
+  }
+ .origen .reveal-letters.is-visible .letter{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .origen .texto{
+    margin: 0 4rem;
+    font-family: 'Switzer', sans-serif;
+    font-size: 1.05rem;
+  }
+
+  .origen .img{
+    width: 95vw;
+    display: flex;
+    margin: 1rem auto;
+  }
+
+  .origen .ultimoTitulo{
+    font-size: 1.75rem;
+    text-align: center;
+    margin: 2rem 4rem 2rem;
+    padding-top: 0rem;
+    font-weight: 600;
+    color: #FF8C1E;
+  }
+
+
+  .lista-beneficios{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* espacio entre ítems */
+    margin: 2rem 4rem 3rem;
+  }
+  
+  .lista-beneficios li{
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  
+  .lista-beneficios .numero{
+    flex-shrink: 0; /* que nunca se achique, aunque el texto sea largo */
+    background-color: #F5820D; /* el naranja de tu captura, ajustá al tuyo */
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 3px 7px;
+    border-radius: 6px;
+    line-height: 1.2;
+    margin-top: 0.15rem; /* para que quede alineado con la primera línea del texto */
+  }
+  
+  .lista-beneficios p{
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1.35;
+    color: #1c1c1c;
+  }

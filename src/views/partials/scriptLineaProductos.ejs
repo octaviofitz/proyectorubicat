@@ -2,56 +2,73 @@
   /*
     rubicat-carousel.js
     Requiere el markup de rubicat-carousel.html en el DOM
-    (los ids #rcFilters y #rcTrack).
+    (los ids #rcFilters, #rcTrack, #rcDots, #rcPrev y #rcNext).
   
-    Mecánica: marquee continuo (tipo "trencito"), sin transición dura entre
-    slides. Al cambiar de filtro, se reconstruye la cinta solo con los
-    productos que matchean y arranca de nuevo desde el principio.
+    Mecánica: el track se mueve con requestAnimationFrame (no con una
+    animación CSS), para poder combinar:
+      - auto-scroll continuo tipo "trencito" (nunca se pausa con hover/click)
+      - navegación manual con los dots y las flechas (desktop)
+      - arrastre táctil en mobile (swipe)
+    sin que se corte ni salte entre un modo y otro.
   */
   document.addEventListener("DOMContentLoaded", function(){
   
     /* ---------------- data ---------------- */
     var FILTERS = [
-      { id:"todos",       label:"Todos",        color:"var(--ink)"           },
-      { id:"bidones",     label:"Bidones",      color:"var(--c-bidones)"     },
-      { id:"bolsas",      label:"Bolsas",       color:"var(--c-bolsas)"      },
-      { id:"10kg",        label:"+10kg",        color:"var(--c-10kg)"        },
-      { id:"5kg",         label:"5kg",          color:"var(--c-5kg)"         },
-      { id:"bentonita",   label:"Bentonita",    color:"var(--c-bentonita)"   },
-      { id:"silica",      label:"Sílica",       color:"var(--c-silica)"      },
-      { id:"microesferas",label:"Microesferas", color:"var(--c-microesferas)"}
+      { id:"todos",       label:"Todos",        color:"#00ACBB"           },
+      { id:"bidones",     label:"Bidones",      color:"#FF8C1E"     },
+      { id:"bolsas",      label:"Bolsas",       color:"#dc5572"      },
+      /* { id:"10kg",        label:"+10kg",        color:"#"        },
+      { id:"5kg",         label:"5kg",          color:"#"         }, */
+      { id:"bentonita",   label:"Bentonita",    color:"#98c21e"   },
+      { id:"silica",      label:"Sílica",       color:"#8B85CA"      },
     ];
   
     // El ORDEN de este array = el orden en el que aparecen en la cinta.
-    // El primero que escribís es el primero que se ve (más a la izquierda).
     var PRODUCTS = [
-      { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/Silica.webp"},
+    { name:"Classic bolson",    sub:"15 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBolsa.webp" },
+    { name:"Premium Bolsa",    sub:"10 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBolsa.webp" },
+    { name:"Sensitive",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "5kg","bentonita"], img:"/images/NewIndex/Productos/Sensitive.webp" },
+    { name:"Sensitive Microesferas",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:[ "bolsas", "microesferas", "5kg","bentonita"], img:"/images/NewIndex/Productos/SensitiveMicroesferas.webp" },
+    { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/Silica.webp"},
       { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"red",    cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/SilicaAglutinante.webp"},
-      { name:"Classic bidón",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones","5kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBidon.webp" },
-      { name:"Classic bolson",    sub:"15 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBolsa.webp" },
-      { name:"Classic bolsón y bidón",    sub:"20.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicMixto.webp" },
       { name:"Classic Lavanda",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Lavanda.webp" },
       { name:"Original",    sub:"5 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Original.webp" },
       { name:"Detox",    sub:"5 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Detox.webp" },
-      { name:"Premium Bolsa",    sub:"10 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBolsa.webp" },
+      { name:"Classic bidón",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones","5kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBidon.webp" },
+      { name:"Classic bolsón y bidón",    sub:"20.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicMixto.webp" },
       { name:"Premium Bidón",    sub:"5.7 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBidon5KG.webp" },
       { name:"Premium Bidón 11KG",    sub:"11 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBidon11KG.webp" },
       { name:"Premium Bidones y Bolsa",    sub:"26.7 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumMixto.webp" },
-      { name:"Sensitive",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "5kg","bentonita"], img:"/images/NewIndex/Productos/Sensitive.webp" },
-      { name:"Sensitive Microesferas",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:[ "bolsas", "microesferas", "5kg","bentonita"], img:"/images/NewIndex/Productos/SensitiveMicroesferas.webp" },
+  
+  
     ];
   
     /* ---------------- state ---------------- */
     var activeFilter = FILTERS[0].id;
-    var SPEED = 22; // píxeles por segundo. Subilo para más rápido, bajalo para más lento.
+    var SPEED = 22; // píxeles por segundo del auto-scroll.
   
     var filtersEl = document.getElementById("rcFilters");
     var trackEl   = document.getElementById("rcTrack");
+    var dotsEl    = document.getElementById("rcDots"); // opcional: si no existe, simplemente no hay dots
   
     if(!filtersEl || !trackEl){
       console.warn("rubicat-carousel: no se encontró el markup (#rcFilters/#rcTrack) en el DOM.");
       return;
     }
+  
+    var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  
+    var position = 0;        // desplazamiento actual en px
+    var singleWidth = 0;     // ancho de UN set completo de productos (sin duplicar)
+    var itemOffsets = [];    // offset acumulado de cada producto (para dots/flechas)
+    var rafId = null;
+    var lastTs = null;
+    var isPaused = false;    // pausa solo mientras se arrastra en mobile
+    var isDragging = false;
+    var dragStartX = 0;
+    var dragStartPosition = 0;
+    var touchStartY = 0;
   
     /* ---------------- render filters (once) ---------------- */
     FILTERS.forEach(function(f){
@@ -90,88 +107,209 @@
       return PRODUCTS.filter(function(p){ return p.tags.indexOf(activeFilter) !== -1; });
     }
   
-    function cardHTML(p){
+    function cardHTML(p, isPriority){
+      // isPriority: true solo para la primera card, que es la única
+      // garantizada visible apenas carga la página → se pide con prioridad
+      // alta y sin lazy-load. El resto carga lazy + decode async para no
+      // trabar el hilo principal ni la animación.
+      var loadingAttrs = isPriority
+        ? 'loading="eager" fetchpriority="high" decoding="async"'
+        : 'loading="lazy" decoding="async"';
       return (
         '<div class="rc-card">' +
           '<div class="rc-card-inner bg-' + p.cardBg + '">' +
-            '<span class="rc-card-badge">' + p.sub + '</span>' +
-            '<img class="rc-product-img" src="' + p.img + '" alt="Rubicat ' + p.name + '">' +
+            // Etiqueta de kilaje sacada temporalmente (ver nota más abajo
+            // en el código para reactivarla).
+            '<img class="rc-product-img" src="' + p.img + '" alt="Rubicat ' + p.name + '" ' + loadingAttrs + '>' +
           '</div>' +
         '</div>'
       );
     }
   
-    /* ---------------- medir ancho de un set de N cards ---------------- */
-    function measureSetWidth(count){
+    /* ---------------- medir offsets de un set de N cards ---------------- */
+    function measureOffsets(count){
       var gap = 14;
       var cards = trackEl.children;
-      var width = 0;
+      var offsets = [];
+      var acc = 0;
       for (var i = 0; i < count; i++){
-        width += cards[i].getBoundingClientRect().width + gap;
+        offsets.push(acc);
+        acc += cards[i].getBoundingClientRect().width + gap;
       }
-      return width;
+      return { offsets: offsets, total: acc };
     }
   
-    /* ---------------- render + marquee ---------------- */
-    function renderTrack(){
-      var items = getFiltered();
+    /* ---------------- índice actual (para dots y flechas) ---------------- */
+    function getCurrentIndex(){
+      var current = 0;
+      for (var i = 0; i < itemOffsets.length; i++){
+        if(itemOffsets[i] <= position) current = i;
+      }
+      return current;
+    }
   
-      trackEl.style.animation = "none";
+    /* ---------------- dots ---------------- */
+    function buildDots(count){
+      if(!dotsEl) return;
+      dotsEl.innerHTML = "";
+      for (var i = 0; i < count; i++){
+        (function(i){
+          var dot = document.createElement("button");
+          dot.className = "rc-dot" + (i === 0 ? " is-active" : "");
+          dot.setAttribute("aria-label", "Ir al producto " + (i + 1));
+          dot.addEventListener("click", function(){
+            position = itemOffsets[i] || 0;
+          });
+          dotsEl.appendChild(dot);
+        })(i);
+      }
+    }
+  
+    function updateActiveDot(){
+      if(!dotsEl || !itemOffsets.length) return;
+      var current = getCurrentIndex();
+      Array.prototype.forEach.call(dotsEl.children, function(d, i){
+        d.classList.toggle("is-active", i === current);
+      });
+    }
+  
+    /* ---------------- flechas (desktop) ---------------- */
+    var prevBtn = document.getElementById("rcPrev");
+    var nextBtn = document.getElementById("rcNext");
+  
+    function setArrowsVisible(visible){
+      // "" deja que el CSS decida (las muestra solo en desktop, vía media
+      // query); "none" las oculta siempre, sin importar el ancho de pantalla.
+      if(prevBtn) prevBtn.style.display = visible ? "" : "none";
+      if(nextBtn) nextBtn.style.display = visible ? "" : "none";
+    }
+  
+    if(prevBtn){
+      prevBtn.addEventListener("click", function(){
+        if(!itemOffsets.length) return;
+        var idx = (getCurrentIndex() - 1 + itemOffsets.length) % itemOffsets.length;
+        position = itemOffsets[idx];
+      });
+    }
+    if(nextBtn){
+      nextBtn.addEventListener("click", function(){
+        if(!itemOffsets.length) return;
+        var idx = (getCurrentIndex() + 1) % itemOffsets.length;
+        position = itemOffsets[idx];
+      });
+    }
+  
+    /* ---------------- render + loop ---------------- */
+    function renderTrack(){
+      cancelAnimation();
+      trackEl.classList.remove("rc-track--static");
       trackEl.style.transform = "translateX(0)";
       trackEl.innerHTML = "";
+      if(dotsEl) dotsEl.innerHTML = "";
+      itemOffsets = [];
+      position = 0;
+  
+      var items = getFiltered();
   
       if(items.length === 0){
         trackEl.innerHTML = '<div class="rc-empty">No hay productos en esta categoría todavía.</div>';
+        setArrowsVisible(false);
         return;
       }
   
       // Primero armamos un solo set (sin duplicar) para medir si entra
       // completo en el ancho visible sin necesidad de scrollear.
-      trackEl.innerHTML = items.map(cardHTML).join("");
+      trackEl.innerHTML = items.map(function(p, i){ return cardHTML(p, i === 0); }).join("");
   
       requestAnimationFrame(function(){
         requestAnimationFrame(function(){
           var wrapWidth = trackEl.parentElement.clientWidth;
-          var singleWidth = measureSetWidth(items.length);
+          var single = measureOffsets(items.length);
   
-          if(singleWidth <= wrapWidth){
-            // Entran todas las cards sin necesidad de loop: quedan fijas,
-            // sin animación y sin repetirse.
-            trackEl.style.animation = "none";
-            trackEl.style.transform = "translateX(0)";
+          if(single.total <= wrapWidth){
+            // Entran todas sin necesidad de loop: quedan fijas y centradas,
+            // sin animación, sin dots ni flechas (no hace falta navegar).
+            trackEl.classList.add("rc-track--static");
+            setArrowsVisible(false);
             return;
           }
   
-          // No entran todas: armamos el loop duplicado y arrancamos el marquee.
+          // No entran todas: duplicamos para el loop y arrancamos el auto-scroll.
           var loop = items.concat(items);
-          trackEl.innerHTML = loop.map(cardHTML).join("");
+          trackEl.innerHTML = loop.map(function(p, i){ return cardHTML(p, i === 0); }).join("");
   
-          requestAnimationFrame(function(){
-            requestAnimationFrame(function(){ startMarquee(items.length); });
-          });
+          var measured = measureOffsets(items.length);
+          itemOffsets = measured.offsets;
+          singleWidth = measured.total;
+  
+          buildDots(items.length);
+          setArrowsVisible(true);
+          startLoop();
         });
       });
     }
   
-    function startMarquee(originalCount){
-      var distance = measureSetWidth(originalCount);
-  
-      trackEl.style.setProperty("--rc-distance", -distance + "px");
-      var duration = distance / SPEED;
-  
-      trackEl.style.animation = "none";
-      void trackEl.offsetWidth; // fuerza reflow para poder reiniciar la animación
-      trackEl.style.animation = "rc-marquee " + duration + "s linear infinite";
+    function startLoop(){
+      lastTs = null;
+      rafId = requestAnimationFrame(tick);
     }
   
-    /* ---------------- pausa con hover / touch ---------------- */
-    var wrap = document.querySelector(".rc-carousel");
-    wrap.addEventListener("mouseenter", function(){ trackEl.style.animationPlayState = "paused"; });
-    wrap.addEventListener("mouseleave", function(){ trackEl.style.animationPlayState = "running"; });
-    wrap.addEventListener("touchstart", function(){ trackEl.style.animationPlayState = "paused"; }, {passive:true});
-    wrap.addEventListener("touchend", function(){ trackEl.style.animationPlayState = "running"; });
+    function cancelAnimation(){
+      if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+    }
   
-    /* ---------------- resize: recalcular distancia/velocidad ---------------- */
+    function tick(ts){
+      if(lastTs === null) lastTs = ts;
+      var dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+  
+      if(!isPaused && !isDragging && !prefersReducedMotion && singleWidth > 0){
+        position += SPEED * dt;
+        if(position >= singleWidth) position -= singleWidth;
+        if(position < 0) position += singleWidth;
+      }
+  
+      trackEl.style.transform = "translateX(" + (-position) + "px)";
+      updateActiveDot();
+  
+      rafId = requestAnimationFrame(tick);
+    }
+  
+    /* ---------------- arrastre táctil (swipe en mobile) ---------------- */
+    var wrap = document.querySelector(".rc-carousel");
+  
+    wrap.addEventListener("touchstart", function(e){
+      var t = e.touches[0];
+      isDragging = true;
+      isPaused = true;
+      dragStartX = t.clientX;
+      dragStartPosition = position;
+      touchStartY = t.clientY;
+    }, {passive:true});
+  
+    wrap.addEventListener("touchmove", function(e){
+      if(!isDragging || singleWidth <= 0) return;
+      var t = e.touches[0];
+      var dx = t.clientX - dragStartX;
+      var dy = t.clientY - touchStartY;
+  
+      // Si el movimiento es más horizontal que vertical, es un swipe del
+      // carrusel: evitamos que la página scrollee verticalmente mientras tanto.
+      if(Math.abs(dx) > Math.abs(dy)){
+        e.preventDefault();
+      }
+  
+      var next = dragStartPosition - dx;
+      next = ((next % singleWidth) + singleWidth) % singleWidth;
+      position = next;
+    }, {passive:false});
+  
+    wrap.addEventListener("touchend", function(){
+      isDragging = false;
+      isPaused = false;
+    }, {passive:true});
+  
+    /* ---------------- resize: recalcular todo ---------------- */
     var resizeTimer;
     window.addEventListener("resize", function(){
       clearTimeout(resizeTimer);
