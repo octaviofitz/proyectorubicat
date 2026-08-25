@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <%- include('./partials/head') %> 
+
+  <body>
+    <%- include('partials/navBar.ejs') %>
+    <%- include('partials/scriptNavbar') %>
+
+    <main class="newProductos">
+
+      <section class="newProductos__filtros">
+        <h1 class="newProductos__titulo reveal-letters">
+          COMPARÁ LOS PRODUCTOS RUBICAT
+        </h1>
+
+        <p class="newProductos__texto">
+          Explorá nuestra línea de productos y filtrá según el tipo y las necesidades de tu gato para encontrar el producto ideal para él.
+        </p>
+
+        <!-- Filtros -->
+        <div
+          class="newProductos__filter-list"
+          id="npFilters"
+          role="tablist"
+          aria-label="Filtrar productos"
+        ></div>
+
+        <!-- Productos -->
+        <div class="newProductos__carousel">
+
+          <button
+            class="newProductos__arrow newProductos__arrow--prev"
+            id="npPrev"
+            aria-label="Producto anterior"
+          >
+            ‹
+          </button>
+
+          <div class="newProductos__track-wrap">
+            <div
+              class="newProductos__track"
+              id="npTrack"
+            ></div>
+          </div>
+
+          <button
+            class="newProductos__arrow newProductos__arrow--next"
+            id="npNext"
+            aria-label="Producto siguiente"
+          >
+            ›
+          </button>
+
+        </div>
+
+        <!-- Indicadores -->
+        <div
+          class="newProductos__dots"
+          id="npDots"
+        ></div>
+
+      </section>
+
+    </main>
+
+    <%- include('partials/scriptTitulos') %>
+    <%- include('partials/newFooter') %>
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

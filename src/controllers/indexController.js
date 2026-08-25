@@ -134,9 +134,17 @@ Enviado desde www.rubicat.com.ar
     })
   },
 
-  riodejaneiro: (req, res) => {
+  productos: (req, res) => {
+    return res.render("productos", {
+      title: "Rubicat - Productos",
+      descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat ",
+      keywords: "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
+    })
+  },
+
+ /*  riodejaneiro: (req, res) => {
     const q = new URLSearchParams(req.query).toString();
     const target = q ? `${GOOGLE_FORM_URL}?${q}` : GOOGLE_FORM_URL;
     return res.redirect(302, target);
-  }
+  } */
 };

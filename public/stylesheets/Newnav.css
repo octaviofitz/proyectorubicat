@@ -177,6 +177,10 @@
     padding: 14px 8rem; /* Espaciado lateral generoso para que no pegue a los bordes */
   }
 
+  .sr-nav{
+    border-bottom: 1px solid white;
+  }
+
   .imgNavbar {
     margin-left: 0; /* Limpiamos el margin anterior */
   }

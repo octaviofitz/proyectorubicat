@@ -16,33 +16,272 @@
     /* ---------------- data ---------------- */
     var FILTERS = [
       { id:"todos",       label:"Todos",        color:"#00ACBB"           },
-      { id:"bidones",     label:"Bidones",      color:"#FF8C1E"     },
-      { id:"bolsas",      label:"Bolsas",       color:"#dc5572"      },
-      /* { id:"10kg",        label:"+10kg",        color:"#"        },
-      { id:"5kg",         label:"5kg",          color:"#"         }, */
-      { id:"bentonita",   label:"Bentonita",    color:"#98c21e"   },
-      { id:"silica",      label:"Sílica",       color:"#8B85CA"      },
+      { id:"favoritos",   label:"Favoritos",    color:"#FF8C1E"           },
+      { id:"bentonita",   label:"Bentonita",    color:"#dc5572"   },
+      { id:"silica",      label:"Sílica",       color:"#98c21e"      },
+      { id:"diatomea",    label:"Diatomea",     color:"#8B85CA"      },
+      { id:"bolsas",      label:"Bolsas",       color:"#000"      },
+      { id:"bidones",     label:"Bidones",      color:"#cedd00"     },
+
     ];
   
     // El ORDEN de este array = el orden en el que aparecen en la cinta.
     var PRODUCTS = [
-    { name:"Classic bolson",    sub:"15 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas","10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBolsa.webp" },
-    { name:"Premium Bolsa",    sub:"10 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBolsa.webp" },
-    { name:"Sensitive",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "5kg","bentonita"], img:"/images/NewIndex/Productos/Sensitive.webp" },
-    { name:"Sensitive Microesferas",    sub:"5 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:[ "bolsas", "microesferas", "5kg","bentonita"], img:"/images/NewIndex/Productos/SensitiveMicroesferas.webp" },
-    { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"orange", cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/Silica.webp"},
-      { name:"Silica Aglutinante",   sub:"3.8 KG",  type:"SILICA",       tagline:"BOLSA AGLUTINANTE", theme:"red",    cardBg:"cream", tags:["bolsas","5kg","silica"], img:"/images/NewIndex/Productos/SilicaAglutinante.webp"},
-      { name:"Classic Lavanda",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Lavanda.webp" },
-      { name:"Original",    sub:"5 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Original.webp" },
-      { name:"Detox",    sub:"5 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/Detox.webp" },
-      { name:"Classic bidón",    sub:"5.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones","5kg","bentonita"], img:"/images/NewIndex/Productos/ClassicBidon.webp" },
-      { name:"Classic bolsón y bidón",    sub:"20.3 KG",  type:"BENTONITA",    tagline:"BOLSA AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bolsas", "bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/ClassicMixto.webp" },
-      { name:"Premium Bidón",    sub:"5.7 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "5kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBidon5KG.webp" },
-      { name:"Premium Bidón 11KG",    sub:"11 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumBidon11KG.webp" },
-      { name:"Premium Bidones y Bolsa",    sub:"26.7 KG",  type:"BENTONITA",    tagline:"BIDÓN AGLUTINANTE", theme:"pink",   cardBg:"dark",  tags:["bidones", "bolsas", "10kg","bentonita"], img:"/images/NewIndex/Productos/PremiumMixto.webp" },
-  
-  
-    ];
+  {
+    name: "Classic bolson",
+    sub: "15 KG",
+    type: "BENTONITA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bolsas", "favoritos", "bentonita"],
+    img: "/images/NewIndex/Productos/ClassicBolsa.webp",
+
+    description: "Arena de bentonita aglutinante para una limpieza práctica y eficiente.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Premium Bolsa",
+    sub: "10 KG",
+    type: "BENTONITA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bolsas", "favoritos", "10kg", "bentonita"],
+    img: "/images/NewIndex/Productos/PremiumBolsa.webp",
+
+    description: "Una opción de alto rendimiento pensada para facilitar la limpieza diaria.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 3
+  },
+
+  {
+    name: "Sensitive",
+    sub: "5 KG",
+    type: "BENTONITA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bolsas", "favoritos", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/Sensitive.webp",
+
+    description: "Formulada para brindar una experiencia cómoda y práctica para tu gato.",
+    absorcion: 2,
+    accion: 3,
+    olores: 2,
+    palitas: 2
+  },
+
+  {
+    name: "Sensitive Microesferas",
+    sub: "5 KG",
+    type: "BENTONITA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bolsas", "favoritos", "microesferas", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/SensitiveMicroesferas.webp",
+
+    description: "Microesferas que combinan absorción y practicidad para la limpieza.",
+    absorcion: 3,
+    accion: 3,
+    olores: 3,
+    palitas: 3
+  },
+
+  {
+    name: "Silica Aglutinante",
+    sub: "3.8 KG",
+    type: "SILICA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "orange",
+    cardBg: "cream",
+    tags: ["bolsas", "5kg", "silica"],
+    img: "/images/NewIndex/Productos/Silica.webp",
+
+    description: "Piedras de sílica con gran capacidad de absorción.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Silica Aglutinante",
+    sub: "3.8 KG",
+    type: "SILICA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "red",
+    cardBg: "cream",
+    tags: ["bolsas", "5kg", "silica"],
+    img: "/images/NewIndex/Productos/SilicaAglutinante.webp",
+
+    description: "Una alternativa absorbente para mantener la bandeja limpia.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Classic Lavanda",
+    sub: "5.3 KG",
+    type: "BENTONITA",
+    tagline: "BIDÓN AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/Lavanda.webp",
+
+    description: "Bentonita aglutinante para facilitar la limpieza cotidiana.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Original",
+    sub: "5 KG",
+    type: "BENTONITA",
+    tagline: "BIDÓN AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/Original.webp",
+
+    description: "Una opción práctica para mantener la bandeja limpia y seca.",
+    absorcion: 3,
+    accion: 3,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Detox",
+    sub: "5 KG",
+    type: "BENTONITA",
+    tagline: "BIDÓN AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/Detox.webp",
+
+    description: "Pensada para ofrecer una buena absorción y control de olores.",
+    absorcion: 3,
+    accion: 4,
+    olores: 4,
+    palitas: 2
+  },
+
+  {
+    name: "Classic bidón",
+    sub: "5.3 KG",
+    type: "BENTONITA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "favoritos", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/ClassicBidon.webp",
+
+    description: "Bentonita aglutinante para la limpieza cotidiana.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Classic bolsón y bidón",
+    sub: "20.3 KG",
+    type: "BENTONITA",
+    tagline: "BOLSA AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bolsas", "bidones", "10kg", "bentonita"],
+    img: "/images/NewIndex/Productos/ClassicMixto.webp",
+
+    description: "Una presentación combinada para acompañar las necesidades de tu hogar.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 2
+  },
+
+  {
+    name: "Premium Bidón",
+    sub: "5.7 KG",
+    type: "BENTONITA",
+    tagline: "BIDÓN AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "favoritos", "5kg", "bentonita"],
+    img: "/images/NewIndex/Productos/PremiumBidon5KG.webp",
+
+    description: "Alto rendimiento y practicidad para la limpieza de la bandeja.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 3
+  },
+
+  {
+    name: "Premium Bidón 11KG",
+    sub: "11 KG",
+    type: "BENTONITA",
+    tagline: "BIDÓN AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "favoritos", "10kg", "bentonita"],
+    img: "/images/NewIndex/Productos/PremiumBidon11KG.webp",
+
+    description: "Una presentación de mayor capacidad para el uso cotidiano.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 3
+  },
+
+  {
+    name: "Premium Bidones y Bolsa",
+    sub: "26.7 KG",
+    type: "BENTONITA",
+    tagline: "BIDÓN AGLUTINANTE",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["bidones", "bolsas", "10kg", "bentonita"],
+    img: "/images/NewIndex/Productos/PremiumMixto.webp",
+
+    description: "Una combinación pensada para quienes buscan mayor disponibilidad de producto.",
+    absorcion: 3,
+    accion: 4,
+    olores: 3,
+    palitas: 3
+  },
+
+  {
+    name: "Diatomea Absorbente",
+    sub: "23 DM",
+    type: "DIATOMEA",
+    tagline: "BOLSA DIATOMEA",
+    theme: "pink",
+    cardBg: "dark",
+    tags: ["diatomea"],
+    img: "/images/NewIndex/Productos/Diatomea.webp",
+
+    description: "Piedras de diatomea con alta capacidad de absorción.",
+    absorcion: 4,
+    accion: 4,
+    olores: 4,
+    palitas: 2
+  }
+];
   
     /* ---------------- state ---------------- */
     var activeFilter = FILTERS[0].id;
