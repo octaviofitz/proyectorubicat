@@ -691,7 +691,7 @@
 }
 
 .itemPregunta.activo .contenidoRespuesta{
-  max-height: 300px;
+  max-height: 400px;
 }
 
 /* --- Hover cuando está ABIERTO: solo el título se pone celeste, fondo queda blanco --- */
