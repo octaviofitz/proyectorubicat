@@ -1,560 +1,659 @@
 /* =========================================================
-   PRODUCTOS RUBICAT
+   NUEVA SECCIÓN PRODUCTOS
+   Todo queda aislado dentro de .newProductos
    ========================================================= */
 
    .newProductos {
-    margin: 2rem 0;
-    padding: 0 20px 40px;
+    width: 100%;
+    padding: 0 0 4rem;
+    overflow: hidden;
   }
-
-
+  
+  
   /* =========================================================
      TÍTULO
      ========================================================= */
-
-  .newProductos .titulo {
+  
+  .newProductos .newProductos__titulo {
     text-align: center;
-    font-weight: 500;
-    margin: 2rem 3rem 1rem;
+    font-weight: 700;
+    margin: 2rem 4rem 2rem;
     padding-top: 1rem;
-    font-size: 2.6rem;
+    font-size: 3rem;
   }
-
+  
   .newProductos .reveal-letters .word {
     display: inline-block;
-    white-space: nowrap;
+    white-space: nowrap; /* que una palabra nunca se corte a la mitad */
     font-family: "Anton", sans-serif;
   }
-
+  
   .newProductos .reveal-letters .letter {
     display: inline-block;
     opacity: 0;
     transform: translateY(0.3em);
-    transition:
-      opacity .4s ease,
-      transform .4s ease;
+    transition: opacity .4s ease, transform .4s ease;
     transition-delay: var(--d, 0s);
     font-family: "Anton", sans-serif;
   }
-
+  
   .newProductos .reveal-letters.is-visible .letter {
     opacity: 1;
     transform: translateY(0);
   }
-
-
+  
+  
   /* =========================================================
-     TEXTO INTRODUCTORIO
+     TEXTO
      ========================================================= */
-
+  
   .newProductos .newProductos__texto {
-    max-width: 700px;
-    margin: 0 auto 2rem;
+    max-width: 650px;
+  
+    margin: 0 auto 1.5rem;
+    padding: 0 20px;
+  
     text-align: center;
+  
     color: #666;
+  
     font-family: "Switzer", sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.45;
   }
-
-
+  
+  
   /* =========================================================
      FILTROS
      ========================================================= */
-
+  
   .newProductos .newProductos__filter-list {
+  
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-
+  
+    gap: 8px;
+  
     width: 100%;
-    margin: 0 auto 2.5rem;
-    padding: 4px 2px 14px;
-
+  
+    padding: 4px 8px 12px;
+  
+    margin-bottom: 0;
+  
+    overflow-x: auto;
+    overflow-y: hidden;
+  
     scrollbar-width: none;
+  
+    -webkit-overflow-scrolling: touch;
   }
-
+  
   .newProductos .newProductos__filter-list::-webkit-scrollbar {
     display: none;
   }
-
-
-  /* Botones generados por JS */
-
-  .newProductos .newProductos__pill {
+  
+  
+  /* =========================================================
+     BOTONES DE FILTRO
+     ========================================================= */
+  
+  .newProductos .newProductos__filter-list .np-pill {
+  
     flex: 0 0 auto;
-
-    font-family: "Switzer", sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-
-    padding: 9px 18px;
-
+  
+    padding: 7px 19px;
+  
     border-radius: 999px;
-    border: 1.5px solid var(--pill-color, var(--ink));
-
-    color: var(--pill-color, var(--ink));
-    background: var(--paper);
-
-    cursor: pointer;
-
+  
+    border: 1.5px solid var(--np-pill-color, #00ACBB);
+  
+    background: #fff;
+  
+    color: var(--np-pill-color, #00ACBB);
+  
+    font-family: "Switzer", sans-serif;
+  
+    font-size: 14px;
+    font-weight: 600;
+  
+    line-height: 1;
+  
     white-space: nowrap;
-
+  
+    cursor: pointer;
+  
     transition:
       background .2s ease,
       color .2s ease,
       transform .15s ease;
   }
-
-  .newProductos .newProductos__pill:hover {
+  
+  .newProductos .newProductos__filter-list .np-pill:hover {
     transform: translateY(-1px);
   }
-
-  .newProductos .newProductos__pill.is-active {
-    background: var(--pill-color, var(--ink));
+  
+  .newProductos .newProductos__filter-list .np-pill.is-active {
+    background: var(--np-pill-color, #00ACBB);
     color: #fff;
   }
-
-  .newProductos .newProductos__pill:focus-visible {
-    outline: 3px solid var(--pill-color, var(--ink));
+  
+  .newProductos .newProductos__filter-list .np-pill:focus-visible {
+    outline: 2px solid var(--np-pill-color, #00ACBB);
     outline-offset: 2px;
   }
-
-
+  
+  
   /* =========================================================
      CARRUSEL
      ========================================================= */
-
-  .newProductos .newProductos__carousel {
-    position: relative;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-
-    cursor: grab;
-  }
-
+  
+     .newProductos .newProductos__carousel {
+      width: 100%;
+      margin: 0;
+    
+      overflow: hidden;
+    
+      cursor: grab;
+    
+      padding: 16px 0;
+      box-sizing: border-box;
+    }
+  
   .newProductos .newProductos__carousel:active {
     cursor: grabbing;
   }
-
-
+  
+  
   /* =========================================================
-     CONTENEDOR DE PRODUCTOS
+     CONTENEDOR DEL TRACK
      ========================================================= */
-
+  
   .newProductos .newProductos__track-wrap {
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-  }
+  
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
 
+.newProductos__track-wrap::-webkit-scrollbar {
+  display: none;
+}
+  
+.newProductos__card {
+  flex: 0 0 300px;
+}
+  
+  /* =========================================================
+     TRACK
+     ========================================================= */
+  
   .newProductos .newProductos__track {
+  
     display: flex;
-    align-items: stretch;
-    gap: 14px;
-
+    gap: 1rem;
     width: max-content;
-
-    will-change: transform;
+    padding: 16px;
   }
-
-
+  
+  
   /* =========================================================
-     TARJETA DE PRODUCTO
+     CARD
      ========================================================= */
-
-  .newProductos .newProductos__card {
-    flex: 0 0 78%;
-    max-width: 300px;
-    display: flex;
+  
+  .newProductos .np-card {
+  
+    flex: 0 0 82vw;
+  
+    width: 82vw;
+  
+    max-width: 340px;
+  
+    box-sizing: border-box;
   }
-
-  .newProductos .newProductos__track--static {
-    width: 100%;
-    margin: 0 auto;
-    justify-content: center;
-  }
-
-  .newProductos .newProductos__empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--card-fg-muted, #888);
-    font-size: 14px;
-  }
-
-  .newProductos .newProductos__card-inner {
+  
+  
+  /* =========================================================
+     INTERIOR CARD
+     ========================================================= */
+  
+  .newProductos .np-card-inner {
+  
     position: relative;
+  
     width: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    border-radius: var(--radius-lg);
-    background: var(--card-bg, var(--cream));
-    color: var(--card-fg, var(--ink));
-
+  
+    min-height: 620px;
+  
+    padding: 38px 22px 30px;
+  
+    box-sizing: border-box;
+  
+    border: 2px solid #222;
+  
+    border-radius: 32px;
+  
+    background: var(--np-card-bg, #00ACBB);
+  
     overflow: hidden;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
-  }
-
-
-  /* =========================================================
-     IMAGEN DEL PRODUCTO
-     ========================================================= */
-
-  .newProductos .newProductos__card-media {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-
-    padding: 26px 24px 8px;
-  }
-
-  .newProductos .newProductos__product-img {
-    width: 100%;
-    max-width: 210px;
-    height: auto;
-
-    object-fit: contain;
-    object-position: center;
-
-    display: block;
-
-    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, .22));
-  }
-
-  /* si la imagen no carga (ruta rota, etc.) mostramos un placeholder prolijo */
-  .newProductos .newProductos__card-media.newProductos__media--empty {
-    aspect-ratio: 3 / 4;
-    align-items: center;
-  }
-
-  .newProductos .newProductos__card-media.newProductos__media--empty::after {
-    content: "Imagen no disponible";
-    font-family: "Switzer", sans-serif;
-    font-size: 12px;
-    color: var(--card-fg-muted, rgba(0, 0, 0, .5));
-    border: 1px dashed currentColor;
-    border-radius: 12px;
-    padding: 8px 14px;
-    opacity: .6;
-  }
-
-
-  /* =========================================================
-     CONTENIDO (descripción + indicadores)
-     ========================================================= */
-
-  .newProductos .newProductos__card-body {
+  
     display: flex;
     flex-direction: column;
-    gap: 14px;
-
+    align-items: center;
+  
     text-align: center;
-
-    padding: 12px 22px 26px;
-    margin-top: auto;
+  
+    box-shadow: none;
   }
-
-  .newProductos .newProductos__card-heading {
-    font-family: "Switzer", sans-serif;
-    font-weight: 700;
-    font-size: 1.05rem;
-    margin: 0;
-  }
-
-  .newProductos .newProductos__card-desc {
-    font-family: "Switzer", sans-serif;
-    font-size: .85rem;
-    line-height: 1.45;
-    margin: -6px 0 4px;
-    color: var(--card-fg-muted, rgba(0, 0, 0, .6));
-  }
-
-  .newProductos .newProductos__card-stat-label {
-    display: block;
-    font-family: "Switzer", sans-serif;
-    font-weight: 700;
-    font-size: .78rem;
-    letter-spacing: .01em;
-    margin-bottom: 8px;
-  }
-
-  .newProductos .newProductos__card-stat-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .newProductos .newProductos__icon {
-    color: var(--icon-off, rgba(0, 0, 0, .22));
-    flex: 0 0 auto;
-  }
-
-  .newProductos .newProductos__icon.is-filled {
-    color: var(--card-fg, currentColor);
-  }
-
-
+  
+  
   /* =========================================================
-     FLECHAS
+     IMAGEN
      ========================================================= */
-
-  .newProductos .newProductos__arrow {
-    display: flex;
-
-    position: absolute;
-
-    top: 50%;
-    transform: translateY(-50%);
-
-    z-index: 4;
-
-    width: 44px;
-    height: 44px;
-
-    border-radius: 50%;
-    border: none;
-
-    background: #fff;
-    color: var(--ink);
-
-    font-size: 22px;
-    line-height: 1;
-
-    cursor: pointer;
-
-    align-items: center;
-    justify-content: center;
-
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
-
-    transition:
-      background .2s ease,
-      color .2s ease;
+  
+  .newProductos .np-product-img {
+  
+    display: block;
+  
+    width: 82%;
+  
+    height: 275px;
+  
+    object-fit: contain;
+  
+    object-position: center;
+  
+    flex-shrink: 0;
+  
+    margin: 0 auto 12px;
   }
-
-  .newProductos .newProductos__arrow:hover {
-    background: var(--ink);
+  
+  
+  /* =========================================================
+     NOMBRE DEL PRODUCTO
+     ========================================================= */
+  
+  .newProductos .np-product-name {
+  
+    margin: 0 0 18px;
+  
+    color: #fff;
+  
+    font-family: "Switzer", sans-serif;
+  
+    font-size: 1.15rem;
+    font-weight: 700;
+  
+    line-height: 1.1;
+  }
+  
+  
+  /* =========================================================
+     BLOQUES DE INFORMACIÓN
+     ========================================================= */
+  
+  .newProductos .np-info {
+  
+    width: 100%;
+  
+    margin-top: 2px;
+  
+    color: #fff;
+  
+    font-family: "Switzer", sans-serif;
+  }
+  
+  .newProductos .np-info-title {
+  
+    margin: 0 0 7px;
+  
+    color: #fff;
+  
+    font-size: 1rem;
+    font-weight: 700;
+  
+    line-height: 1.2;
+  }
+  
+  .newProductos .np-info-text {
+  
+    max-width: 270px;
+  
+    margin: 0 auto;
+  
+    color: #fff;
+  
+    font-size: .82rem;
+    line-height: 1.25;
+  }
+  
+  
+  /* =========================================================
+     ÍCONOS / VALORES
+     ========================================================= */
+  
+  .newProductos .np-stat {
+  
+    display: flex;
+  
+    justify-content: center;
+    align-items: center;
+  
+    gap: 5px;
+  
+    margin-top: 8px;
+  }
+  
+  .newProductos .np-stat-item {
+  
+    display: flex;
+  
+    justify-content: center;
+    align-items: center;
+  
+    width: 27px;
+    height: 27px;
+  
     color: #fff;
   }
-
-  .newProductos .newProductos__arrow--prev {
-    left: -8px;
-  }
-
-  .newProductos .newProductos__arrow--next {
-    right: -8px;
-  }
-
-
+  
+  
   /* =========================================================
-     PUNTOS
+     DIBUJOS / ICONOS SVG
      ========================================================= */
+  
+  .newProductos .np-stat-item svg {
+  
+    width: 24px;
+    height: 24px;
+  
+    display: block;
+  
+    stroke: currentColor;
+  }
 
-  .newProductos .newProductos__dots {
+  .newProductos .np-performance {
     display: flex;
-
+    align-items: flex-end;
+    gap: 5px;
+    height: 28px;
+  }
+  
+  .newProductos .np-bar {
+    display: block;
+    width: 8px;
+    height: 12px;
+    border-radius: 3px;
+    background: rgba(255,255,255,.35);
+  }
+  
+  .newProductos .np-bar:nth-child(2) {
+    height: 16px;
+  }
+  
+  .newProductos .np-bar:nth-child(3) {
+    height: 20px;
+  }
+  
+  .newProductos .np-bar:nth-child(4) {
+    height: 24px;
+  }
+  
+  .newProductos .np-bar:nth-child(5) {
+    height: 28px;
+  }
+  
+  .newProductos .np-bar.is-active {
+    background: currentColor;
+  }
+  
+  
+  /* =========================================================
+     DOTS
+     ========================================================= */
+  
+  .newProductos .newProductos__dots {
+  
+    display: flex;
+  
     justify-content: center;
     align-items: center;
-
-    gap: 10px;
-
-    margin-top: 2rem;
+  
+    gap: 8px;
+  
+    margin-top: 12px;
   }
-
+  
   .newProductos .newProductos__dots:empty {
     display: none;
   }
-
-  .newProductos .newProductos__dot {
+  
+  .newProductos .np-dot {
+  
     width: 7px;
     height: 7px;
-
-    border-radius: 50%;
-
-    background: #D8CDB8;
-
-    border: none;
+  
     padding: 0;
-
+  
+    border: 0;
+    border-radius: 50%;
+  
+    background: #D8CDB8;
+  
     cursor: pointer;
-
+  
     transition:
-      background .25s ease,
-      transform .25s ease;
+      transform .2s ease,
+      background .2s ease;
   }
-
-  .newProductos .newProductos__dot.is-active {
-    background: var(--ink);
+  
+  .newProductos .np-dot.is-active {
+  
+    background: #222;
+  
     transform: scale(1.25);
   }
-
-
+  
+  
   /* =========================================================
-     TEMAS DE PRODUCTOS
-     (definen el matiz de color de la card: --p1 claro -> --p3 oscuro)
+     COLORES DE LAS CARDS
      ========================================================= */
-
-  .newProductos .newProductos__theme-orange {
-    --p1: #F0913F;
-    --p2: #E8752A;
-    --p3: #C4501A;
+  
+  .newProductos .np-bg-celeste {
+    --np-card-bg: red;
   }
-
-  .newProductos .newProductos__theme-red {
-    --p1: #F2694C;
-    --p2: #E3442A;
-    --p3: #B22B18;
+  
+  .newProductos .np-bg-naranja {
+    --np-card-bg: #FF8C1E;
   }
-
-  .newProductos .newProductos__theme-pink {
-    --p1: #F17FA8;
-    --p2: #E6528C;
-    --p3: #B92F66;
+  
+  .newProductos .np-bg-verde {
+    --np-card-bg: #98C21E;
   }
-
-  .newProductos .newProductos__theme-violet {
-    --p1: #A78BFA;
-    --p2: #8B5CF6;
-    --p3: #6633CC;
+  
+  .newProductos .np-bg-violeta {
+    --np-card-bg: #8B85CA;
   }
-
-  .newProductos .newProductos__theme-teal {
-    --p1: #2DD4BF;
-    --p2: #0F9E8E;
-    --p3: #0A6E63;
+  
+  .newProductos .np-bg-rosa {
+    --np-card-bg: #DC5572;
   }
-
-  .newProductos .newProductos__theme-gold {
-    --p1: #F5C244;
-    --p2: #E8A317;
-    --p3: #B87A0C;
+  
+  .newProductos .np-bg-negro {
+    --np-card-bg: #222;
   }
-
-  .newProductos .newProductos__theme-blue {
-    --p1: #60A5FA;
-    --p2: #3B82F6;
-    --p3: #1D4ED8;
-  }
-
-  .newProductos .newProductos__theme-green {
-    --p1: #4ADE80;
-    --p2: #22C55E;
-    --p3: #15803D;
-  }
-
-
+  
+  
   /* =========================================================
-     FONDOS
-     (newProductos__bg-dark = card de color, usando el theme del producto
-      newProductos__bg-cream = card clara, con texto oscuro)
+     PRODUCTO SIN RESULTADOS
      ========================================================= */
-
-  .newProductos .newProductos__bg-dark {
-    --card-bg: linear-gradient(165deg, var(--p1, var(--ink)), var(--p3, var(--ink)));
-    --card-fg: #fff;
-    --card-fg-muted: rgba(255, 255, 255, .74);
-    --icon-off: rgba(255, 255, 255, .3);
+  
+  .newProductos .np-empty {
+  
+    width: calc(82vw - 4px);
+  
+    max-width: 336px;
+  
+    padding: 60px 20px;
+  
+    border: 2px solid #222;
+    border-radius: 30px;
+  
+    background: #f5f5f5;
+  
+    color: #666;
+  
+    text-align: center;
+  
+    font-family: "Switzer", sans-serif;
   }
-
-  .newProductos .newProductos__bg-cream {
-    --card-bg: var(--cream);
-    --card-fg: var(--ink);
-    --card-fg-muted: rgba(0, 0, 0, .58);
-    --icon-off: rgba(0, 0, 0, .2);
+  
+  
+  /* =========================================================
+     TABLET
+     ========================================================= */
+  
+  @media (min-width: 600px) {
+  
+    .newProductos .np-card {
+      flex-basis: 330px;
+      width: 330px;
+    }
+  
+    .newProductos .newProductos__track {
+      padding-left: 40px;
+    }
+  
   }
-
-
+  
+  
   /* =========================================================
      DESKTOP
      ========================================================= */
-
-  @media (min-width: 768px) {
-
-    .newProductos {
-      padding-left: 40px;
-      padding-right: 40px;
-    }
-
-    .newProductos .newProductos__texto {
-      margin-bottom: 2.5rem;
-    }
-
-    .newProductos .newProductos__card {
-      flex: 0 0 300px;
-    }
-
-  }
-
-
-  /* =========================================================
-     DESKTOP GRANDE
-     ========================================================= */
-
-  @media (min-width: 1024px) {
-
-    .newProductos {
-      margin-top: 3rem;
-    }
-
-    .newProductos .titulo {
-      font-size: 3rem;
-    }
-
-    .newProductos .newProductos__filter-list {
-      max-width: 1000px;
-    }
-
-    .newProductos .newProductos__carousel {
-      max-width: 1100px;
-    }
-
-    .newProductos .newProductos__arrow {
-      display: flex;
-    }
-
-  }
-
-
-  /* =========================================================
-     MOBILE
-     ========================================================= */
-
-  @media (max-width: 767px) {
-
+  
+  @media (min-width: 900px) {
+  
     .newProductos {
       padding-left: 20px;
       padding-right: 20px;
     }
-
-    .newProductos .titulo {
-      margin-left: 1rem;
-      margin-right: 1rem;
-      font-size: 2.3rem;
+  
+    .newProductos .newProductos__titulo {
+      font-size: 3rem;
     }
-
-    .newProductos .newProductos__texto {
-      font-size: 1rem;
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-
+  
     .newProductos .newProductos__filter-list {
-      justify-content: flex-start;
-      flex-wrap: nowrap;
-
-      overflow-x: auto;
-
-      margin-bottom: 2rem;
+      justify-content: center;
+  
+      overflow-x: visible;
+  
+      padding-left: 0;
+      padding-right: 0;
     }
-
-    .newProductos .newProductos__arrow {
-      display: none;
+  
+    .newProductos .newProductos__carousel {
+      max-width: 1200px;
+  
+      margin: 0 auto;
     }
-
+  
+    .newProductos .newProductos__track {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  
+    .newProductos .np-card {
+      flex: 0 0 320px;
+      width: 320px;
+    }
+  
   }
+  
+  
+  /* =========================================================
+     MOBILE
+     ========================================================= */
+  
+  @media (max-width: 768px) {
+  
+    .newProductos .newProductos__titulo {
+      font-size: 2.45rem;
+  
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+    }
+  
+    .newProductos .newProductos__texto {
+      margin-top: -1rem;
+    }
+  
+    .newProductos .newProductos__filter-list {
+      margin-bottom: 0px;
+    }
+  
+    .newProductos .np-card {
+      flex-basis: 82vw;
+      width: 82vw;
+    }
+  
+    .newProductos .np-card-inner {
+      min-height: 620px;
+  
+      border-radius: 31px;
+    }
+  
+    .newProductos .np-product-img {
+      width: 82%;
+      height: 270px;
+    }
+  
+
+    .newProductos .newProductos__track {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  
+  }
+
+
+  .newProductos .np-bg-celeste {
+    background: #0fa8b8;
+  }
+  
+  .newProductos .np-bg-naranja {
+    background: #fb8410;
+  }
+  
+  .newProductos .np-bg-rosa {
+    background: #f75273;
+  }
+
+  .newProductos .np-bg-verdeFluo {
+    background: #CEDE00;
+  }
+  
+  .newProductos .np-bg-verdeClarito {
+    background: #92D501;
+  }
+
+  .newProductos .np-bg-violeta {
+    background: #8B85CA;
+  }
+
+  .newProductos .np-bg-naranjaFluo {
+    background: #F84A13;
+  }
+
+  .newProductos .np-bg-crema {
+    background: #FBEAC9;
+  }
+  
+  .newProductos .np-bg-amarillo {
+    background: #F0B533;
+  }
+
+  .newProductos .np-bg-azul {
+    background: #0092BB;
+  }
+  
+  

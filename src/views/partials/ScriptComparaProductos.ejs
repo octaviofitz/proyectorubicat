@@ -1,0 +1,976 @@
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+    
+      /*
+       * ============================================================
+       * COMPARADOR DE PRODUCTOS RUBICAT
+       * Script exclusivo para productos.ejs
+       *
+       * NO utiliza:
+       * rcFilters
+       * rcTrack
+       * rcDots
+       * rcPrev
+       * rcNext
+       *
+       * Por lo tanto no modifica el carrusel viejo.
+       * ============================================================
+       */
+    
+    
+      /* ============================================================
+         DATOS
+         ============================================================ */
+    
+      const PRODUCTS = [
+    
+        {
+          name: "Classic",
+          sub: "15 KG",
+          type: "BENTONITA",
+          tags: ["bolsas", "bentonita", "favoritos"],
+          img: "/images/NewIndex/Productos/ClassicBolsa.webp",
+          description: "Arena aglutinante de bentonita para una limpieza práctica y eficiente.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "celeste"
+        },
+    
+        {
+          name: "Premium",
+          sub: "10 KG",
+          type: "BENTONITA",
+          tags: ["bolsas", "bentonita", "favoritos"],
+          img: "/images/NewIndex/Productos/PremiumBolsa.webp",
+          description: "Una opción de alto rendimiento pensada para facilitar la limpieza diaria.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "naranja"
+        },
+    
+        {
+          name: "Sensitive",
+          sub: "5 KG",
+          type: "BENTONITA",
+          tags: ["bolsas", "bentonita"],
+          img: "/images/NewIndex/Productos/Sensitive.webp",
+          description: "Formulada para brindar una experiencia cómoda y práctica para tu gato.",
+          absorcion: 2,
+          accion: 3,
+          olores: 2,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "rosa"
+        },
+    
+        {
+          name: "Sensitive Microesferas",
+          sub: "5 KG",
+          type: "BENTONITA",
+          tags: ["bolsas", "bentonita"],
+          img: "/images/NewIndex/Productos/SensitiveMicroesferas.webp",
+          description: "Microesferas que combinan absorción y practicidad para la limpieza.",
+          absorcion: 3,
+          accion: 3,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "amarillo"
+        },
+    
+        {
+          name: "Sílica",
+          sub: "3.8 KG",
+          type: "SÍLICA",
+          tags: ["bolsas", "silica"],
+          img: "/images/NewIndex/Productos/Silica.webp",
+          description: "Piedras de sílica con gran capacidad de absorción.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "naranjaFluo"
+        },
+    
+        {
+          name: "Sílica Aglutinante",
+          sub: "3.8 KG",
+          type: "SÍLICA",
+          tags: ["bolsas", "silica"],
+          img: "/images/NewIndex/Productos/SilicaAglutinante.webp",
+          description: "Una alternativa absorbente para mantener la bandeja limpia.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "crema"
+        },
+    
+        {
+          name: "Classic Lavanda",
+          sub: "5.3 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bentonita"],
+          img: "/images/NewIndex/Productos/Lavanda.webp",
+          description: "Bentonita aglutinante para facilitar la limpieza cotidiana.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "violeta"
+        },
+    
+        {
+          name: "Original",
+          sub: "5 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bentonita"],
+          img: "/images/NewIndex/Productos/Original.webp",
+          description: "Una opción práctica para mantener la bandeja limpia y seca.",
+          absorcion: 3,
+          accion: 3,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "verdeClarito"
+        },
+    
+        {
+          name: "Detox",
+          sub: "5 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bentonita"],
+          img: "/images/NewIndex/Productos/Detox.webp",
+          description: "Pensada para ofrecer una buena absorción y control de olores.",
+          absorcion: 3,
+          accion: 4,
+          olores: 4,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "verdeFluo"
+        },
+    
+        {
+          name: "Classic",
+          sub: "5.3 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bentonita", "favoritos"],
+          img: "/images/NewIndex/Productos/ClassicBidon.webp",
+          description: "Bentonita aglutinante para la limpieza cotidiana.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "celeste"
+        },
+    
+        {
+          name: "Classic Bolsón + Bidón",
+          sub: "20.3 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bolsas", "bentonita"],
+          img: "/images/NewIndex/Productos/ClassicMixto.webp",
+          description: "Una presentación combinada para acompañar las necesidades de tu hogar.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "celeste"
+        },
+    
+        {
+          name: "Premium",
+          sub: "5.7 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bentonita", "favoritos"],
+          img: "/images/NewIndex/Productos/PremiumBidon5KG.webp",
+          description: "Alto rendimiento y practicidad para la limpieza de la bandeja.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "naranja"
+        },
+    
+        {
+          name: "Premium",
+          sub: "11 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bentonita", "favoritos"],
+          img: "/images/NewIndex/Productos/PremiumBidon11KG.webp",
+          description: "Una presentación de mayor capacidad para el uso cotidiano.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "naranja"
+        },
+    
+        {
+          name: "Premium Bidones + Bolsa",
+          sub: "26.7 KG",
+          type: "BENTONITA",
+          tags: ["bidones", "bolsas", "bentonita"],
+          img: "/images/NewIndex/Productos/PremiumMixto.webp",
+          description: "Una combinación pensada para quienes buscan mayor disponibilidad de producto.",
+          absorcion: 3,
+          accion: 4,
+          olores: 3,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "naranja"
+        },
+    
+        {
+          name: "Diatomea Absorbente",
+          sub: "23 DM",
+          type: "DIATOMEA",
+          tags: ["diatomea"],
+          img: "/images/NewIndex/Productos/Diatomea.webp",
+          description: "Piedras de diatomea con alta capacidad de absorción.",
+          absorcion: 4,
+          accion: 4,
+          olores: 4,
+          cumulos: 2,
+          rendimiento: 4,
+          color: "azul"
+        }
+    
+      ];
+    
+    
+      /* ============================================================
+         FILTROS
+         ============================================================ */
+    
+      const FILTERS = [
+    
+        {
+          id: "todos",
+          label: "Todos",
+          color: "#222"
+        },
+    
+        {
+          id: "favoritos",
+          label: "Favoritos",
+          color: "#00AFC0"
+        },
+    
+        {
+          id: "bolsas",
+          label: "Bolsas",
+          color: "#F28B30"
+        },
+    
+        {
+          id: "bidones",
+          label: "Bidones",
+          color: "#98C21E"
+        },
+    
+        {
+          id: "bentonita",
+          label: "Bentonita",
+          color: "#DC5572"
+        },
+    
+        {
+          id: "silica",
+          label: "Sílica",
+          color: "#8B85CA"
+        },
+    
+        {
+          id: "diatomea",
+          label: "Diatomea",
+          color: "#222"
+        }
+    
+      ];
+    
+    
+      /* ============================================================
+         ELEMENTOS DEL HTML
+         ============================================================ */
+    
+      const filtersContainer =
+        document.getElementById("npFilters");
+    
+      const track =
+        document.getElementById("npTrack");
+    
+      const dotsContainer =
+        document.getElementById("npDots");
+    
+    
+      if (!filtersContainer || !track) {
+        return;
+      }
+    
+    
+      /* ============================================================
+         ESTADO
+         ============================================================ */
+    
+      let activeFilter = "todos";
+    
+    
+      /* ============================================================
+         GENERAR FILTROS
+         ============================================================ */
+    
+      function renderFilters() {
+    
+        filtersContainer.innerHTML = "";
+    
+        FILTERS.forEach(function (filter) {
+    
+          const button =
+            document.createElement("button");
+    
+          button.type = "button";
+    
+          button.className =
+            "np-pill" +
+            (filter.id === activeFilter
+              ? " is-active"
+              : "");
+    
+          button.textContent =
+            filter.label;
+    
+          button.dataset.filter =
+            filter.id;
+    
+          button.style.setProperty(
+            "--np-pill-color",
+            filter.color
+          );
+    
+          button.setAttribute(
+            "role",
+            "tab"
+          );
+    
+          button.setAttribute(
+            "aria-selected",
+            filter.id === activeFilter
+              ? "true"
+              : "false"
+          );
+    
+    
+          button.addEventListener(
+            "click",
+            function () {
+    
+              activeFilter =
+                filter.id;
+    
+              renderFilters();
+              renderProducts();
+    
+            }
+          );
+    
+    
+          filtersContainer.appendChild(button);
+    
+        });
+    
+      }
+    
+    
+      /* ============================================================
+         FILTRAR PRODUCTOS
+         ============================================================ */
+    
+      function getProducts() {
+    
+        if (activeFilter === "todos") {
+          return PRODUCTS;
+        }
+    
+        return PRODUCTS.filter(
+          function (product) {
+    
+            return product.tags.includes(
+              activeFilter
+            );
+    
+          }
+        );
+    
+      }
+    
+    
+      /* ============================================================
+         ICONO GOTAS
+         ============================================================ */
+    
+      function createDrops(number) {
+    
+        let html = "";
+    
+        for (
+          let i = 0;
+          i < number;
+          i++
+        ) {
+    
+          html += `
+            <span class="np-stat-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 2C12 2 5.5 10.1 5.5 15.2C5.5 18.9 8.4 21.5 12 21.5C15.6 21.5 18.5 18.9 18.5 15.2C18.5 10.1 12 2 12 2Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+              </svg>
+            </span>
+          `;
+    
+        }
+    
+        return html;
+    
+      }
+    
+    
+      /* ============================================================
+         ICONO RELOJ
+         ============================================================ */
+    
+      function createClock(number) {
+    
+        let html = "";
+    
+        for (
+          let i = 0;
+          i < number;
+          i++
+        ) {
+    
+          html += `
+            <span class="np-stat-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+    
+                <circle
+                  cx="12"
+                  cy="13"
+                  r="8.5"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+    
+                <path
+                  d="M12 8.5V13L15 15"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+    
+                <path
+                  d="M9 3H15"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+    
+              </svg>
+            </span>
+          `;
+    
+        }
+    
+        return html;
+    
+      }
+    
+    
+      /* ============================================================
+         ICONO OLORES
+         ============================================================ */
+    
+      function createOdor(number) {
+    
+        let html = "";
+    
+        for (
+          let i = 0;
+          i < number;
+          i++
+        ) {
+    
+          html += `
+            <span class="np-stat-item">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+    
+                <path
+                  d="M5 8C7 8 7 11 9 11C11 11 11 8 13 8"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+    
+                <path
+                  d="M5 13C7 13 7 16 9 16C11 16 11 13 13 13"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+    
+                <path
+                  d="M11 8C13 8 13 11 15 11C17 11 17 8 19 8"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+    
+              </svg>
+            </span>
+          `;
+    
+        }
+    
+        return html;
+    
+      }
+    
+    
+      /* ============================================================
+         ICONO PALITAS
+         ============================================================ */
+    
+      function createClumps(number) {
+    
+        let html = "";
+    
+        for (
+          let i = 0;
+          i < number;
+          i++
+        ) {
+    
+          html += `
+            <span class="np-stat-item">
+              <img
+                src="/images/iconos/palita.webp"
+                alt=""
+                aria-hidden="true"
+              >
+            </span>
+          `;
+    
+        }
+    
+        return html;
+    
+      }
+    
+    
+      /* ============================================================
+         RENDIMIENTO - GRÁFICO DE BARRAS
+         ============================================================ */
+    
+      function createBars(number) {
+    
+        let html = "";
+    
+        for (
+          let i = 0;
+          i < 5;
+          i++
+        ) {
+    
+          html += `
+            <span
+              class="np-bar ${i < number ? "is-active" : ""}"
+            ></span>
+          `;
+    
+        }
+    
+        return html;
+    
+      }
+    
+    
+      /* ============================================================
+         COLOR DE CARD
+         ============================================================ */
+    
+      function getCardColor(product) {
+    
+        return `np-bg-${product.color}`;
+    
+      }
+    
+    
+      /* ============================================================
+         CREAR CARD
+         ============================================================ */
+    
+      function createCard(product) {
+    
+        const card =
+          document.createElement("article");
+    
+        card.className =
+          "np-card";
+    
+    
+        const colorClass =
+          getCardColor(product);
+    
+    
+        card.innerHTML = `
+    
+          <div class="np-card-inner ${colorClass}">
+    
+            <img
+              class="np-product-img"
+              src="${product.img}"
+              alt="Rubicat ${product.name} ${product.sub}"
+              loading="lazy"
+              decoding="async"
+            >
+    
+    
+            <div class="np-info">
+    
+              <h2 class="np-info-title">
+                Descripción
+              </h2>
+    
+              <p class="np-info-text">
+                ${product.description}
+              </p>
+    
+            </div>
+    
+    
+            <div class="np-info">
+    
+              <h2 class="np-info-title">
+                Capacidad de absorción
+              </h2>
+    
+              <div class="np-stat">
+                ${createDrops(product.absorcion)}
+              </div>
+    
+            </div>
+    
+    
+            <div class="np-info">
+    
+              <h2 class="np-info-title">
+                Tiempo de acción
+              </h2>
+    
+              <div class="np-stat">
+                ${createClock(product.accion)}
+              </div>
+    
+            </div>
+    
+    
+            <div class="np-info">
+    
+              <h2 class="np-info-title">
+                Retención de olores
+              </h2>
+    
+              <div class="np-stat">
+                ${createOdor(product.olores)}
+              </div>
+    
+            </div>
+    
+    
+            <div class="np-info">
+    
+              <h2 class="np-info-title">
+                Resistencia de los cúmulos
+              </h2>
+    
+              <div class="np-stat np-clumps">
+                ${createClumps(product.cumulos)}
+              </div>
+    
+            </div>
+    
+    
+            <div class="np-info">
+    
+              <h2 class="np-info-title">
+                Rendimiento
+              </h2>
+    
+              <div class="np-stat np-performance">
+                ${createBars(product.rendimiento)}
+              </div>
+    
+            </div>
+    
+          </div>
+    
+        `;
+    
+    
+        return card;
+    
+      }
+    
+    
+      /* ============================================================
+         GENERAR DOTS
+         ============================================================ */
+    
+      function renderDots(number) {
+    
+        if (!dotsContainer) {
+          return;
+        }
+    
+        dotsContainer.innerHTML = "";
+    
+    
+        for (
+          let i = 0;
+          i < number;
+          i++
+        ) {
+    
+          const dot =
+            document.createElement("button");
+    
+          dot.type = "button";
+    
+          dot.className =
+            "np-dot" +
+            (i === 0
+              ? " is-active"
+              : "");
+    
+          dot.setAttribute(
+            "aria-label",
+            "Ver producto " + (i + 1)
+          );
+    
+    
+          dot.addEventListener(
+            "click",
+            function () {
+    
+              const cards =
+                track.querySelectorAll(
+                  ".np-card"
+                );
+    
+              if (!cards[i]) {
+                return;
+              }
+    
+    
+              cards[i].scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "start"
+              });
+    
+            }
+          );
+    
+    
+          dotsContainer.appendChild(dot);
+    
+        }
+    
+      }
+    
+    
+      /* ============================================================
+         RENDERIZAR PRODUCTOS
+         ============================================================ */
+    
+      function renderProducts() {
+    
+        const products =
+          getProducts();
+    
+    
+        track.innerHTML = "";
+    
+    
+        if (!products.length) {
+    
+          track.innerHTML = `
+            <div class="np-empty">
+              No encontramos productos
+              para este filtro.
+            </div>
+          `;
+    
+          if (dotsContainer) {
+            dotsContainer.innerHTML = "";
+          }
+    
+          return;
+    
+        }
+    
+    
+        products.forEach(
+          function (product) {
+    
+            track.appendChild(
+              createCard(product)
+            );
+    
+          }
+        );
+    
+    
+        renderDots(
+          products.length
+        );
+    
+      }
+    
+    
+      /* ============================================================
+         DETECTAR CARD ACTIVA
+         ============================================================ */
+    
+      let scrollTimeout;
+    
+    
+      track.addEventListener(
+        "scroll",
+        function () {
+    
+          clearTimeout(
+            scrollTimeout
+          );
+    
+    
+          scrollTimeout =
+            setTimeout(
+              function () {
+    
+                const cards =
+                  track.querySelectorAll(
+                    ".np-card"
+                  );
+    
+    
+                if (
+                  !cards.length ||
+                  !dotsContainer
+                ) {
+                  return;
+                }
+    
+    
+                const trackRect =
+                  track.getBoundingClientRect();
+    
+    
+                let closest =
+                  0;
+    
+                let closestDistance =
+                  Infinity;
+    
+    
+                cards.forEach(
+                  function (card, index) {
+    
+                    const rect =
+                      card.getBoundingClientRect();
+    
+    
+                    const distance =
+                      Math.abs(
+                        rect.left -
+                        trackRect.left
+                      );
+    
+    
+                    if (
+                      distance <
+                      closestDistance
+                    ) {
+    
+                      closestDistance =
+                        distance;
+    
+                      closest =
+                        index;
+    
+                    }
+    
+                  }
+                );
+    
+    
+                Array.from(
+                  dotsContainer.children
+                ).forEach(
+                  function (dot, index) {
+    
+                    dot.classList.toggle(
+                      "is-active",
+                      index === closest
+                    );
+    
+                  }
+                );
+    
+              },
+              50
+            );
+    
+        }
+      );
+    
+    
+      /* ============================================================
+         INICIO
+         ============================================================ */
+    
+      renderFilters();
+    
+      renderProducts();
+    
+    });
+    </script>

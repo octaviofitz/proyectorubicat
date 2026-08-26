@@ -6,18 +6,19 @@
     <%- include('partials/navBar.ejs') %>
     <%- include('partials/scriptNavbar') %>
 
+
     <main class="newProductos">
 
       <section class="newProductos__filtros">
+
         <h1 class="newProductos__titulo reveal-letters">
           COMPARÁ LOS PRODUCTOS RUBICAT
         </h1>
 
         <p class="newProductos__texto">
-          Explorá nuestra línea de productos y filtrá según el tipo y las necesidades de tu gato para encontrar el producto ideal para él.
-        </p>
+          Seleccioná los filtros que quieras para encontrar, elegir y comparar los productos de Rubicat. Una vez seleccionados, podés desplazarte hacia los costados para explorar todas las opciones.</p>
 
-        <!-- Filtros -->
+        <!-- FILTROS -->
         <div
           class="newProductos__filter-list"
           id="npFilters"
@@ -25,16 +26,9 @@
           aria-label="Filtrar productos"
         ></div>
 
-        <!-- Productos -->
-        <div class="newProductos__carousel">
 
-          <button
-            class="newProductos__arrow newProductos__arrow--prev"
-            id="npPrev"
-            aria-label="Producto anterior"
-          >
-            ‹
-          </button>
+        <!-- CARDS -->
+        <div class="newProductos__carousel">
 
           <div class="newProductos__track-wrap">
             <div
@@ -43,17 +37,10 @@
             ></div>
           </div>
 
-          <button
-            class="newProductos__arrow newProductos__arrow--next"
-            id="npNext"
-            aria-label="Producto siguiente"
-          >
-            ›
-          </button>
-
         </div>
 
-        <!-- Indicadores -->
+
+        <!-- INDICADORES -->
         <div
           class="newProductos__dots"
           id="npDots"
@@ -62,9 +49,11 @@
       </section>
 
     </main>
-
-    <%- include('partials/scriptTitulos') %>
+   
+      <%- include('partials/scriptTitulos') %>
+      <%- include('partials/ScriptComparaProductos') %>
     <%- include('partials/newFooter') %>
     <%- include('./partials/scripts') %>
+
   </body>
 </html>
