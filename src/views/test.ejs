@@ -56,6 +56,39 @@
       
        
       </section>
+
+      <script>
+    document.addEventListener("DOMContentLoaded", function(){
+  var filtersEl = document.getElementById("rcFilters");
+  if(!filtersEl) return;
+
+  filtersEl.addEventListener("click", function(e){
+    var pill = e.target.closest(".rc-pill");
+    if(!pill) return;
+    crearPatita(e.clientX, e.clientY);
+  });
+
+  function crearPatita(x, y){
+    var paw = document.createElement("div");
+    paw.className = "paw-print";
+    paw.style.left = x + "px";
+    paw.style.top = y + "px";
+    paw.style.setProperty("--paw-rot", (Math.random() * 30 - 15) + "deg");
+
+    paw.innerHTML =
+      '<div class="almohadilla"></div>' +
+      '<div class="dedo"></div>' +
+      '<div class="dedo"></div>' +
+      '<div class="dedo"></div>' +
+      '<div class="dedo"></div>';
+
+    document.body.appendChild(paw);
+    paw.addEventListener("animationend", function(){
+      paw.remove();
+    });
+  }
+});
+      </script>
       
       <section class="preguntasFrecuentes">
      

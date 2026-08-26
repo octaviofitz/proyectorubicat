@@ -1,6 +1,7 @@
 /* =========================================================
    NUEVA SECCIÓN PRODUCTOS
    Todo queda aislado dentro de .newProductos
+   Visible SOLO en mobile/tablet (se oculta desde 1024px)
    ========================================================= */
 
    .newProductos {
@@ -9,10 +10,9 @@
     overflow: hidden;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      TÍTULO
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .newProductos__titulo {
     text-align: center;
@@ -24,7 +24,7 @@
   
   .newProductos .reveal-letters .word {
     display: inline-block;
-    white-space: nowrap; /* que una palabra nunca se corte a la mitad */
+    white-space: nowrap;
     font-family: "Anton", sans-serif;
   }
   
@@ -42,49 +42,35 @@
     transform: translateY(0);
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      TEXTO
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .newProductos__texto {
     max-width: 650px;
-  
     margin: 0 auto 1.5rem;
     padding: 0 20px;
-  
     text-align: center;
-  
     color: #666;
-  
     font-family: "Switzer", sans-serif;
     font-size: 1rem;
     line-height: 1.45;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      FILTROS
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .newProductos__filter-list {
-  
     display: flex;
     align-items: center;
-  
     gap: 8px;
-  
     width: 100%;
-  
     padding: 4px 8px 12px;
-  
     margin-bottom: 0;
-  
     overflow-x: auto;
     overflow-y: hidden;
-  
     scrollbar-width: none;
-  
     -webkit-overflow-scrolling: touch;
   }
   
@@ -92,40 +78,20 @@
     display: none;
   }
   
-  
-  /* =========================================================
-     BOTONES DE FILTRO
-     ========================================================= */
-  
   .newProductos .newProductos__filter-list .np-pill {
-  
     flex: 0 0 auto;
-  
     padding: 7px 19px;
-  
     border-radius: 999px;
-  
     border: 1.5px solid var(--np-pill-color, #00ACBB);
-  
     background: #fff;
-  
     color: var(--np-pill-color, #00ACBB);
-  
     font-family: "Switzer", sans-serif;
-  
     font-size: 14px;
     font-weight: 600;
-  
     line-height: 1;
-  
     white-space: nowrap;
-  
     cursor: pointer;
-  
-    transition:
-      background .2s ease,
-      color .2s ease,
-      transform .15s ease;
+    transition: background .2s ease, color .2s ease, transform .15s ease;
   }
   
   .newProductos .newProductos__filter-list .np-pill:hover {
@@ -142,236 +108,196 @@
     outline-offset: 2px;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      CARRUSEL
-     ========================================================= */
+  --------------------------------------------------------- */
   
-     .newProductos .newProductos__carousel {
-      width: 100%;
-      margin: 0;
-    
-      overflow: hidden;
-    
-      cursor: grab;
-    
-      padding: 16px 0;
-      box-sizing: border-box;
-    }
+  .newProductos .newProductos__carousel {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    cursor: grab;
+    padding: 16px 0;
+    box-sizing: border-box;
+  }
   
   .newProductos .newProductos__carousel:active {
     cursor: grabbing;
   }
   
-  
-  /* =========================================================
-     CONTENEDOR DEL TRACK
-     ========================================================= */
+  /* ---------------------------------------------------------
+     TRACK-WRAP
+     Ya NO scrollea acá (se movió a .newProductos__track).
+     Solo centra el track cuando hay pocas cards (ej: 1 sola).
+  --------------------------------------------------------- */
   
   .newProductos .newProductos__track-wrap {
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* ---------------------------------------------------------
+     TRACK
+     Acá vive el scroll real + el snap centrado.
+     El padding lateral (9vw) permite que la primera y última
+     card lleguen a quedar centradas en pantalla.
+  --------------------------------------------------------- */
+  
+  .newProductos .newProductos__track {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 1rem;
+    width: max-content;
+    max-width: 100%;
+    padding: 16px 9vw;
+    box-sizing: border-box;
   
     overflow-x: auto;
     overflow-y: hidden;
+    scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-}
-
-.newProductos__track-wrap::-webkit-scrollbar {
-  display: none;
-}
-  
-.newProductos__card {
-  flex: 0 0 300px;
-}
-  
-  /* =========================================================
-     TRACK
-     ========================================================= */
-  
-  .newProductos .newProductos__track {
-  
-    display: flex;
-    gap: 1rem;
-    width: max-content;
-    padding: 16px;
   }
   
+  .newProductos .newProductos__track::-webkit-scrollbar {
+    display: none;
+  }
   
-  /* =========================================================
-     CARD
-     ========================================================= */
+  /* ---------------------------------------------------------
+     CARD — envoltorio blanco (marco entre el borde y el color)
+     --npCardRadius y --npCardGap ya no se usan para el marco
+     (eso ahora lo hace el box-shadow inset en .np-card-inner),
+     pero se dejan por si se necesitan a futuro.
+  --------------------------------------------------------- */
   
   .newProductos .np-card {
-  
     flex: 0 0 82vw;
-  
     width: 82vw;
-  
     max-width: 340px;
-  
     box-sizing: border-box;
+  
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      INTERIOR CARD
-     ========================================================= */
+     El marco blanco se logra con box-shadow inset: dibuja un
+     anillo blanco hacia adentro del borde negro, sin depender
+     de padding/background de ningún elemento padre.
+  --------------------------------------------------------- */
   
   .newProductos .np-card-inner {
-  
     position: relative;
-  
     width: 100%;
-  
     min-height: 620px;
-  
     padding: 38px 22px 30px;
-  
     box-sizing: border-box;
   
     border: 2px solid #222;
-  
     border-radius: 32px;
   
     background: var(--np-card-bg, #00ACBB);
+    box-shadow: inset 0 0 0 8px #fff;
   
     overflow: hidden;
-  
     display: flex;
     flex-direction: column;
     align-items: center;
-  
     text-align: center;
-  
-    box-shadow: none;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      IMAGEN
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .np-product-img {
-  
     display: block;
-  
     width: 82%;
-  
     height: 275px;
-  
     object-fit: contain;
-  
     object-position: center;
-  
     flex-shrink: 0;
-  
-    margin: 0 auto 12px;
+    margin: 0 auto;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      NOMBRE DEL PRODUCTO
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .np-product-name {
-  
     margin: 0 0 18px;
-  
     color: #fff;
-  
     font-family: "Switzer", sans-serif;
-  
     font-size: 1.15rem;
     font-weight: 700;
-  
     line-height: 1.1;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      BLOQUES DE INFORMACIÓN
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .np-info {
-  
     width: 100%;
-  
     margin-top: 2px;
-  
     color: #fff;
-  
     font-family: "Switzer", sans-serif;
   }
   
   .newProductos .np-info-title {
-  
-    margin: 0 0 7px;
-  
+    margin: 1rem 0 7px;
     color: #fff;
-  
     font-size: 1rem;
     font-weight: 700;
-  
     line-height: 1.2;
+  }
+
+  .newProductos .np-info-title:last-child(2) {
+    margin-bottom: 10rem;
   }
   
   .newProductos .np-info-text {
-  
-    max-width: 270px;
-  
-    margin: 0 auto;
-  
+    max-width: 360px;
+    margin: 0 auto 0.5rem;
     color: #fff;
-  
-    font-size: .82rem;
+    font-size: 1rem;
     line-height: 1.25;
   }
   
-  
-  /* =========================================================
-     ÍCONOS / VALORES
-     ========================================================= */
+  /* ---------------------------------------------------------
+     ÍCONOS / VALORES (gotas, reloj, olores, palitas)
+  --------------------------------------------------------- */
   
   .newProductos .np-stat {
-  
     display: flex;
-  
     justify-content: center;
     align-items: center;
-  
     gap: 5px;
-  
     margin-top: 8px;
   }
   
   .newProductos .np-stat-item {
-  
     display: flex;
-  
     justify-content: center;
     align-items: center;
-  
     width: 27px;
     height: 27px;
-  
     color: #fff;
   }
   
-  
-  /* =========================================================
-     DIBUJOS / ICONOS SVG
-     ========================================================= */
-  
-  .newProductos .np-stat-item svg {
-  
-    width: 24px;
-    height: 24px;
-  
+  .newProductos .np-stat-item img {
+    width: 55px;
+    height: 55px;
     display: block;
-  
     stroke: currentColor;
   }
-
+  
+  /* ---------------------------------------------------------
+     RENDIMIENTO — GRÁFICO DE BARRAS
+  --------------------------------------------------------- */
+  
   .newProductos .np-performance {
     display: flex;
     align-items: flex-end;
@@ -384,43 +310,27 @@
     width: 8px;
     height: 12px;
     border-radius: 3px;
-    background: rgba(255,255,255,.35);
+    background: rgba(255, 255, 255, .35);
   }
   
-  .newProductos .np-bar:nth-child(2) {
-    height: 16px;
-  }
-  
-  .newProductos .np-bar:nth-child(3) {
-    height: 20px;
-  }
-  
-  .newProductos .np-bar:nth-child(4) {
-    height: 24px;
-  }
-  
-  .newProductos .np-bar:nth-child(5) {
-    height: 28px;
-  }
+  .newProductos .np-bar:nth-child(2) { height: 16px; }
+  .newProductos .np-bar:nth-child(3) { height: 20px; }
+  .newProductos .np-bar:nth-child(4) { height: 24px; }
+  .newProductos .np-bar:nth-child(5) { height: 28px; }
   
   .newProductos .np-bar.is-active {
     background: currentColor;
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      DOTS
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .newProductos__dots {
-  
     display: flex;
-  
     justify-content: center;
     align-items: center;
-  
     gap: 8px;
-  
     margin-top: 12px;
   }
   
@@ -429,156 +339,71 @@
   }
   
   .newProductos .np-dot {
-  
     width: 7px;
     height: 7px;
-  
     padding: 0;
-  
     border: 0;
     border-radius: 50%;
-  
     background: #D8CDB8;
-  
     cursor: pointer;
-  
-    transition:
-      transform .2s ease,
-      background .2s ease;
+    transition: transform .2s ease, background .2s ease;
   }
   
   .newProductos .np-dot.is-active {
-  
     background: #222;
-  
     transform: scale(1.25);
   }
   
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      COLORES DE LAS CARDS
-     ========================================================= */
+     (una sola declaración por color, sin duplicados)
+  --------------------------------------------------------- */
   
-  .newProductos .np-bg-celeste {
-    --np-card-bg: red;
-  }
+  .newProductos .np-bg-celeste       { background: #0fa8b8; }
+  .newProductos .np-bg-naranja       { background: #fb8410; }
+  .newProductos .np-bg-verde         { background: #98C21E; }
+  .newProductos .np-bg-violeta       { background: #8B85CA; }
+  .newProductos .np-bg-rosa          { background: #f75273; }
+  .newProductos .np-bg-negro         { background: #222; }
+  .newProductos .np-bg-verdeFluo     { background: #CEDE00; }
+  .newProductos .np-bg-verdeClarito  { background: #92D501; }
+  .newProductos .np-bg-naranjaFluo   { background: #F84A13; }
+  .newProductos .np-bg-crema         { background: #f3a624; }
+  .newProductos .np-bg-amarillo      { background: #F0B533; }
+  .newProductos .np-bg-azul          { background: #0092BB; }
   
-  .newProductos .np-bg-naranja {
-    --np-card-bg: #FF8C1E;
-  }
-  
-  .newProductos .np-bg-verde {
-    --np-card-bg: #98C21E;
-  }
-  
-  .newProductos .np-bg-violeta {
-    --np-card-bg: #8B85CA;
-  }
-  
-  .newProductos .np-bg-rosa {
-    --np-card-bg: #DC5572;
-  }
-  
-  .newProductos .np-bg-negro {
-    --np-card-bg: #222;
-  }
-  
-  
-  /* =========================================================
+  /* ---------------------------------------------------------
      PRODUCTO SIN RESULTADOS
-     ========================================================= */
+  --------------------------------------------------------- */
   
   .newProductos .np-empty {
-  
     width: calc(82vw - 4px);
-  
     max-width: 336px;
-  
     padding: 60px 20px;
-  
     border: 2px solid #222;
     border-radius: 30px;
-  
     background: #f5f5f5;
-  
     color: #666;
-  
     text-align: center;
-  
     font-family: "Switzer", sans-serif;
   }
   
-  
   /* =========================================================
-     TABLET
+     RESPONSIVE
      ========================================================= */
   
+  /* TABLET (>=600px) */
   @media (min-width: 600px) {
-  
     .newProductos .np-card {
       flex-basis: 330px;
       width: 330px;
     }
-  
-    .newProductos .newProductos__track {
-      padding-left: 40px;
-    }
-  
   }
   
-  
-  /* =========================================================
-     DESKTOP
-     ========================================================= */
-  
-  @media (min-width: 900px) {
-  
-    .newProductos {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  
-    .newProductos .newProductos__titulo {
-      font-size: 3rem;
-    }
-  
-    .newProductos .newProductos__filter-list {
-      justify-content: center;
-  
-      overflow-x: visible;
-  
-      padding-left: 0;
-      padding-right: 0;
-    }
-  
-    .newProductos .newProductos__carousel {
-      max-width: 1200px;
-  
-      margin: 0 auto;
-    }
-  
-    .newProductos .newProductos__track {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  
-    .newProductos .np-card {
-      flex: 0 0 320px;
-      width: 320px;
-    }
-  
-  }
-  
-  
-  /* =========================================================
-     MOBILE
-     ========================================================= */
-  
+  /* MOBILE (<=768px) */
   @media (max-width: 768px) {
-  
     .newProductos .newProductos__titulo {
       font-size: 2.45rem;
-  
       margin-left: 1.5rem;
       margin-right: 1.5rem;
     }
@@ -598,7 +423,6 @@
   
     .newProductos .np-card-inner {
       min-height: 620px;
-  
       border-radius: 31px;
     }
   
@@ -607,53 +431,14 @@
       height: 270px;
     }
   
-
     .newProductos .newProductos__track {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 6px 7vw;
     }
-  
-  }
-
-
-  .newProductos .np-bg-celeste {
-    background: #0fa8b8;
   }
   
-  .newProductos .np-bg-naranja {
-    background: #fb8410;
+  /* DESKTOP — la sección no existe acá, se oculta */
+  @media (min-width: 1024px) {
+    .newProductos {
+      display: none;
+    }
   }
-  
-  .newProductos .np-bg-rosa {
-    background: #f75273;
-  }
-
-  .newProductos .np-bg-verdeFluo {
-    background: #CEDE00;
-  }
-  
-  .newProductos .np-bg-verdeClarito {
-    background: #92D501;
-  }
-
-  .newProductos .np-bg-violeta {
-    background: #8B85CA;
-  }
-
-  .newProductos .np-bg-naranjaFluo {
-    background: #F84A13;
-  }
-
-  .newProductos .np-bg-crema {
-    background: #FBEAC9;
-  }
-  
-  .newProductos .np-bg-amarillo {
-    background: #F0B533;
-  }
-
-  .newProductos .np-bg-azul {
-    background: #0092BB;
-  }
-  
-  
