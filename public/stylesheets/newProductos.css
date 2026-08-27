@@ -190,22 +190,22 @@
   
   .newProductos .np-card-inner {
     position: relative;
-    width: 100%;
-    min-height: 620px;
-    padding: 38px 22px 30px;
-    box-sizing: border-box;
-  
-    border: 2px solid #222;
-    border-radius: 32px;
-  
-    background: var(--np-card-bg, #00ACBB);
-    box-shadow: inset 0 0 0 8px #fff;
-  
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  width: 100%;
+  /* SACAR: min-height: 620px; */
+  padding: 38px 22px 30px;
+  box-sizing: border-box;
+
+  border: 2px solid #222;
+  border-radius: 32px;
+
+  background: var(--np-card-bg, #00ACBB);
+  box-shadow: inset 0 0 0 8px #fff;
+
+  overflow: hidden; /* queda como resguardo, ya no debería cortar nada */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   }
   
   /* ---------------------------------------------------------
@@ -219,7 +219,7 @@
     object-fit: contain;
     object-position: center;
     flex-shrink: 0;
-    margin: 0 auto;
+    margin: 0 auto -0.75rem;
   }
   
   /* ---------------------------------------------------------
@@ -254,16 +254,18 @@
     line-height: 1.2;
   }
 
-  .newProductos .np-info-title:last-child(2) {
-    margin-bottom: 10rem;
+  .newProductos .np-info-title:last-child{
+    padding-bottom: 10rem;
   }
   
   .newProductos .np-info-text {
     max-width: 360px;
     margin: 0 auto 0.5rem;
     color: #fff;
-    font-size: 1rem;
-    line-height: 1.25;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    padding: 0.5rem 1rem;
+    /* SACAR: display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; */
   }
   
   /* ---------------------------------------------------------
@@ -279,17 +281,17 @@
   }
   
   .newProductos .np-stat-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 27px;
-    height: 27px;
-    color: #fff;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
   }
   
   .newProductos .np-stat-item img {
-    width: 55px;
-    height: 55px;
+    width: 45px;   /* antes: 55px */
+    height: 45px;  /* antes: 55px */
     display: block;
     stroke: currentColor;
   }
@@ -303,6 +305,7 @@
     align-items: flex-end;
     gap: 5px;
     height: 28px;
+    margin-top: 1rem!important;
   }
   
   .newProductos .np-bar {
@@ -387,6 +390,23 @@
     text-align: center;
     font-family: "Switzer", sans-serif;
   }
+
+  .newProductos .np-clumps-text {
+    margin: -0.7rem 0 -1rem;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .newProductos .newProductos__track.np-no-snap {
+    scroll-snap-type: none;
+  }
   
   /* =========================================================
      RESPONSIVE
@@ -422,13 +442,14 @@
     }
   
     .newProductos .np-card-inner {
-      min-height: 620px;
+      /* min-height: 620px; */
       border-radius: 31px;
     }
   
     .newProductos .np-product-img {
       width: 82%;
       height: 270px;
+
     }
   
     .newProductos .newProductos__track {
