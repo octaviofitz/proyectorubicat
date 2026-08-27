@@ -33,15 +33,13 @@
 
       <section class="rc-section" aria-label="Catálogo de productos Rubicat">
         <h2 class="rc-title">Línea completa de Rubicat</h2>
-        
+      
         <p class="rc-copy">
           Explorá nuestra línea de productos y filtrá según el tipo y las necesidades de tu gato para encontrar el producto ideal para él.
-                </p>
-        
+        </p>
+      
         <div class="rc-filters" id="rcFilters" role="tablist" aria-label="Filtrar productos"></div>
-       
-       
-       
+      
         <div class="rc-carousel">
           <button class="rc-arrow rc-arrow--prev" id="rcPrev" aria-label="Producto anterior">‹</button>
           <div class="rc-track-wrap">
@@ -54,7 +52,22 @@
           </a>
         </div>
       
-       
+        <!-- Panel de detalle: solo se muestra en desktop (≥1024px) y solo
+             después de clickear una card. Se llena dinámicamente desde el JS
+             del carousel (ver rubicat-carousel.ejs). -->
+        <div class="rc-detail" id="rcDetail" aria-hidden="true">
+          <div class="rc-detail-text">
+            <span class="rc-detail-eyebrow" id="rcDetailEyebrow"></span>
+            <h3 class="rc-detail-title" id="rcDetailTitle"></h3>
+            <p class="rc-detail-subtitle" id="rcDetailSubtitle"></p>
+            <p class="rc-detail-desc" id="rcDetailDesc"></p>
+          </div>
+          <div class="rc-detail-images">
+            <img class="rc-detail-img" id="rcDetailImg1" src="" alt="">
+            <img class="rc-detail-img" id="rcDetailImg2" src="" alt="">
+          </div>
+        </div>
+      
       </section>
 
       <script>

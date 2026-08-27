@@ -440,6 +440,80 @@
   }
 }
 
+/* ---------- Panel de detalle (solo desktop, ≥1024px) ---------- */
+.rc-detail{
+  display:none;              /* oculto siempre por default */
+  width:100%;
+  gap:60px;
+  margin-top:56px;
+}
+
+.rc-detail-text{
+  flex:1 1 55%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+}
+
+.rc-detail-eyebrow{
+  color:#FF8C1E;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.rc-detail-title{
+  font-family:"Anton", sans-serif;
+  font-weight:400;
+  text-transform:uppercase;
+  font-size: 3.25rem;
+  line-height:1.02;
+  margin:0 0 10px;
+  color:var(--ink);
+}
+
+.rc-detail-subtitle{
+  color:#FF8C1E;
+  font-weight:600;
+  font-size:18px;
+  margin:0 0 18px;
+}
+
+.rc-detail-desc{
+  font-family:'Switzer', sans-serif;
+  font-size:1.1rem;
+  line-height:1.5;
+  color:#1c1c1c;
+  margin:0;
+  max-width:520px;
+}
+
+.rc-detail-images{
+  flex:1 1 50%;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  min-width:0;
+}
+
+.rc-detail-img{
+  height:auto;
+  object-fit:contain;
+  display:block;
+  width: 45vw;
+  margin-left: -5vw;
+}
+
+@media (min-width:1024px){
+  .rc-detail.is-active{
+    display:flex;
+    align-items:flex-start;
+  }
+}
+
 /* ===== Animación de patita al presionar un filtro ===== */
 .paw-print{
   position: fixed;
@@ -546,7 +620,7 @@
  
 @media (min-width: 1024px){
   .rc-section{
-    max-width:1180px;
+    max-width: 1600px;
     padding:56px 40px 72px;
   }
  
