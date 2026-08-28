@@ -1,743 +1,834 @@
 <script>
-/*
-  rubicat-carousel.ejs
-  Requiere el markup de rubicat-carousel.html en el DOM
-  (los ids #rcFilters, #rcTrack, #rcDots, #rcPrev, #rcNext, y el panel
-  de detalle #rcDetail con sus hijos #rcDetailEyebrow, #rcDetailTitle,
-  #rcDetailSubtitle, #rcDetailDesc, #rcDetailImg1, #rcDetailImg2).
-
-  Mecánica: el track se mueve con requestAnimationFrame (no con una
-  animación CSS), para poder combinar:
-    - auto-scroll continuo tipo "trencito" (nunca se pausa con hover/click)
-    - navegación manual con los dots y las flechas (desktop)
-    - arrastre táctil en mobile (swipe)
-  sin que se corte ni salte entre un modo y otro.
-
-  Además: al clickear una card (solo tiene efecto visual en desktop,
-  ≥1024px, por CSS) se llena el panel de detalle de abajo con la info
-  del producto clickeado.
-*/
-document.addEventListener("DOMContentLoaded", function(){
-
-/* ---------------- data ---------------- */
-var FILTERS = [
-  { id:"todos",       label:"Todos",        color:"#00ACBB"           },
-  { id:"favoritos",   label:"Favoritos",    color:"#FF8C1E"           },
-  { id:"bentonita",   label:"Bentonita",    color:"#dc5572"   },
-  { id:"silica",      label:"Sílica",       color:"#98c21e"      },
-  { id:"diatomea",    label:"Diatomea",     color:"#8B85CA"      },
-  { id:"bolsas",      label:"Bolsas",       color:"#000"      },
-  { id:"bidones",     label:"Bidones",      color:"#cedd00"     },
-
-];
-
-// El ORDEN de este array = el orden en el que aparecen en la cinta.
-//
-// Campos nuevos para el panel de detalle (solo desktop):
-//   detailEyebrow  -> texto chico de arriba (ej: "BENTONITA - MICROESFERAS")
-//   detailSubtitle -> bajada corta debajo del título grande
-//   detailImg1     -> primera imagen del panel (arriba)
-//   detailImg2     -> segunda imagen del panel (abajo)
-// Si detailImg1/detailImg2 no se cargan, el JS usa "img" como fallback.
-var PRODUCTS = [
-{
-name: "Classic bolson",
-sub: "15 KG",
-type: "BENTONITA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bolsas", "favoritos", "bentonita"],
-img: "/images/NewIndex/Productos/ClassicBolsa.webp",
-
-description: "Rubicat Classic es elaborada con Bentonita Sódica, 100% natural, sin agregados químicos. Su capacidad aglomerante permite la formación de cúmulos, fáciles de limpiar, resultando más económico que otros productos sanitarios.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - CLASSIC",
-detailSubtitle: "Limpieza práctica, todos los días.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoClassic1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoClassic2.webp"
-},
-
-{
-name: "Premium Bolsa",
-sub: "10 KG",
-type: "BENTONITA",
-tagline: "BENTONITA - PREMIUM",
-theme: "pink",
-cardBg: "dark",
-tags: ["bolsas", "favoritos", "10kg", "bentonita"],
-img: "/images/NewIndex/Productos/PremiumBolsa.webp",
-
-description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 3,
-
-detailEyebrow: "BENTONITA - PREMIUM",
-detailSubtitle: "Alto rendimiento para el día a día.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp",
-},
-
-{
-name: "Sensitive",
-sub: "5 KG",
-type: "BENTONITA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bolsas", "favoritos", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/Sensitive.webp",
-
-description: "Rubicat Sensitive reúne las características indispensables en un producto sanitario para gatos: Extremo control de olores; Micro granulado para un mayor confort; Aglomera instantáneamente formando cúmulos resistentes; Impide la formación de bacterias en la bandeja; Su fórmula no tóxica con un pH neutro garantiza una mayor seguridad y bienestar para su gato y su familia.",
-absorcion: 2,
-accion: 3,
-olores: 2,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - SENSITIVE",
-detailSubtitle: "Confort para patitas sensibles.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoSensitive1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoSensitive2.webp"
-},
-
-{
-name: "Sensitive Microesferas",
-sub: "5 KG",
-type: "BENTONITA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bolsas", "favoritos", "microesferas", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/SensitiveMicroesferas.webp",
-
-description: "Rubicat Sensitive Microesferas es un producto diseñado para gatos que requieren un cuidado especial, especialmente aquellos con sensibilidades. Se caracteriza por su granulometría fina, que se siente más suave en las patas de los gatos, y por su fórmula no tóxica, lo que la hace ideal para mascotas con alergias o piel sensible.",
-absorcion: 3,
-accion: 3,
-olores: 3,
-palitas: 3,
-
-detailEyebrow: "BENTONITA - MICROESFERAS",
-detailSubtitle: "Máximo confort para patitas sensibles.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoMicroesferas1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoMicroesferas2.webp"
-},
-
-{
-name: "Silica",
-sub: "3.8 KG",
-type: "SILICA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "orange",
-cardBg: "cream",
-tags: ["bolsas", "5kg", "silica"],
-img: "/images/NewIndex/Productos/Silica.webp",
-
-description: "Sílica de gel granulado Rubicat absorbe líquidos al instante. Sin perfume, sin polvo, con protección antibacterial duradera.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "SÍLICA",
-detailSubtitle: "Gran absorción, mínimo esfuerzo.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoSilica1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoSilica2.webp"
-},
-
-{
-name: "Silica Aglutinante",
-sub: "3.8 KG",
-type: "SILICA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "red",
-cardBg: "cream",
-tags: ["bolsas", "5kg", "silica"],
-img: "/images/NewIndex/Productos/SilicaAglutinante.webp",
-
-description: "Rubicat sílica aglutinante posee una fórmula aglutinante que forma cúmulos compactos para una limpieza más fácil y eficiente. Larga duración con máximo control de olores.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "SÍLICA - AGLUTINANTE",
-detailSubtitle: "La bandeja, siempre limpia.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoSilicaAglutinante1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoSilicaAglutinante2.webp"
-},
-
-{
-name: "Classic Lavanda",
-sub: "5.3 KG",
-type: "BENTONITA",
-tagline: "BIDÓN AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/Lavanda.webp",
-
-description: "Rubicat Classic Lavanda posee un delicado aroma, el cual neutraliza los malos olores por completo. Un producto desarrollado para los más exigentes, que desean un hogar pulcro y libre de olores. Es ideal para aquellos gatitos que se encuentran en transición o utilizan por primera vez una arena aglomerante.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - LAVANDA",
-detailSubtitle: "Limpieza cotidiana con aroma a lavanda.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoLavanda1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoLavanda2.webp"
-},
-
-{
-name: "Original",
-sub: "5 KG",
-type: "BENTONITA",
-tagline: "BIDÓN AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/Original.webp",
-
-description: "Rubicat Original está creado a partir de la fórmula original (primera fórmula) con una molienda actualizada. Recordamos nuestros orígenes pero los mejoramos. Posee una granulometría diferencial (multigrano), acorde a los estándares de optimización, para mayor rendimiento y absorción",
-absorcion: 3,
-accion: 3,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - ORIGINAL",
-detailSubtitle: "Práctica, limpia y seca.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoOriginal1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoOriginal2.webp"
-},
-
-{
-name: "Detox",
-sub: "5 KG",
-type: "BENTONITA",
-tagline: "BIDÓN AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/Detox.webp",
-
-description: "Rubicat Detox es especial en su capacidad para retener toxinas. Gracias a su fórmula única y absorbente con carbón activado, esta arena atrapa eficazmente los olores desagradables y las sustancias nocivas, como el amoníaco y otros compuestos tóxicos presentes en los desechos de tu mascota.",
-absorcion: 3,
-accion: 4,
-olores: 4,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - DETOX",
-detailSubtitle: "Control de olores todo el día.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoDetox1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoDetox2.webp"
-},
-
-{
-name: "Classic bidón",
-sub: "5.3 KG",
-type: "BENTONITA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "favoritos", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/ClassicBidon.webp",
-
-description: "Rubicat Classic es elaborada con Bentonita Sódica, 100% natural, sin agregados químicos. Su capacidad aglomerante permite la formación de cúmulos, fáciles de limpiar, resultando más económico que otros productos sanitarios.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - CLASSIC",
-detailSubtitle: "Limpieza cotidiana, todos los días.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoClassic1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoClassic2.webp"
-},
-
-{
-name: "Classic bolsón y bidón",
-sub: "20.3 KG",
-type: "BENTONITA",
-tagline: "BOLSA AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bolsas", "bidones", "10kg", "bentonita"],
-img: "/images/NewIndex/Productos/ClassicMixto.webp",
-
-description: "Rubicat Classic es elaborada con Bentonita Sódica, 100% natural, sin agregados químicos. Su capacidad aglomerante permite la formación de cúmulos, fáciles de limpiar, resultando más económico que otros productos sanitarios.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 2,
-
-detailEyebrow: "BENTONITA - CLASSIC MIXTO",
-detailSubtitle: "Combo pensado para tu hogar.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoClassic1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoClassic2.webp"
-},
-
-{
-name: "Premium Bidón",
-sub: "5.7 KG",
-type: "BENTONITA",
-tagline: "BIDÓN AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "favoritos", "5kg", "bentonita"],
-img: "/images/NewIndex/Productos/PremiumBidon5KG.webp",
-
-description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 3,
-
-detailEyebrow: "BENTONITA - PREMIUM",
-detailSubtitle: "Alto rendimiento, máxima practicidad.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp",
-},
-
-{
-name: "Premium Bidón 11KG",
-sub: "11 KG",
-type: "BENTONITA",
-tagline: "BIDÓN AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "favoritos", "10kg", "bentonita"],
-img: "/images/NewIndex/Productos/PremiumBidon11KG.webp",
-
-description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 3,
-
-detailEyebrow: "BENTONITA - PREMIUM",
-detailSubtitle: "Mayor capacidad para el uso diario.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp",
-},
-
-{
-name: "Premium Bidones y Bolsa",
-sub: "26.7 KG",
-type: "BENTONITA",
-tagline: "BIDÓN AGLUTINANTE",
-theme: "pink",
-cardBg: "dark",
-tags: ["bidones", "bolsas", "10kg", "bentonita"],
-img: "/images/NewIndex/Productos/PremiumMixto.webp",
-
-description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
-absorcion: 3,
-accion: 4,
-olores: 3,
-palitas: 3,
-
-detailEyebrow: "BENTONITA - PREMIUM MIXTO",
-detailSubtitle: "Mayor disponibilidad de producto.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp"
-},
-
-{
-name: "Diatomea Absorbente",
-sub: "23 DM",
-type: "DIATOMEA",
-tagline: "BOLSA DIATOMEA",
-theme: "pink",
-cardBg: "dark",
-tags: ["diatomea"],
-img: "/images/NewIndex/Productos/Diatomea.webp",
-
-description: "Piedra Blanca Rubicat es una opción natural, liviana y absorbente para el arenero de tu gato. Su estructura porosa absorbe rápidamente la humedad y ayuda a controlar los olores, manteniendo el arenero fresco, limpio y agradable por más tiempo.",
-absorcion: 4,
-accion: 4,
-olores: 4,
-palitas: 2,
-
-detailEyebrow: "DIATOMEA",
-detailSubtitle: "Alta absorción, origen natural.",
-detailImg1: "/images/NewIndex/Productos/Info/InfoDiatomea1.webp",
-detailImg2: "/images/NewIndex/Productos/Info/InfoDiatomea2.webp"
-}
-];
-
-/* ---------------- state ---------------- */
-var activeFilter = FILTERS[0].id;
-var SPEED = 22; // píxeles por segundo del auto-scroll.
-
-/* ---------------- precarga de imágenes ---------------- */
-// Precarga TODAS las imágenes de todos los productos (de card y de
-// detalle, sin importar el filtro activo) para que, al cambiar de
-// filtro o abrir el panel de detalle, las imágenes ya estén en la
-// caché del navegador y aparezcan al instante, sin esperar la
-// descarga. Se dispara en idle time para no competir con la carga
-// inicial de la página ni con la primera card (que va con
-// fetchpriority="high").
-var preloadedImages = [];
-function preloadAllImages(){
-  var seen = {};
-  function preload(url){
-    if(!url || seen[url]) return;
-    seen[url] = true;
-    var img = new Image();
-    img.src = url;
-    preloadedImages.push(img); // referencia para que no lo recolecte el GC
+  /*
+    rubicat-carousel.ejs
+    Requiere el markup de rubicat-carousel.html en el DOM
+    (los ids #rcFilters, #rcTrack, #rcDots, #rcPrev, #rcNext, y el panel
+    de detalle #rcDetail con sus hijos #rcDetailEyebrow, #rcDetailTitle,
+    #rcDetailSubtitle, #rcDetailDesc, #rcDetailImg1, #rcDetailImg2).
+  
+    Mecánica: el track se mueve con requestAnimationFrame (no con una
+    animación CSS), para poder combinar:
+      - auto-scroll continuo tipo "trencito" (nunca se pausa con hover/click)
+      - navegación manual con los dots y las flechas (desktop)
+      - arrastre táctil en mobile (swipe)
+    sin que se corte ni salte entre un modo y otro.
+  
+    Además: al clickear una card (solo tiene efecto visual en desktop,
+    ≥1024px, por CSS) se llena el panel de detalle de abajo con la info
+    del producto clickeado. En desktop:
+      - Al cargar la página se muestra por default la info del primer
+        producto del filtro activo.
+      - Al cambiar de filtro el panel se esconde, salvo que el nuevo
+        filtro tenga un solo producto, en cuyo caso se abre solo.
+      - Cada producto tiene su propio color para el eyebrow y el subtítulo.
+  */
+  document.addEventListener("DOMContentLoaded", function(){
+  
+  /* ---------------- data ---------------- */
+  var FILTERS = [
+    { id:"todos",       label:"Todos",        color:"#00ACBB"           },
+    { id:"favoritos",   label:"Favoritos",    color:"#FF8C1E"           },
+    { id:"bentonita",   label:"Bentonita",    color:"#dc5572"   },
+    { id:"silica",      label:"Sílica",       color:"#98c21e"      },
+    { id:"diatomea",    label:"Diatomea",     color:"#8B85CA"      },
+    { id:"bolsas",      label:"Bolsas",       color:"#000"      },
+    { id:"bidones",     label:"Bidones",      color:"#cedd00"     },
+  
+  ];
+  
+  // El ORDEN de este array = el orden en el que aparecen en la cinta.
+  //
+  // Campos nuevos para el panel de detalle (solo desktop):
+  //   detailEyebrow  -> texto chico de arriba (ej: "BENTONITA - MICROESFERAS")
+  //   detailSubtitle -> bajada corta debajo del título grande
+  //   detailImg1     -> primera imagen del panel (arriba)
+  //   detailImg2     -> segunda imagen del panel (abajo)
+  // Si detailImg1/detailImg2 no se cargan, el JS usa "img" como fallback.
+  var PRODUCTS = [
+  {
+  name: "Classic bolson",
+  sub: "15 KG",
+  type: "BENTONITA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bolsas", "favoritos", "bentonita"],
+  img: "/images/NewIndex/Productos/ClassicBolsa.webp",
+  
+  description: "Rubicat Classic es elaborada con Bentonita Sódica, 100% natural, sin agregados químicos. Su capacidad aglomerante permite la formación de cúmulos, fáciles de limpiar, resultando más económico que otros productos sanitarios.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - CLASSIC",
+  detailSubtitle: "Limpieza práctica, todos los días.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoClassic1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoClassic2.webp"
+  },
+  
+  {
+  name: "Premium Bolsa",
+  sub: "10 KG",
+  type: "BENTONITA",
+  tagline: "BENTONITA - PREMIUM",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bolsas", "favoritos", "10kg", "bentonita"],
+  img: "/images/NewIndex/Productos/PremiumBolsa.webp",
+  
+  description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 3,
+  
+  detailEyebrow: "BENTONITA - PREMIUM",
+  detailSubtitle: "Alto rendimiento para el día a día.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp",
+  },
+  
+  {
+  name: "Sensitive",
+  sub: "5 KG",
+  type: "BENTONITA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bolsas", "favoritos", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/Sensitive.webp",
+  
+  description: "Rubicat Sensitive reúne las características indispensables en un producto sanitario para gatos: Extremo control de olores; Micro granulado para un mayor confort; Aglomera instantáneamente formando cúmulos resistentes; Impide la formación de bacterias en la bandeja; Su fórmula no tóxica con un pH neutro garantiza una mayor seguridad y bienestar para su gato y su familia.",
+  absorcion: 2,
+  accion: 3,
+  olores: 2,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - SENSITIVE",
+  detailSubtitle: "Confort para patitas sensibles.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoSensitive1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoSensitive2.webp"
+  },
+  
+  {
+  name: "Sensitive Microesferas",
+  sub: "5 KG",
+  type: "BENTONITA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bolsas", "favoritos", "microesferas", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/SensitiveMicroesferas.webp",
+  
+  description: "Rubicat Sensitive Microesferas es un producto diseñado para gatos que requieren un cuidado especial, especialmente aquellos con sensibilidades. Se caracteriza por su granulometría fina, que se siente más suave en las patas de los gatos, y por su fórmula no tóxica, lo que la hace ideal para mascotas con alergias o piel sensible.",
+  absorcion: 3,
+  accion: 3,
+  olores: 3,
+  palitas: 3,
+  
+  detailEyebrow: "BENTONITA - MICROESFERAS",
+  detailSubtitle: "Máximo confort para patitas sensibles.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoMicroesferas1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoMicroesferas2.webp"
+  },
+  
+  {
+  name: "Silica",
+  sub: "3.8 KG",
+  type: "SILICA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "orange",
+  cardBg: "cream",
+  tags: ["bolsas", "5kg", "silica"],
+  img: "/images/NewIndex/Productos/Silica.webp",
+  
+  description: "Sílica de gel granulado Rubicat absorbe líquidos al instante. Sin perfume, sin polvo, con protección antibacterial duradera.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "SÍLICA",
+  detailSubtitle: "Gran absorción, mínimo esfuerzo.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoSilica1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoSilica2.webp"
+  },
+  
+  {
+  name: "Silica Aglutinante",
+  sub: "3.8 KG",
+  type: "SILICA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "red",
+  cardBg: "cream",
+  tags: ["bolsas", "5kg", "silica"],
+  img: "/images/NewIndex/Productos/SilicaAglutinante.webp",
+  
+  description: "Rubicat sílica aglutinante posee una fórmula aglutinante que forma cúmulos compactos para una limpieza más fácil y eficiente. Larga duración con máximo control de olores.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "SÍLICA - AGLUTINANTE",
+  detailSubtitle: "La bandeja, siempre limpia.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoSilicaAglutinante1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoSilicaAglutinante2.webp"
+  },
+  
+  {
+  name: "Classic Lavanda",
+  sub: "5.3 KG",
+  type: "BENTONITA",
+  tagline: "BIDÓN AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/Lavanda.webp",
+  
+  description: "Rubicat Classic Lavanda posee un delicado aroma, el cual neutraliza los malos olores por completo. Un producto desarrollado para los más exigentes, que desean un hogar pulcro y libre de olores. Es ideal para aquellos gatitos que se encuentran en transición o utilizan por primera vez una arena aglomerante.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - LAVANDA",
+  detailSubtitle: "Limpieza cotidiana con aroma a lavanda.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoLavanda1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoLavanda2.webp"
+  },
+  
+  {
+  name: "Original",
+  sub: "5 KG",
+  type: "BENTONITA",
+  tagline: "BIDÓN AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/Original.webp",
+  
+  description: "Rubicat Original está creado a partir de la fórmula original (primera fórmula) con una molienda actualizada. Recordamos nuestros orígenes pero los mejoramos. Posee una granulometría diferencial (multigrano), acorde a los estándares de optimización, para mayor rendimiento y absorción",
+  absorcion: 3,
+  accion: 3,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - ORIGINAL",
+  detailSubtitle: "Práctica, limpia y seca.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoOriginal1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoOriginal2.webp"
+  },
+  
+  {
+  name: "Detox",
+  sub: "5 KG",
+  type: "BENTONITA",
+  tagline: "BIDÓN AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/Detox.webp",
+  
+  description: "Rubicat Detox es especial en su capacidad para retener toxinas. Gracias a su fórmula única y absorbente con carbón activado, esta arena atrapa eficazmente los olores desagradables y las sustancias nocivas, como el amoníaco y otros compuestos tóxicos presentes en los desechos de tu mascota.",
+  absorcion: 3,
+  accion: 4,
+  olores: 4,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - DETOX",
+  detailSubtitle: "Control de olores todo el día.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoDetox1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoDetox2.webp"
+  },
+  
+  {
+  name: "Classic bidón",
+  sub: "5.3 KG",
+  type: "BENTONITA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "favoritos", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/ClassicBidon.webp",
+  
+  description: "Rubicat Classic es elaborada con Bentonita Sódica, 100% natural, sin agregados químicos. Su capacidad aglomerante permite la formación de cúmulos, fáciles de limpiar, resultando más económico que otros productos sanitarios.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - CLASSIC",
+  detailSubtitle: "Limpieza cotidiana, todos los días.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoClassic1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoClassic2.webp"
+  },
+  
+  {
+  name: "Classic bolsón y bidón",
+  sub: "20.3 KG",
+  type: "BENTONITA",
+  tagline: "BOLSA AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bolsas", "bidones", "10kg", "bentonita"],
+  img: "/images/NewIndex/Productos/ClassicMixto.webp",
+  
+  description: "Rubicat Classic es elaborada con Bentonita Sódica, 100% natural, sin agregados químicos. Su capacidad aglomerante permite la formación de cúmulos, fáciles de limpiar, resultando más económico que otros productos sanitarios.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 2,
+  
+  detailEyebrow: "BENTONITA - CLASSIC MIXTO",
+  detailSubtitle: "Combo pensado para tu hogar.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoClassic1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoClassic2.webp"
+  },
+  
+  {
+  name: "Premium Bidón",
+  sub: "5.7 KG",
+  type: "BENTONITA",
+  tagline: "BIDÓN AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "favoritos", "5kg", "bentonita"],
+  img: "/images/NewIndex/Productos/PremiumBidon5KG.webp",
+  
+  description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 3,
+  
+  detailEyebrow: "BENTONITA - PREMIUM",
+  detailSubtitle: "Alto rendimiento, máxima practicidad.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp",
+  },
+  
+  {
+  name: "Premium Bidón 11KG",
+  sub: "11 KG",
+  type: "BENTONITA",
+  tagline: "BIDÓN AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "favoritos", "10kg", "bentonita"],
+  img: "/images/NewIndex/Productos/PremiumBidon11KG.webp",
+  
+  description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 3,
+  
+  detailEyebrow: "BENTONITA - PREMIUM",
+  detailSubtitle: "Mayor capacidad para el uso diario.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp",
+  },
+  
+  {
+  name: "Premium Bidones y Bolsa",
+  sub: "26.7 KG",
+  type: "BENTONITA",
+  tagline: "BIDÓN AGLUTINANTE",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["bidones", "bolsas", "10kg", "bentonita"],
+  img: "/images/NewIndex/Productos/PremiumMixto.webp",
+  
+  description: "Rubicat Premium aglomera de manera instantánea, permitiendo desechar únicamente el material utilizado y otorgando un mayor rendimiento. Rubicat Premium estará seca, limpia y sin olores para un uso continuo.",
+  absorcion: 3,
+  accion: 4,
+  olores: 3,
+  palitas: 3,
+  
+  detailEyebrow: "BENTONITA - PREMIUM MIXTO",
+  detailSubtitle: "Mayor disponibilidad de producto.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoPremium1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoPremium2.webp"
+  },
+  
+  {
+  name: "Diatomea Absorbente",
+  sub: "23 DM",
+  type: "DIATOMEA",
+  tagline: "BOLSA DIATOMEA",
+  theme: "pink",
+  cardBg: "dark",
+  tags: ["diatomea"],
+  img: "/images/NewIndex/Productos/Diatomea.webp",
+  
+  description: "Piedra Blanca Rubicat es una opción natural, liviana y absorbente para el arenero de tu gato. Su estructura porosa absorbe rápidamente la humedad y ayuda a controlar los olores, manteniendo el arenero fresco, limpio y agradable por más tiempo.",
+  absorcion: 4,
+  accion: 4,
+  olores: 4,
+  palitas: 2,
+  
+  detailEyebrow: "DIATOMEA",
+  detailSubtitle: "Alta absorción, origen natural.",
+  detailImg1: "/images/NewIndex/Productos/Info/InfoDiatomea1.webp",
+  detailImg2: "/images/NewIndex/Productos/Info/InfoDiatomea2.webp"
   }
-  PRODUCTS.forEach(function(p){
-    preload(p.img);
-    preload(p.detailImg1);
-    preload(p.detailImg2);
-  });
-}
-
-if("requestIdleCallback" in window){
-  requestIdleCallback(preloadAllImages, { timeout: 2000 });
-} else {
-  setTimeout(preloadAllImages, 300);
-}
-
-var filtersEl = document.getElementById("rcFilters");
-var trackEl   = document.getElementById("rcTrack");
-var dotsEl    = document.getElementById("rcDots"); // opcional: si no existe, simplemente no hay dots
-
-if(!filtersEl || !trackEl){
-  console.warn("rubicat-carousel: no se encontró el markup (#rcFilters/#rcTrack) en el DOM.");
-  return;
-}
-
-/* ---------------- panel de detalle (solo tiene efecto visual en desktop) ---------------- */
-var detailEl  = document.getElementById("rcDetail");
-var elEyebrow = document.getElementById("rcDetailEyebrow");
-var elTitle   = document.getElementById("rcDetailTitle");
-var elSub     = document.getElementById("rcDetailSubtitle");
-var elDesc    = document.getElementById("rcDetailDesc");
-var elImg1    = document.getElementById("rcDetailImg1");
-var elImg2    = document.getElementById("rcDetailImg2");
-
-function escapeAttr(str){
-  return String(str == null ? "" : str).replace(/"/g, "&quot;");
-}
-
-function showDetail(data){
-  if(!detailEl) return;
-  elEyebrow.textContent = data.eyebrow || "";
-  elTitle.textContent   = data.title || "";
-  elSub.textContent     = data.subtitle || "";
-  elDesc.textContent    = data.desc || "";
-  elImg1.src = data.img1 || "";
-  elImg1.alt = "Rubicat " + (data.title || "");
-  elImg2.src = data.img2 || "";
-  elImg2.alt = "Rubicat " + (data.title || "");
-
-  detailEl.classList.add("is-active");
-  detailEl.setAttribute("aria-hidden", "false");
-}
-
-// Delegación de eventos sobre el track: como las cards se recrean en
-// cada renderTrack() (cambio de filtro, resize), escuchar en el
-// contenedor padre evita tener que reasignar el listener cada vez.
-trackEl.addEventListener("click", function(e){
-  var card = e.target.closest(".rc-card");
-  if(!card) return;
-  showDetail({
-    eyebrow:  card.dataset.eyebrow,
-    title:    card.dataset.title,
-    subtitle: card.dataset.subtitle,
-    desc:     card.dataset.desc,
-    img1:     card.dataset.img1,
-    img2:     card.dataset.img2
-  });
-});
-
-var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-var position = 0;        // desplazamiento actual en px
-var singleWidth = 0;     // ancho de UN set completo de productos (sin duplicar)
-var itemOffsets = [];    // offset acumulado de cada producto (para dots/flechas)
-var rafId = null;
-var lastTs = null;
-var isPaused = false;    // pausa solo mientras se arrastra en mobile
-var isDragging = false;
-var dragStartX = 0;
-var dragStartPosition = 0;
-var touchStartY = 0;
-
-/* ---------------- render filters (once) ---------------- */
-FILTERS.forEach(function(f){
-  var btn = document.createElement("button");
-  btn.className = "rc-pill" + (f.id === activeFilter ? " is-active" : "");
-  btn.textContent = f.label;
-  btn.style.setProperty("--pill-color", f.color);
-  btn.setAttribute("role","tab");
-  btn.setAttribute("aria-selected", f.id === activeFilter ? "true" : "false");
-  btn.dataset.filter = f.id;
-  btn.addEventListener("click", function(){ selectFilter(f.id); });
-  filtersEl.appendChild(btn);
-});
-
-function selectFilter(id){
-  if(id === activeFilter) return;
-  activeFilter = id;
-  Array.prototype.forEach.call(filtersEl.children, function(el){
-    var on = el.dataset.filter === id;
-    el.classList.toggle("is-active", on);
-    el.setAttribute("aria-selected", on ? "true" : "false");
-  });
-  renderTrack();
-}
-
-/* ---------------- build cards ---------------- */
-function getFiltered(){
-  if(activeFilter === "todos"){
-    // Todos los productos, pero mostrando primero los que son "bolsas".
-    return PRODUCTS.slice().sort(function(a, b){
-      var aBolsa = a.tags.indexOf("bolsas") !== -1 ? 0 : 1;
-      var bBolsa = b.tags.indexOf("bolsas") !== -1 ? 0 : 1;
-      return aBolsa - bBolsa;
+  ];
+  
+  /* ---------------- state ---------------- */
+  var activeFilter = FILTERS[0].id;
+  var SPEED = 22; // píxeles por segundo del auto-scroll.
+  
+  /* ---------------- color del panel de detalle según producto ---------------- */
+  // Un color específico por línea de producto. Se matchea por el nombre
+  // (en minúsculas), así no hace falta agregar un campo nuevo en cada
+  // objeto de PRODUCTS. OJO con el orden: "silica aglutinante" se chequea
+  // antes que "silica" a secas, porque si no, "silica" matchearía primero.
+  var PRODUCT_COLOR_MAP = [
+    { match: "silica aglutinante", color: "#f3a624" },
+    { match: "silica",             color: "#F84A13" },
+    { match: "lavanda",            color: "#8B85CA" },
+    { match: "premium",            color: "#FF8C1E" },
+    { match: "classic",            color: "#00ACBB" },
+    { match: "microesferas",       color: "#F0B533" },
+    { match: "sensitive",          color: "#dc5572" },
+    { match: "original",           color: "#98c21e" },
+    { match: "detox",              color: "#cedd00" },
+    { match: "diatomea",           color: "#0092BB" }
+  ];
+  
+  function getProductColor(p){
+    var name = (p.name || "").toLowerCase();
+    for (var i = 0; i < PRODUCT_COLOR_MAP.length; i++){
+      if(name.indexOf(PRODUCT_COLOR_MAP[i].match) !== -1){
+        return PRODUCT_COLOR_MAP[i].color;
+      }
+    }
+    return "#FF8C1E";
+  }
+  
+  /* ---------------- precarga de imágenes ---------------- */
+  // Precarga TODAS las imágenes de todos los productos (de card y de
+  // detalle, sin importar el filtro activo) para que, al cambiar de
+  // filtro o abrir el panel de detalle, las imágenes ya estén en la
+  // caché del navegador y aparezcan al instante, sin esperar la
+  // descarga. Se dispara en idle time para no competir con la carga
+  // inicial de la página ni con la primera card (que va con
+  // fetchpriority="high").
+  var preloadedImages = [];
+  function preloadAllImages(){
+    var seen = {};
+    function preload(url){
+      if(!url || seen[url]) return;
+      seen[url] = true;
+      var img = new Image();
+      img.src = url;
+      preloadedImages.push(img); // referencia para que no lo recolecte el GC
+    }
+    PRODUCTS.forEach(function(p){
+      preload(p.img);
+      preload(p.detailImg1);
+      preload(p.detailImg2);
     });
   }
-  return PRODUCTS.filter(function(p){ return p.tags.indexOf(activeFilter) !== -1; });
-}
-
-function cardHTML(p, isPriority){
-  // isPriority: true solo para la primera card, que es la única
-  // garantizada visible apenas carga la página → se pide con prioridad
-  // alta y sin lazy-load. El resto carga lazy + decode async para no
-  // trabar el hilo principal ni la animación. Como además precargamos
-  // todas las imágenes en background (ver preloadAllImages), aunque
-  // sean "lazy" ya van a estar en la caché del navegador al momento
-  // de insertarse en el DOM.
-  var loadingAttrs = isPriority
-    ? 'loading="eager" fetchpriority="high" decoding="async"'
-    : 'loading="lazy" decoding="async"';
-
-  // data-* con la info necesaria para el panel de detalle (desktop).
-  // Si detailImg1/detailImg2 no están cargados, usamos p.img como
-  // fallback para no dejar el panel con imágenes rotas.
-  var dataAttrs =
-    'data-eyebrow="'  + escapeAttr(p.detailEyebrow)          + '" ' +
-    'data-title="'    + escapeAttr(p.name)                   + '" ' +
-    'data-subtitle="' + escapeAttr(p.detailSubtitle)         + '" ' +
-    'data-desc="'     + escapeAttr(p.description)            + '" ' +
-    'data-img1="'     + escapeAttr(p.detailImg1 || p.img)    + '" ' +
-    'data-img2="'     + escapeAttr(p.detailImg2 || p.img)    + '"';
-
-  return (
-    '<div class="rc-card" ' + dataAttrs + '>' +
-      '<div class="rc-card-inner bg-' + p.cardBg + '">' +
-        // Etiqueta de kilaje sacada temporalmente (ver nota más abajo
-        // en el código para reactivarla).
-        '<img class="rc-product-img" src="' + p.img + '" alt="Rubicat ' + p.name + '" ' + loadingAttrs + '>' +
-      '</div>' +
-    '</div>'
-  );
-}
-
-/* ---------------- medir offsets de un set de N cards ---------------- */
-function measureOffsets(count){
-  var gap = 14;
-  var cards = trackEl.children;
-  var offsets = [];
-  var acc = 0;
-  for (var i = 0; i < count; i++){
-    offsets.push(acc);
-    acc += cards[i].getBoundingClientRect().width + gap;
+  
+  if("requestIdleCallback" in window){
+    requestIdleCallback(preloadAllImages, { timeout: 2000 });
+  } else {
+    setTimeout(preloadAllImages, 300);
   }
-  return { offsets: offsets, total: acc };
-}
-
-/* ---------------- índice actual (para dots y flechas) ---------------- */
-function getCurrentIndex(){
-  var current = 0;
-  for (var i = 0; i < itemOffsets.length; i++){
-    if(itemOffsets[i] <= position) current = i;
-  }
-  return current;
-}
-
-/* ---------------- dots ---------------- */
-function buildDots(count){
-  if(!dotsEl) return;
-  dotsEl.innerHTML = "";
-  for (var i = 0; i < count; i++){
-    (function(i){
-      var dot = document.createElement("button");
-      dot.className = "rc-dot" + (i === 0 ? " is-active" : "");
-      dot.setAttribute("aria-label", "Ir al producto " + (i + 1));
-      dot.addEventListener("click", function(){
-        position = itemOffsets[i] || 0;
-      });
-      dotsEl.appendChild(dot);
-    })(i);
-  }
-}
-
-function updateActiveDot(){
-  if(!dotsEl || !itemOffsets.length) return;
-  var current = getCurrentIndex();
-  Array.prototype.forEach.call(dotsEl.children, function(d, i){
-    d.classList.toggle("is-active", i === current);
-  });
-}
-
-/* ---------------- flechas (desktop) ---------------- */
-var prevBtn = document.getElementById("rcPrev");
-var nextBtn = document.getElementById("rcNext");
-
-function setArrowsVisible(visible){
-  // "" deja que el CSS decida (las muestra solo en desktop, vía media
-  // query); "none" las oculta siempre, sin importar el ancho de pantalla.
-  if(prevBtn) prevBtn.style.display = visible ? "" : "none";
-  if(nextBtn) nextBtn.style.display = visible ? "" : "none";
-}
-
-if(prevBtn){
-  prevBtn.addEventListener("click", function(){
-    if(!itemOffsets.length) return;
-    var idx = (getCurrentIndex() - 1 + itemOffsets.length) % itemOffsets.length;
-    position = itemOffsets[idx];
-  });
-}
-if(nextBtn){
-  nextBtn.addEventListener("click", function(){
-    if(!itemOffsets.length) return;
-    var idx = (getCurrentIndex() + 1) % itemOffsets.length;
-    position = itemOffsets[idx];
-  });
-}
-
-/* ---------------- render + loop ---------------- */
-function renderTrack(){
-  cancelAnimation();
-  trackEl.classList.remove("rc-track--static");
-  trackEl.style.transform = "translateX(0)";
-  trackEl.innerHTML = "";
-  if(dotsEl) dotsEl.innerHTML = "";
-  itemOffsets = [];
-  position = 0;
-
-  var items = getFiltered();
-
-  if(items.length === 0){
-    trackEl.innerHTML = '<div class="rc-empty">No hay productos en esta categoría todavía.</div>';
-    setArrowsVisible(false);
+  
+  var filtersEl = document.getElementById("rcFilters");
+  var trackEl   = document.getElementById("rcTrack");
+  var dotsEl    = document.getElementById("rcDots"); // opcional: si no existe, simplemente no hay dots
+  
+  if(!filtersEl || !trackEl){
+    console.warn("rubicat-carousel: no se encontró el markup (#rcFilters/#rcTrack) en el DOM.");
     return;
   }
-
-  // Primero armamos un solo set (sin duplicar) para medir si entra
-  // completo en el ancho visible sin necesidad de scrollear.
-  trackEl.innerHTML = items.map(function(p, i){ return cardHTML(p, i === 0); }).join("");
-
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      var wrapWidth = trackEl.parentElement.clientWidth;
-      var single = measureOffsets(items.length);
-
-      if(single.total <= wrapWidth){
-        // Entran todas sin necesidad de loop: quedan fijas y centradas,
-        // sin animación, sin dots ni flechas (no hace falta navegar).
-        trackEl.classList.add("rc-track--static");
-        setArrowsVisible(false);
-        return;
-      }
-
-      // No entran todas: duplicamos para el loop y arrancamos el auto-scroll.
-      var loop = items.concat(items);
-      trackEl.innerHTML = loop.map(function(p, i){ return cardHTML(p, i === 0); }).join("");
-
-      var measured = measureOffsets(items.length);
-      itemOffsets = measured.offsets;
-      singleWidth = measured.total;
-
-      buildDots(items.length);
-      setArrowsVisible(true);
-      startLoop();
+  
+  /* ---------------- panel de detalle (solo tiene efecto visual en desktop) ---------------- */
+  var detailEl  = document.getElementById("rcDetail");
+  var elEyebrow = document.getElementById("rcDetailEyebrow");
+  var elTitle   = document.getElementById("rcDetailTitle");
+  var elSub     = document.getElementById("rcDetailSubtitle");
+  var elDesc    = document.getElementById("rcDetailDesc");
+  var elImg1    = document.getElementById("rcDetailImg1");
+  var elImg2    = document.getElementById("rcDetailImg2");
+  
+  function escapeAttr(str){
+    return String(str == null ? "" : str).replace(/"/g, "&quot;");
+  }
+  
+  function showDetail(data){
+    if(!detailEl) return;
+    elEyebrow.textContent = data.eyebrow || "";
+    elTitle.textContent   = data.title || "";
+    elSub.textContent     = data.subtitle || "";
+    elDesc.textContent    = data.desc || "";
+    elImg1.src = data.img1 || "";
+    elImg1.alt = "Rubicat " + (data.title || "");
+    elImg2.src = data.img2 || "";
+    elImg2.alt = "Rubicat " + (data.title || "");
+  
+    detailEl.style.setProperty("--detail-color", data.color || "#FF8C1E");
+  
+    detailEl.classList.add("is-active");
+    detailEl.setAttribute("aria-hidden", "false");
+  }
+  
+  function hideDetail(){
+    if(!detailEl) return;
+    detailEl.classList.remove("is-active");
+    detailEl.setAttribute("aria-hidden", "true");
+  }
+  
+  // Muestra el detalle a partir de un objeto de PRODUCTS (no de un <div>
+  // del DOM) — se usa para abrir el primer producto por default al cargar
+  // y para el caso de "un solo producto en el filtro".
+  function showDetailFromProduct(p){
+    if(!p) return;
+    showDetail({
+      eyebrow:  p.detailEyebrow,
+      title:    p.name,
+      subtitle: p.detailSubtitle,
+      desc:     p.description,
+      img1:     p.detailImg1 || p.img,
+      img2:     p.detailImg2 || p.img,
+      color:    getProductColor(p)
+    });
+  }
+  
+  // Delegación de eventos sobre el track: como las cards se recrean en
+  // cada renderTrack() (cambio de filtro, resize), escuchar en el
+  // contenedor padre evita tener que reasignar el listener cada vez.
+  trackEl.addEventListener("click", function(e){
+    var card = e.target.closest(".rc-card");
+    if(!card) return;
+    showDetail({
+      eyebrow:  card.dataset.eyebrow,
+      title:    card.dataset.title,
+      subtitle: card.dataset.subtitle,
+      desc:     card.dataset.desc,
+      img1:     card.dataset.img1,
+      img2:     card.dataset.img2,
+      color:    card.dataset.color
     });
   });
-}
-
-function startLoop(){
-  lastTs = null;
-  rafId = requestAnimationFrame(tick);
-}
-
-function cancelAnimation(){
-  if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
-}
-
-function tick(ts){
-  if(lastTs === null) lastTs = ts;
-  var dt = (ts - lastTs) / 1000;
-  lastTs = ts;
-
-  if(!isPaused && !isDragging && !prefersReducedMotion && singleWidth > 0){
-    position += SPEED * dt;
-    if(position >= singleWidth) position -= singleWidth;
-    if(position < 0) position += singleWidth;
-  }
-
-  trackEl.style.transform = "translateX(" + (-position) + "px)";
-  updateActiveDot();
-
-  rafId = requestAnimationFrame(tick);
-}
-
-/* ---------------- arrastre táctil (swipe en mobile) ---------------- */
-var wrap = document.querySelector(".rc-carousel");
-
-wrap.addEventListener("touchstart", function(e){
-  var t = e.touches[0];
-  isDragging = true;
-  isPaused = true;
-  dragStartX = t.clientX;
-  dragStartPosition = position;
-  touchStartY = t.clientY;
-}, {passive:true});
-
-wrap.addEventListener("touchmove", function(e){
-  if(!isDragging || singleWidth <= 0) return;
-  var t = e.touches[0];
-  var dx = t.clientX - dragStartX;
-  var dy = t.clientY - touchStartY;
-
-  // Si el movimiento es más horizontal que vertical, es un swipe del
-  // carrusel: evitamos que la página scrollee verticalmente mientras tanto.
-  if(Math.abs(dx) > Math.abs(dy)){
-    e.preventDefault();
-  }
-
-  var next = dragStartPosition - dx;
-  next = ((next % singleWidth) + singleWidth) % singleWidth;
-  position = next;
-}, {passive:false});
-
-wrap.addEventListener("touchend", function(){
-  isDragging = false;
-  isPaused = false;
-}, {passive:true});
-
-/* ---------------- resize: recalcular todo ---------------- */
-var resizeTimer;
-window.addEventListener("resize", function(){
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(renderTrack, 200);
-});
-
-/* ---------------- init ---------------- */
-renderTrack();
-
-});
-
-
-  </script>
   
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  
+  var position = 0;        // desplazamiento actual en px
+  var singleWidth = 0;     // ancho de UN set completo de productos (sin duplicar)
+  var itemOffsets = [];    // offset acumulado de cada producto (para dots/flechas)
+  var rafId = null;
+  var lastTs = null;
+  var isPaused = false;    // pausa solo mientras se arrastra en mobile
+  var isDragging = false;
+  var dragStartX = 0;
+  var dragStartPosition = 0;
+  var touchStartY = 0;
+  
+  /* ---------------- render filters (once) ---------------- */
+  FILTERS.forEach(function(f){
+    var btn = document.createElement("button");
+    btn.className = "rc-pill" + (f.id === activeFilter ? " is-active" : "");
+    btn.textContent = f.label;
+    btn.style.setProperty("--pill-color", f.color);
+    btn.setAttribute("role","tab");
+    btn.setAttribute("aria-selected", f.id === activeFilter ? "true" : "false");
+    btn.dataset.filter = f.id;
+    btn.addEventListener("click", function(){ selectFilter(f.id); });
+    filtersEl.appendChild(btn);
+  });
+  
+  function selectFilter(id){
+    if(id === activeFilter) return;
+    activeFilter = id;
+    Array.prototype.forEach.call(filtersEl.children, function(el){
+      var on = el.dataset.filter === id;
+      el.classList.toggle("is-active", on);
+      el.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    renderTrack("filter");
+  }
+  
+  /* ---------------- build cards ---------------- */
+  function getFiltered(){
+    if(activeFilter === "todos"){
+      // Todos los productos, pero mostrando primero los que son "bolsas".
+      return PRODUCTS.slice().sort(function(a, b){
+        var aBolsa = a.tags.indexOf("bolsas") !== -1 ? 0 : 1;
+        var bBolsa = b.tags.indexOf("bolsas") !== -1 ? 0 : 1;
+        return aBolsa - bBolsa;
+      });
+    }
+    return PRODUCTS.filter(function(p){ return p.tags.indexOf(activeFilter) !== -1; });
+  }
+  
+  function cardHTML(p, isPriority){
+    // isPriority: true solo para la primera card, que es la única
+    // garantizada visible apenas carga la página → se pide con prioridad
+    // alta y sin lazy-load. El resto carga lazy + decode async para no
+    // trabar el hilo principal ni la animación. Como además precargamos
+    // todas las imágenes en background (ver preloadAllImages), aunque
+    // sean "lazy" ya van a estar en la caché del navegador al momento
+    // de insertarse en el DOM.
+    var loadingAttrs = isPriority
+      ? 'loading="eager" fetchpriority="high" decoding="async"'
+      : 'loading="lazy" decoding="async"';
+  
+    // data-* con la info necesaria para el panel de detalle (desktop).
+    // Si detailImg1/detailImg2 no están cargados, usamos p.img como
+    // fallback para no dejar el panel con imágenes rotas.
+    var dataAttrs =
+      'data-eyebrow="'  + escapeAttr(p.detailEyebrow)          + '" ' +
+      'data-title="'    + escapeAttr(p.name)                   + '" ' +
+      'data-subtitle="' + escapeAttr(p.detailSubtitle)         + '" ' +
+      'data-desc="'     + escapeAttr(p.description)            + '" ' +
+      'data-img1="'     + escapeAttr(p.detailImg1 || p.img)    + '" ' +
+      'data-img2="'     + escapeAttr(p.detailImg2 || p.img)    + '" ' +
+      'data-color="'    + escapeAttr(getProductColor(p))       + '"';
+  
+    return (
+      '<div class="rc-card" ' + dataAttrs + '>' +
+        '<div class="rc-card-inner bg-' + p.cardBg + '">' +
+          // Etiqueta de kilaje sacada temporalmente (ver nota más abajo
+          // en el código para reactivarla).
+          '<img class="rc-product-img" src="' + p.img + '" alt="Rubicat ' + p.name + '" ' + loadingAttrs + '>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+  
+  /* ---------------- medir offsets de un set de N cards ---------------- */
+  function measureOffsets(count){
+    var gap = 14;
+    var cards = trackEl.children;
+    var offsets = [];
+    var acc = 0;
+    for (var i = 0; i < count; i++){
+      offsets.push(acc);
+      acc += cards[i].getBoundingClientRect().width + gap;
+    }
+    return { offsets: offsets, total: acc };
+  }
+  
+  /* ---------------- índice actual (para dots y flechas) ---------------- */
+  function getCurrentIndex(){
+    var current = 0;
+    for (var i = 0; i < itemOffsets.length; i++){
+      if(itemOffsets[i] <= position) current = i;
+    }
+    return current;
+  }
+  
+  /* ---------------- dots ---------------- */
+  function buildDots(count){
+    if(!dotsEl) return;
+    dotsEl.innerHTML = "";
+    for (var i = 0; i < count; i++){
+      (function(i){
+        var dot = document.createElement("button");
+        dot.className = "rc-dot" + (i === 0 ? " is-active" : "");
+        dot.setAttribute("aria-label", "Ir al producto " + (i + 1));
+        dot.addEventListener("click", function(){
+          position = itemOffsets[i] || 0;
+        });
+        dotsEl.appendChild(dot);
+      })(i);
+    }
+  }
+  
+  function updateActiveDot(){
+    if(!dotsEl || !itemOffsets.length) return;
+    var current = getCurrentIndex();
+    Array.prototype.forEach.call(dotsEl.children, function(d, i){
+      d.classList.toggle("is-active", i === current);
+    });
+  }
+  
+  /* ---------------- flechas (desktop) ---------------- */
+  var prevBtn = document.getElementById("rcPrev");
+  var nextBtn = document.getElementById("rcNext");
+  
+  function setArrowsVisible(visible){
+    // "" deja que el CSS decida (las muestra solo en desktop, vía media
+    // query); "none" las oculta siempre, sin importar el ancho de pantalla.
+    if(prevBtn) prevBtn.style.display = visible ? "" : "none";
+    if(nextBtn) nextBtn.style.display = visible ? "" : "none";
+  }
+  
+  if(prevBtn){
+    prevBtn.addEventListener("click", function(){
+      if(!itemOffsets.length) return;
+      var idx = (getCurrentIndex() - 1 + itemOffsets.length) % itemOffsets.length;
+      position = itemOffsets[idx];
+    });
+  }
+  if(nextBtn){
+    nextBtn.addEventListener("click", function(){
+      if(!itemOffsets.length) return;
+      var idx = (getCurrentIndex() + 1) % itemOffsets.length;
+      position = itemOffsets[idx];
+    });
+  }
+  
+  /* ---------------- render + loop ----------------
+     reason indica por qué se está re-renderizando el track:
+       "init"   -> primera carga de la página
+       "filter" -> el usuario cambió de filtro arriba
+       "resize" -> cambió el tamaño de la ventana
+  
+     Comportamiento del panel de detalle según reason:
+       - Si el filtro resultante tiene UN SOLO producto, se muestra su
+         info automáticamente (sea init, filter o resize).
+       - Si tiene más de uno y reason === "filter", se esconde el panel
+         (no debe quedar la info de un producto que ya no aplica).
+       - Si tiene más de uno y reason === "init", se abre con el primero.
+       - Si tiene más de uno y reason === "resize", no se toca el panel.
+  */
+  function renderTrack(reason){
+    reason = reason || "resize";
+  
+    cancelAnimation();
+    trackEl.classList.remove("rc-track--static");
+    trackEl.style.transform = "translateX(0)";
+    trackEl.innerHTML = "";
+    if(dotsEl) dotsEl.innerHTML = "";
+    itemOffsets = [];
+    position = 0;
+  
+    var items = getFiltered();
+  
+    if(items.length === 0){
+      trackEl.innerHTML = '<div class="rc-empty">No hay productos en esta categoría todavía.</div>';
+      setArrowsVisible(false);
+      hideDetail();
+      return;
+    }
+  
+    if(items.length === 1){
+      // Único producto en el filtro: mostramos su info directamente,
+      // no tiene sentido pedirle al usuario que lo clickee.
+      showDetailFromProduct(items[0]);
+    } else if(reason === "filter"){
+      hideDetail();
+    }
+  
+    // Primero armamos un solo set (sin duplicar) para medir si entra
+    // completo en el ancho visible sin necesidad de scrollear.
+    trackEl.innerHTML = items.map(function(p, i){ return cardHTML(p, i === 0); }).join("");
+  
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        var wrapWidth = trackEl.parentElement.clientWidth;
+        var single = measureOffsets(items.length);
+  
+        if(single.total <= wrapWidth){
+          // Entran todas sin necesidad de loop: quedan fijas y centradas,
+          // sin animación, sin dots ni flechas (no hace falta navegar).
+          trackEl.classList.add("rc-track--static");
+          setArrowsVisible(false);
+        } else {
+          // No entran todas: duplicamos para el loop y arrancamos el auto-scroll.
+          var loop = items.concat(items);
+          trackEl.innerHTML = loop.map(function(p, i){ return cardHTML(p, i === 0); }).join("");
+  
+          var measured = measureOffsets(items.length);
+          itemOffsets = measured.offsets;
+          singleWidth = measured.total;
+  
+          buildDots(items.length);
+          setArrowsVisible(true);
+          startLoop();
+        }
+  
+        // Solo al cargar la página por primera vez y con más de un producto
+        // (el caso de un único producto ya se resolvió más arriba): abrimos
+        // el panel con el primero del filtro activo.
+        if(reason === "init" && items.length > 1){
+          showDetailFromProduct(items[0]);
+        }
+      });
+    });
+  }
+  
+  function startLoop(){
+    lastTs = null;
+    rafId = requestAnimationFrame(tick);
+  }
+  
+  function cancelAnimation(){
+    if(rafId){ cancelAnimationFrame(rafId); rafId = null; }
+  }
+  
+  function tick(ts){
+    if(lastTs === null) lastTs = ts;
+    var dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+  
+    if(!isPaused && !isDragging && !prefersReducedMotion && singleWidth > 0){
+      position += SPEED * dt;
+      if(position >= singleWidth) position -= singleWidth;
+      if(position < 0) position += singleWidth;
+    }
+  
+    trackEl.style.transform = "translateX(" + (-position) + "px)";
+    updateActiveDot();
+  
+    rafId = requestAnimationFrame(tick);
+  }
+  
+  /* ---------------- arrastre táctil (swipe en mobile) ---------------- */
+  var wrap = document.querySelector(".rc-carousel");
+  
+  wrap.addEventListener("touchstart", function(e){
+    var t = e.touches[0];
+    isDragging = true;
+    isPaused = true;
+    dragStartX = t.clientX;
+    dragStartPosition = position;
+    touchStartY = t.clientY;
+  }, {passive:true});
+  
+  wrap.addEventListener("touchmove", function(e){
+    if(!isDragging || singleWidth <= 0) return;
+    var t = e.touches[0];
+    var dx = t.clientX - dragStartX;
+    var dy = t.clientY - touchStartY;
+  
+    // Si el movimiento es más horizontal que vertical, es un swipe del
+    // carrusel: evitamos que la página scrollee verticalmente mientras tanto.
+    if(Math.abs(dx) > Math.abs(dy)){
+      e.preventDefault();
+    }
+  
+    var next = dragStartPosition - dx;
+    next = ((next % singleWidth) + singleWidth) % singleWidth;
+    position = next;
+  }, {passive:false});
+  
+  wrap.addEventListener("touchend", function(){
+    isDragging = false;
+    isPaused = false;
+  }, {passive:true});
+  
+  /* ---------------- resize: recalcular todo ---------------- */
+  var resizeTimer;
+var lastWidth = window.innerWidth;
+window.addEventListener("resize", function(){
+  var currentWidth = window.innerWidth;
+  if(currentWidth === lastWidth) return; // solo cambió la altura: ignorar
+  lastWidth = currentWidth;
+
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function(){ renderTrack("resize"); }, 200);
+});
+  
+  /* ---------------- init ---------------- */
+  renderTrack("init");
+  
+  });
+  </script>

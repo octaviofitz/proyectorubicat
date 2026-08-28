@@ -454,10 +454,11 @@
   flex-direction:column;
   justify-content:center;
   min-width:0;
+  margin-left: 1vw;
 }
 
 .rc-detail-eyebrow{
-  color:#FF8C1E;
+  color:var(--detail-color, #FF8C1E);
   font-weight:700;
   font-size:14px;
   letter-spacing:.06em;
@@ -476,7 +477,7 @@
 }
 
 .rc-detail-subtitle{
-  color:#FF8C1E;
+  color:var(--detail-color, #FF8C1E);
   font-weight:600;
   font-size:18px;
   margin:0 0 18px;

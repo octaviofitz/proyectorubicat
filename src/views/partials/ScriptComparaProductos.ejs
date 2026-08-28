@@ -715,28 +715,6 @@ return html;
       return card;
   
     }
-
-    function pauseAutoScrollTemporarily() {
-
-isUserInteracting = true;
-
-track.classList.remove("np-no-snap"); // reactiva el snap para que la card quede centrada al soltar
-
-clearTimeout(resumeTimeout);
-
-resumeTimeout =
-  setTimeout(
-    function () {
-
-      isUserInteracting = false;
-
-      track.classList.add("np-no-snap"); // vuelve a apagar el snap para que el auto-scroll no vibre
-
-    },
-    RESUME_DELAY
-  );
-
-}
   
   
     /* ============================================================
@@ -1006,30 +984,50 @@ cards.forEach(function (card) {
        AUTO SCROLL CONTINUO
        Se mueve solo todo el tiempo. Se pausa mientras el
        usuario interactúa (touch / drag / wheel) y retoma
-       un rato después de que suelta.
+       un rato después de que suelta (incluye el scroll por
+       inercia/momentum, ya que también escuchamos touchend
+       / pointerup). Al llegar al final, vuelve al inicio con
+       un scroll suave (scrollTo smooth) en vez de un salto
+       instantáneo, que era lo que generaba el temblor.
        ============================================================ */
   
     let autoScrollRAF = null;
     let isUserInteracting = false;
+    let isResetting = false;
     let resumeTimeout = null;
   
     const AUTO_SCROLL_SPEED = 0.4; // px por frame — subí este número para que vaya más rápido
-    const RESUME_DELAY = 2500; // ms de espera tras soltar, antes de retomar
+    const RESUME_DELAY = 3000; // ms de espera tras soltar, antes de retomar
+    const RESET_DURATION = 700; // ms aprox. que tarda el scrollTo smooth en volver al inicio
   
   
     function autoScrollStep() {
   
-      if (!isUserInteracting && track) {
+      if (!isUserInteracting && !isResetting && track) {
   
         const maxScroll =
           track.scrollWidth - track.clientWidth;
   
   
-        if (maxScroll > 0) {
+        if (maxScroll > 2) {
   
-          if (track.scrollLeft >= maxScroll - 1) {
+          if (track.scrollLeft >= maxScroll - 2) {
   
-            track.scrollLeft = 0;
+            // en vez de saltar de golpe a 0 (lo que generaba el
+            // temblor en la última card), hacemos un scroll suave
+            isResetting = true;
+  
+            track.scrollTo({
+              left: 0,
+              behavior: "smooth"
+            });
+  
+            setTimeout(
+              function () {
+                isResetting = false;
+              },
+              RESET_DURATION
+            );
   
           } else {
   
@@ -1079,6 +1077,7 @@ cards.forEach(function (card) {
     }
   
   
+    // Pausa al empezar a interactuar...
     track.addEventListener(
       "touchstart",
       pauseAutoScrollTemporarily,
@@ -1094,6 +1093,21 @@ cards.forEach(function (card) {
       "wheel",
       pauseAutoScrollTemporarily,
       { passive: true }
+    );
+  
+    // ...y también al soltar, para cubrir el scroll por inercia
+    // (momentum) que sigue moviéndose después de que el dedo ya
+    // no toca la pantalla. Esto evita que el auto-scroll retome
+    // justo cuando el swipe todavía se está "asentando".
+    track.addEventListener(
+      "touchend",
+      pauseAutoScrollTemporarily,
+      { passive: true }
+    );
+  
+    track.addEventListener(
+      "pointerup",
+      pauseAutoScrollTemporarily
     );
   
   
