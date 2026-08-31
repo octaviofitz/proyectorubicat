@@ -512,6 +512,7 @@
   .rc-detail.is-active{
     display:flex;
     align-items:flex-start;
+    margin-top: 5rem;
   }
 }
 
@@ -622,7 +623,7 @@
 @media (min-width: 1024px){
   .rc-section{
     max-width: 1600px;
-    padding:56px 40px 72px;
+    padding:56px 40px 0px;
   }
  
   .rc-title{
@@ -1024,7 +1025,7 @@
   
     /* Posición */
     top: 59% !important;
-    left: 13%  !important;
+    left: 26%  !important;
   
     /* Tamaño FIJO para que no se haga gigante */
     width: 260px !important;
@@ -1060,14 +1061,13 @@
   
     cursor: pointer !important;
     transform: none !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease,
-                background-color 0.2s ease !important;
-                border: 2px solid black;
+                transform: translateX(-50%) !important;
+
   }
   
   .test .portadaDesktop .boton:hover {
     background-color: #ffffff !important;
-    transform: translateY(-2px) !important;
+    transform: translateX(-50%) translateY(-2px) !important;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
   }
 
@@ -1102,6 +1102,10 @@
   
   
   @media (min-width: 1440px) {
+
+      
+   
+
 
   /* preguntas frecuentes */
 
