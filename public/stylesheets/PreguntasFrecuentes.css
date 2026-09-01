@@ -1,0 +1,137 @@
+   /* ==========================================================
+      PREGUNTAS FRECUENTES
+      ========================================================== */
+     
+     
+      .PreguntasFrecuentes{
+        margin: 2rem 1.5rem 3.5rem;
+      }
+     
+      .PreguntasFrecuentes .preguntasFrecuentes{
+        padding:2rem 1.5rem 1rem;
+        background-color:#fff;
+      }
+      .PreguntasFrecuentes .preguntasFrecuentes .img{ display:none; }
+      
+      .PreguntasFrecuentes .img{
+        display: none;
+      }
+
+      .PreguntasFrecuentes .tituloSeccion{
+        font-family: "Anton", sans-serif;
+        display: block;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 2.5rem;
+        letter-spacing: .01em;
+        color: #241A12;
+        font-style: normal;
+        margin-bottom: 1.5rem;
+      }
+      
+      .PreguntasFrecuentes .listaPreguntas{
+        display:flex;
+        flex-direction:column;
+        gap:.75rem;
+      }
+      
+      .PreguntasFrecuentes .itemPregunta{
+        border:1px solid #e5e5e5;
+        border-radius:16px;
+        overflow:hidden;
+      }
+      
+      .PreguntasFrecuentes .encabezadoPregunta{
+        display:flex;
+        align-items:center;
+        gap:1rem;
+        padding:1.1rem 1.25rem;
+        cursor:pointer;
+        transition:background-color .2s ease;
+      }
+      
+      .PreguntasFrecuentes .icono{
+        position:relative;
+        width:1.2rem;
+        height:1.2rem;
+        flex-shrink:0;
+        font-size:1.3rem;
+        font-weight:400;
+        color:#333;
+        transition:color .2s ease;
+      }
+      .PreguntasFrecuentes .icono .iconoMas,
+      .PreguntasFrecuentes .icono .iconoCerrar{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+      }
+      .PreguntasFrecuentes .icono .iconoCerrar{ display:none; }
+      
+      .PreguntasFrecuentes .textoPregunta{
+        color:#1c1c1c;
+        margin:0;
+        font-size:1.15rem;
+        transition:color .2s ease;
+        font-family:"Inter", sans-serif;
+      }
+      
+      .PreguntasFrecuentes .contenidoRespuesta{
+        max-height:0;
+        overflow:hidden;
+        padding:0 1.25rem;
+        transition:max-height .3s ease, padding .3s ease;
+      }
+      .PreguntasFrecuentes .contenidoRespuesta p{
+        margin:0 0 1rem 0;
+        color:black;
+        line-height:1.5;
+        font-family:'Switzer', sans-serif;
+      }
+      .PreguntasFrecuentes .contenidoRespuesta p:last-child{ margin-bottom:1.25rem; }
+      
+      /* Hover cuando está cerrado: fondo celeste completo */
+      .PreguntasFrecuentes .itemPregunta:not(.activo) .encabezadoPregunta:hover{
+        background-color:#00ACBB;
+      }
+      .PreguntasFrecuentes .itemPregunta:not(.activo) .encabezadoPregunta:hover .textoPregunta,
+      .PreguntasFrecuentes .itemPregunta:not(.activo) .encabezadoPregunta:hover .icono{
+        color:#fff;
+      }
+      
+      /* Estado abierto */
+      .PreguntasFrecuentes .itemPregunta.activo .iconoMas{ display:none; }
+      .PreguntasFrecuentes .itemPregunta.activo .iconoCerrar{ display:block; }
+      .PreguntasFrecuentes .itemPregunta.activo .contenidoRespuesta{ max-height:400px; }
+      
+      /* Hover cuando está abierto: solo el título se pone celeste */
+      .PreguntasFrecuentes .itemPregunta.activo .encabezadoPregunta:hover .textoPregunta,
+      .PreguntasFrecuentes .itemPregunta.activo .encabezadoPregunta:hover .icono{
+        color:#00ACBB;
+      }
+      
+      @media (min-width: 1024px){
+
+        .PreguntasFrecuentes{
+            display: flex;
+            justify-content: space-around;
+            gap: 80px;
+        }
+
+        .PreguntasFrecuentes .img{
+            display: inline-block;
+            width: 40vw;
+            border-radius: 30px;
+        }
+
+        .PreguntasFrecuentes .tituloSeccion{
+            font-family: "Anton", sans-serif;
+            font-weight: 900;
+        font-size: 4.25rem;
+        font-family: "Anton", sans-serif;
+        padding-right: 30vw;
+          }
+
+       
+      }

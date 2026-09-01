@@ -192,6 +192,11 @@
 
   .sr-nav__link:hover{
     color: gray;
+    font-weight: 600;
+  }
+
+  #itemProducto{
+   color: red;
   }
 
 
