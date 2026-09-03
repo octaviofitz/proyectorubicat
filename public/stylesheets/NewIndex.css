@@ -1294,7 +1294,7 @@
   }
 
   .newIndex .portadaDesktop .boton:hover {
-    background-color: #ffffff !important;
+    background-color: rgb(247, 241, 241)!important;
     transform: translateX(-50%) !important;
     box-shadow: 0 4px 12px rgba(0,0,0,.15) !important;
   }
@@ -1303,6 +1303,7 @@
   .newIndex .portada .boton:hover .flecha {
     transform: translateX(4px);
   }
+
 
   .newIndex .rc-section {
     max-width: 1600px;
