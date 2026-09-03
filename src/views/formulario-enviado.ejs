@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-  <%- include('./partials/head')  %> 
+  <%- include('./partials/head') %>
   <body>
-    <%- include('./partials/header') %>
-    <%- include('./partials/banner') %>
-    <main class="formularioEnviado">            
-            <section class="container">
-            <img src="/images/index/cat-ok.gif" class="gif" alt="Gif gato">
-            <h3 class="titulo">¡Su mensaje ha sido enviado!</h1>
-            <h4 class="texto">Nos estaremos contactando a la brevedad</h4>
-            <a href="/"><button class="boton sensitive">Volver al inicio</button></a>
-        </section>
-        </main>
-  <%- include('./partials/footer') %>
-  <%- include('./partials/backToTop') %>
-  <%- include('./partials/scripts') %>
+    <%- include('partials/navBar.ejs') %>
+    <%- include('partials/scriptNavbar') %>
+
+    <main class="formularioEnviado">
+
+      <section class="container">
+
+        <img src="/images/index/cat-ok.gif" class="gif" alt="Gato agradeciendo el mensaje">
+
+        <h1 class="titulo">¡Tu mensaje fue enviado!</h1>
+
+        <p class="texto">Nos estaremos contactando a la brevedad.</p>
+
+        <a href="/" class="boton">
+          <span>Volver al inicio</span>
+        </a>
+
+      </section>
+
+    </main>
+
+    <%- include('partials/PatitasAnimacion') %>
+    <%- include('partials/newFooter') %>
+    <%- include('partials/scripts') %>
+
   </body>
 </html>

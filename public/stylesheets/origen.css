@@ -12,7 +12,7 @@
 
 .origen .reveal-letters .word{
     display: inline-block;
-    white-space: nowrap; /* que una palabra nunca se corte a la mitad */
+    white-space: nowrap; 
     font-family: "Anton", sans-serif;
   }
   
@@ -73,15 +73,15 @@
   }
   
  .origen .lista-beneficios .numero{
-    flex-shrink: 0; /* que nunca se achique, aunque el texto sea largo */
-    background-color: #F5820D; /* el naranja de tu captura, ajustá al tuyo */
+    flex-shrink: 0;
+    background-color: #F5820D;
     color: #fff;
     font-weight: 700;
     font-size: 0.8rem;
     padding: 3px 7px;
     border-radius: 6px;
     line-height: 1.2;
-    margin-top: 0.15rem; /* para que quede alineado con la primera línea del texto */
+    margin-top: 0.15rem; 
   }
   
  .origen .lista-beneficios p{
@@ -112,7 +112,7 @@
   }
 
  .origen .lista-beneficios{
-    gap: 2rem; /* espacio entre ítems */
+    gap: 2rem; 
     margin: 2rem 12vw 3rem;
   }
 

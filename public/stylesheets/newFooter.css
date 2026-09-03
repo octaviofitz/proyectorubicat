@@ -95,7 +95,7 @@
 
 .newFooter .links .quick .items:hover,
 .newFooter .links .todaPagina .items:hover{
-  font-weight: 700;
+ /*  font-weight: 700; */
   color: #fff;
 }
 
@@ -108,6 +108,16 @@
   text-align: center;
   color: gray;
   margin: 1.5rem 0 1rem;
+  cursor: pointer;
+}
+
+.newFooter .textoFinal:hover{
+  color: #fff;
+  font-weight: 600;
+}
+
+.newFooter .links #footerDesktop{
+  display: none;
 }
 
 @media (min-width: 768px){
@@ -171,6 +181,25 @@
   .newFooter .textoFinal{
     margin-bottom: 0;
   }
+
+  .newFooter .links{
+    margin-top: 2.5rem;
+  }
+
+  .newFooter .links #footerDesktop{
+    display: inline-block;
+  }
+
+  .newFooter .links #footerMobile,
+  .newFooter .links .footerDesktop2{
+    display: none;
+  }
+
+  .newFooter .links .quick .items:hover,
+.newFooter .links .todaPagina .items:hover{
+  color: #fff;
+  font-weight: inherit;
+}
   
   @media (min-width: 1440px){
     

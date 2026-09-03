@@ -1,4 +1,4 @@
-module.exports = {
+ module.exports = {
     classic: (req, res) => {
       return res.render("classic", {
         title: "Rubicat - Classic",
@@ -37,4 +37,4 @@ module.exports = {
     
     
   
-     
+    

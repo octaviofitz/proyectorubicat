@@ -21,3 +21,8 @@
     font-family: 'made sans';
     src: url('../public/fonts/made.otf') format('truetype');
   }
+
+  html {
+    scroll-padding-top: 3rem;
+    scroll-behavior: smooth;
+  }

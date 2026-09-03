@@ -1,465 +1,421 @@
-/* =========================================================
-   NUEVA SECCIÓN PRODUCTOS
-   Todo queda aislado dentro de .newProductos
-   Visible SOLO en mobile/tablet (se oculta desde 1024px)
-   ========================================================= */
-
-   .newProductos {
-    width: 100%;
-    padding: 0 0 4rem;
-    overflow: hidden;
-  }
-  
-  /* ---------------------------------------------------------
-     TÍTULO
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__titulo {
-    text-align: center;
-    font-weight: 700;
-    margin: 2rem 4rem 2rem;
-    padding-top: 1rem;
-    font-size: 3rem;
-  }
-  
-  .newProductos .reveal-letters .word {
-    display: inline-block;
-    white-space: nowrap;
-    font-family: "Anton", sans-serif;
-  }
-  
-  .newProductos .reveal-letters .letter {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(0.3em);
-    transition: opacity .4s ease, transform .4s ease;
-    transition-delay: var(--d, 0s);
-    font-family: "Anton", sans-serif;
-  }
-  
-  .newProductos .reveal-letters.is-visible .letter {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* ---------------------------------------------------------
-     TEXTO
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__texto {
-    max-width: 650px;
-    margin: 0 auto 1.5rem;
-    padding: 0 20px;
-    text-align: center;
-    color: #666;
-    font-family: "Switzer", sans-serif;
-    font-size: 1rem;
-    line-height: 1.45;
-  }
-  
-  /* ---------------------------------------------------------
-     FILTROS
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__filter-list {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    padding: 4px 8px 12px;
-    margin-bottom: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .newProductos .newProductos__filter-list::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .newProductos .newProductos__filter-list .np-pill {
-    flex: 0 0 auto;
-    padding: 7px 19px;
-    border-radius: 999px;
-    border: 1.5px solid var(--np-pill-color, #00ACBB);
-    background: #fff;
-    color: var(--np-pill-color, #00ACBB);
-    font-family: "Switzer", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background .2s ease, color .2s ease, transform .15s ease;
-  }
-  
-  .newProductos .newProductos__filter-list .np-pill:hover {
-    transform: translateY(-1px);
-  }
-  
-  .newProductos .newProductos__filter-list .np-pill.is-active {
-    background: var(--np-pill-color, #00ACBB);
-    color: #fff;
-  }
-  
-  .newProductos .newProductos__filter-list .np-pill:focus-visible {
-    outline: 2px solid var(--np-pill-color, #00ACBB);
-    outline-offset: 2px;
-  }
-  
-  /* ---------------------------------------------------------
-     CARRUSEL
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__carousel {
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
-    cursor: grab;
-    padding: 16px 0;
-    box-sizing: border-box;
-  }
-  
-  .newProductos .newProductos__carousel:active {
-    cursor: grabbing;
-  }
-  
-  /* ---------------------------------------------------------
-     TRACK-WRAP
-     Ya NO scrollea acá (se movió a .newProductos__track).
-     Solo centra el track cuando hay pocas cards (ej: 1 sola).
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__track-wrap {
-    overflow: visible;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* ---------------------------------------------------------
-     TRACK
-     Acá vive el scroll real + el snap centrado.
-     El padding lateral (9vw) permite que la primera y última
-     card lleguen a quedar centradas en pantalla.
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__track {
-    display: flex;
-    flex: 0 0 auto;
-    gap: 1rem;
-    width: max-content;
-    max-width: 100%;
-    padding: 16px 9vw;
-    box-sizing: border-box;
-  
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .newProductos .newProductos__track::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* ---------------------------------------------------------
-     CARD — envoltorio blanco (marco entre el borde y el color)
-     --npCardRadius y --npCardGap ya no se usan para el marco
-     (eso ahora lo hace el box-shadow inset en .np-card-inner),
-     pero se dejan por si se necesitan a futuro.
-  --------------------------------------------------------- */
-  
-  .newProductos .np-card {
-    flex: 0 0 82vw;
-    width: 82vw;
-    max-width: 340px;
-    box-sizing: border-box;
-  
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-  }
-  
-  /* ---------------------------------------------------------
-     INTERIOR CARD
-     El marco blanco se logra con box-shadow inset: dibuja un
-     anillo blanco hacia adentro del borde negro, sin depender
-     de padding/background de ningún elemento padre.
-  --------------------------------------------------------- */
-  
-  .newProductos .np-card-inner {
-    position: relative;
+.newProductos {
   width: 100%;
-  /* SACAR: min-height: 620px; */
+  padding: 0 0 4rem;
+  overflow: hidden;
+}
+
+.newProductos .newProductos__titulo {
+  text-align: center;
+  font-weight: 700;
+  margin: 2rem 4rem 2rem;
+  padding-top: 1rem;
+  font-size: 3rem;
+}
+
+.newProductos .reveal-letters .word {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: "Anton", sans-serif;
+}
+
+.newProductos .reveal-letters .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity .4s ease, transform .4s ease;
+  transition-delay: var(--d, 0s);
+  font-family: "Anton", sans-serif;
+}
+
+.newProductos .reveal-letters.is-visible .letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.newProductos .newProductos__texto {
+  max-width: 650px;
+  margin: 0 auto 1.5rem;
+  padding: 0 20px;
+  text-align: center;
+  color: #666;
+  font-family: "Switzer", sans-serif;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.newProductos .newProductos__filter-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 8px 12px;
+  margin-bottom: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.newProductos .newProductos__filter-list::-webkit-scrollbar {
+  display: none;
+}
+
+.newProductos .newProductos__filter-list .np-pill {
+  flex: 0 0 auto;
+  padding: 7px 19px;
+  border-radius: 999px;
+  border: 1.5px solid var(--np-pill-color, #00ACBB);
+  background: #fff;
+  color: var(--np-pill-color, #00ACBB);
+  font-family: "Switzer", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, transform .15s ease;
+}
+
+.newProductos .newProductos__filter-list .np-pill:hover {
+  transform: translateY(-1px);
+}
+
+.newProductos .newProductos__filter-list .np-pill.is-active {
+  background: var(--np-pill-color, #00ACBB);
+  color: #fff;
+}
+
+.newProductos .newProductos__filter-list .np-pill:focus-visible {
+  outline: 2px solid var(--np-pill-color, #00ACBB);
+  outline-offset: 2px;
+}
+
+.newProductos .newProductos__carousel {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  cursor: grab;
+  padding: 16px 0;
+  box-sizing: border-box;
+}
+
+.newProductos .newProductos__carousel:active {
+  cursor: grabbing;
+}
+
+.newProductos .newProductos__track-wrap {
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+}
+
+.newProductos .newProductos__track {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1rem;
+  width: max-content;
+  max-width: 100%;
+  padding: 16px 9vw;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.newProductos .newProductos__track::-webkit-scrollbar {
+  display: none;
+}
+
+.newProductos .np-card {
+  flex: 0 0 82vw;
+  width: 82vw;
+  max-width: 340px;
+  box-sizing: border-box;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.newProductos .np-card-inner {
+  position: relative;
+  width: 100%;
   padding: 38px 22px 30px;
   box-sizing: border-box;
-
   border: 2px solid #222;
   border-radius: 32px;
-
   background: var(--np-card-bg, #00ACBB);
   box-shadow: inset 0 0 0 8px #fff;
-
-  overflow: hidden; /* queda como resguardo, ya no debería cortar nada */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  }
-  
-  /* ---------------------------------------------------------
-     IMAGEN
-  --------------------------------------------------------- */
-  
-  .newProductos .np-product-img {
-    display: block;
-    width: 82%;
-    height: 275px;
-    object-fit: contain;
-    object-position: center;
-    flex-shrink: 0;
-    margin: 0 auto -0.75rem;
-  }
-  
-  /* ---------------------------------------------------------
-     NOMBRE DEL PRODUCTO
-  --------------------------------------------------------- */
-  
-  .newProductos .np-product-name {
-    margin: 0 0 18px;
-    color: #fff;
-    font-family: "Switzer", sans-serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.1;
-  }
-  
-  /* ---------------------------------------------------------
-     BLOQUES DE INFORMACIÓN
-  --------------------------------------------------------- */
-  
-  .newProductos .np-info {
-    width: 100%;
-    margin-top: 2px;
-    color: #fff;
-    font-family: "Switzer", sans-serif;
-  }
-  
-  .newProductos .np-info-title {
-    margin: 1rem 0 7px;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.2;
-  }
+}
 
-  .newProductos .np-info-title:last-child{
-    padding-bottom: 10rem;
-  }
-  
-  .newProductos .np-info-text {
-    max-width: 360px;
-    margin: 0 auto 0.5rem;
-    color: #fff;
-    font-size: 0.9rem;
-    line-height: 1.35;
-    padding: 0.5rem 1rem;
-    /* SACAR: display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; */
-  }
-  
-  /* ---------------------------------------------------------
-     ÍCONOS / VALORES (gotas, reloj, olores, palitas)
-  --------------------------------------------------------- */
-  
-  .newProductos .np-stat {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin-top: 8px;
-  }
-  
-  .newProductos .np-stat-item {
-    width: 27px;
+.newProductos .np-product-img {
+  display: block;
+  width: 82%;
+  height: 275px;
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+  margin: 0 auto -0.75rem;
+}
+
+.newProductos .np-product-name {
+  margin: 0 0 18px;
+  color: #fff;
+  font-family: "Switzer", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.newProductos .np-info {
+  width: 100%;
+  margin-top: 2px;
+  color: #fff;
+  font-family: "Switzer", sans-serif;
+}
+
+.newProductos .np-info-title {
+  margin: 1rem 0 7px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.newProductos .np-info-title:last-child {
+  padding-bottom: 10rem;
+}
+
+.newProductos .np-info-text {
+  max-width: 360px;
+  margin: 0 auto 0.5rem;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  padding: 0.5rem 1rem;
+}
+
+.newProductos .np-stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.newProductos .np-stat-item {
+  width: 27px;
   height: 27px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
+}
+
+.newProductos .np-stat-item img {
+  width: 45px;
+  height: 45px;
+  display: block;
+  stroke: currentColor;
+}
+
+.newProductos .np-performance {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 28px;
+  margin-top: 1rem !important;
+}
+
+.newProductos .np-bar {
+  display: block;
+  width: 8px;
+  height: 12px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, .35);
+}
+
+.newProductos .np-bar:nth-child(2) {
+  height: 16px;
+}
+
+.newProductos .np-bar:nth-child(3) {
+  height: 20px;
+}
+
+.newProductos .np-bar:nth-child(4) {
+  height: 24px;
+}
+
+.newProductos .np-bar:nth-child(5) {
+  height: 28px;
+}
+
+.newProductos .np-bar.is-active {
+  background: currentColor;
+}
+
+.newProductos .newProductos__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.newProductos .newProductos__dots:empty {
+  display: none;
+}
+
+.newProductos .np-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #D8CDB8;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.newProductos .np-dot.is-active {
+  background: #222;
+  transform: scale(1.25);
+}
+
+.newProductos .np-bg-celeste {
+  background: #0fa8b8;
+}
+
+.newProductos .np-bg-naranja {
+  background: #fb8410;
+}
+
+.newProductos .np-bg-verde {
+  background: #98C21E;
+}
+
+.newProductos .np-bg-violeta {
+  background: #8B85CA;
+}
+
+.newProductos .np-bg-rosa {
+  background: #f75273;
+}
+
+.newProductos .np-bg-negro {
+  background: #222;
+}
+
+.newProductos .np-bg-verdeFluo {
+  background: #CEDE00;
+}
+
+.newProductos .np-bg-verdeClarito {
+  background: #92D501;
+}
+
+.newProductos .np-bg-naranjaFluo {
+  background: #F84A13;
+}
+
+.newProductos .np-bg-crema {
+  background: #f3a624;
+}
+
+.newProductos .np-bg-amarillo {
+  background: #F0B533;
+}
+
+.newProductos .np-bg-azul {
+  background: #0092BB;
+}
+
+.newProductos .np-empty {
+  width: calc(82vw - 4px);
+  max-width: 336px;
+  padding: 60px 20px;
+  border: 2px solid #222;
+  border-radius: 30px;
+  background: #f5f5f5;
+  color: #666;
+  text-align: center;
+  font-family: "Switzer", sans-serif;
+}
+
+.newProductos .np-clumps-text {
+  margin: -0.7rem 0 -1rem;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.newProductos .newProductos__track.np-no-snap {
+  scroll-snap-type: none;
+}
+
+@media (max-width: 768px) {
+
+  .newProductos .newProductos__titulo {
+    font-size: 2.45rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
   }
-  
-  .newProductos .np-stat-item img {
-    width: 45px;   /* antes: 55px */
-    height: 45px;  /* antes: 55px */
-    display: block;
-    stroke: currentColor;
+
+  .newProductos .newProductos__texto {
+    margin-top: -1rem;
   }
-  
-  /* ---------------------------------------------------------
-     RENDIMIENTO — GRÁFICO DE BARRAS
-  --------------------------------------------------------- */
-  
-  .newProductos .np-performance {
-    display: flex;
-    align-items: flex-end;
-    gap: 5px;
-    height: 28px;
-    margin-top: 1rem!important;
+
+  .newProductos .np-card {
+    flex-basis: 82vw;
+    width: 82vw;
   }
-  
-  .newProductos .np-bar {
-    display: block;
-    width: 8px;
-    height: 12px;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, .35);
+
+  .newProductos .np-card-inner {
+    border-radius: 31px;
   }
-  
-  .newProductos .np-bar:nth-child(2) { height: 16px; }
-  .newProductos .np-bar:nth-child(3) { height: 20px; }
-  .newProductos .np-bar:nth-child(4) { height: 24px; }
-  .newProductos .np-bar:nth-child(5) { height: 28px; }
-  
-  .newProductos .np-bar.is-active {
-    background: currentColor;
+
+  .newProductos .np-product-img {
+    width: 82%;
+    height: 270px;
   }
-  
-  /* ---------------------------------------------------------
-     DOTS
-  --------------------------------------------------------- */
-  
-  .newProductos .newProductos__dots {
+
+  .newProductos .newProductos__track {
+    padding: 6px 7vw;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .newProductos .np-card {
+    flex-basis: 330px;
+    width: 330px;
+  }
+
+  .newProductos .newProductos__filter-list {
+    margin-bottom: 0px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
   }
-  
-  .newProductos .newProductos__dots:empty {
+}
+
+@media (min-width: 1024px) {
+
+  .newProductos {
     display: none;
   }
-  
-  .newProductos .np-dot {
-    width: 7px;
-    height: 7px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: #D8CDB8;
-    cursor: pointer;
-    transition: transform .2s ease, background .2s ease;
-  }
-  
-  .newProductos .np-dot.is-active {
-    background: #222;
-    transform: scale(1.25);
-  }
-  
-  /* ---------------------------------------------------------
-     COLORES DE LAS CARDS
-     (una sola declaración por color, sin duplicados)
-  --------------------------------------------------------- */
-  
-  .newProductos .np-bg-celeste       { background: #0fa8b8; }
-  .newProductos .np-bg-naranja       { background: #fb8410; }
-  .newProductos .np-bg-verde         { background: #98C21E; }
-  .newProductos .np-bg-violeta       { background: #8B85CA; }
-  .newProductos .np-bg-rosa          { background: #f75273; }
-  .newProductos .np-bg-negro         { background: #222; }
-  .newProductos .np-bg-verdeFluo     { background: #CEDE00; }
-  .newProductos .np-bg-verdeClarito  { background: #92D501; }
-  .newProductos .np-bg-naranjaFluo   { background: #F84A13; }
-  .newProductos .np-bg-crema         { background: #f3a624; }
-  .newProductos .np-bg-amarillo      { background: #F0B533; }
-  .newProductos .np-bg-azul          { background: #0092BB; }
-  
-  /* ---------------------------------------------------------
-     PRODUCTO SIN RESULTADOS
-  --------------------------------------------------------- */
-  
-  .newProductos .np-empty {
-    width: calc(82vw - 4px);
-    max-width: 336px;
-    padding: 60px 20px;
-    border: 2px solid #222;
-    border-radius: 30px;
-    background: #f5f5f5;
-    color: #666;
-    text-align: center;
-    font-family: "Switzer", sans-serif;
-  }
+}
 
-  .newProductos .np-clumps-text {
-    margin: -0.7rem 0 -1rem;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.3;
-    min-height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .newProductos .newProductos__track.np-no-snap {
-    scroll-snap-type: none;
-  }
-  
-  /* =========================================================
-     RESPONSIVE
-     ========================================================= */
-  
-  /* TABLET (>=600px) */
-  @media (min-width: 600px) {
-    .newProductos .np-card {
-      flex-basis: 330px;
-      width: 330px;
-    }
-  }
-  
-  /* MOBILE (<=768px) */
-  @media (max-width: 768px) {
-    .newProductos .newProductos__titulo {
-      font-size: 2.45rem;
-      margin-left: 1.5rem;
-      margin-right: 1.5rem;
-    }
-  
-    .newProductos .newProductos__texto {
-      margin-top: -1rem;
-    }
-  
-    .newProductos .newProductos__filter-list {
-      margin-bottom: 0px;
-    }
-  
-    .newProductos .np-card {
-      flex-basis: 82vw;
-      width: 82vw;
-    }
-  
-    .newProductos .np-card-inner {
-      /* min-height: 620px; */
-      border-radius: 31px;
-    }
-  
-    .newProductos .np-product-img {
-      width: 82%;
-      height: 270px;
-
-    }
-  
-    .newProductos .newProductos__track {
-      padding: 6px 7vw;
-    }
-  }
-  
-  /* DESKTOP — la sección no existe acá, se oculta */
-  @media (min-width: 1024px) {
-    .newProductos {
-      display: none;
-    }
-  }
+@media (min-width: 1440px) {
+}

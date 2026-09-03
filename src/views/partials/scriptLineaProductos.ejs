@@ -46,7 +46,7 @@
   // Si detailImg1/detailImg2 no se cargan, el JS usa "img" como fallback.
   var PRODUCTS = [
   {
-  name: "Classic bolson",
+  name: "Classic bolson 15KG",
   sub: "15 KG",
   type: "BENTONITA",
   tagline: "BOLSA AGLUTINANTE",
@@ -68,7 +68,7 @@
   },
   
   {
-  name: "Premium Bolsa",
+  name: "Premium Bolsa 10KG",
   sub: "10 KG",
   type: "BENTONITA",
   tagline: "BENTONITA - PREMIUM",
@@ -244,7 +244,7 @@
   },
   
   {
-  name: "Classic bidón",
+  name: "Classic bidón 5.3KG",
   sub: "5.3 KG",
   type: "BENTONITA",
   tagline: "BOLSA AGLUTINANTE",
@@ -288,7 +288,7 @@
   }, */
   
   {
-  name: "Premium Bidón",
+  name: "Premium Bidón 5.7KG",
   sub: "5.7 KG",
   type: "BENTONITA",
   tagline: "BIDÓN AGLUTINANTE",
@@ -377,7 +377,7 @@
   ];
   
   /* ---------------- state ---------------- */
-  var activeFilter = FILTERS[0].id;
+  var activeFilter = "favoritos";
   var SPEED = 22; // píxeles por segundo del auto-scroll.
   
   /* ---------------- color del panel de detalle según producto ---------------- */
@@ -782,39 +782,65 @@
   }
   
   /* ---------------- arrastre táctil (swipe en mobile) ---------------- */
-  var wrap = document.querySelector(".rc-carousel");
-  
-  wrap.addEventListener("touchstart", function(e){
-    var t = e.touches[0];
-    isDragging = true;
-    isPaused = true;
-    dragStartX = t.clientX;
-    dragStartPosition = position;
-    touchStartY = t.clientY;
-  }, {passive:true});
-  
-  wrap.addEventListener("touchmove", function(e){
-    if(!isDragging || singleWidth <= 0) return;
-    var t = e.touches[0];
-    var dx = t.clientX - dragStartX;
-    var dy = t.clientY - touchStartY;
-  
-    // Si el movimiento es más horizontal que vertical, es un swipe del
-    // carrusel: evitamos que la página scrollee verticalmente mientras tanto.
-    if(Math.abs(dx) > Math.abs(dy)){
-      e.preventDefault();
+var wrap = document.querySelector(".rc-carousel");
+var axisLock = null;        // null = sin decidir, "x" = swipe, "y" = scroll
+var AXIS_THRESHOLD = 8;     // px antes de comprometerse a un eje
+
+wrap.addEventListener("touchstart", function(e){
+  var t = e.touches[0];
+  isDragging = true;
+  isPaused = true;
+  dragStartX = t.clientX;
+  dragStartPosition = position;
+  touchStartY = t.clientY;
+  axisLock = null;
+}, {passive:true});
+
+wrap.addEventListener("touchmove", function(e){
+  if(!isDragging || singleWidth <= 0) return;
+
+  var t = e.touches[0];
+  var dx = t.clientX - dragStartX;
+  var dy = t.clientY - touchStartY;
+
+  // Decidimos el eje UNA sola vez por gesto, recién cuando el
+  // movimiento supera el umbral. Después ya no cambia de opinión.
+  if(axisLock === null){
+    if(Math.abs(dx) < AXIS_THRESHOLD && Math.abs(dy) < AXIS_THRESHOLD) return;
+    axisLock = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+
+    if(axisLock === "y"){
+      // Es un scroll de página: soltamos el carrusel y que siga
+      // su auto-scroll normal.
+      isDragging = false;
+      isPaused = false;
+      return;
     }
-  
-    var next = dragStartPosition - dx;
-    next = ((next % singleWidth) + singleWidth) % singleWidth;
-    position = next;
-  }, {passive:false});
-  
-  wrap.addEventListener("touchend", function(){
-    isDragging = false;
-    isPaused = false;
-  }, {passive:true});
-  
+  }
+
+  if(axisLock !== "x") return;
+
+  if(e.cancelable) e.preventDefault();
+
+  var next = dragStartPosition - dx;
+  next = ((next % singleWidth) + singleWidth) % singleWidth;
+  position = next;
+}, {passive:false});
+
+wrap.addEventListener("touchend", function(){
+  isDragging = false;
+  isPaused = false;
+  axisLock = null;
+}, {passive:true});
+
+wrap.addEventListener("touchcancel", function(){
+  isDragging = false;
+  isPaused = false;
+  axisLock = null;
+}, {passive:true});
+
+
+
   /* ---------------- resize: recalcular todo ---------------- */
   var resizeTimer;
 var lastWidth = window.innerWidth;

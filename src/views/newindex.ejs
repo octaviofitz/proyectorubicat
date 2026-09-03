@@ -6,23 +6,36 @@
     <%- include('partials/scriptNavbar') %>
     <%- include('partials/scriptLineaProductos') %>
 
-    <main class="test">
+    <main class="newIndex">
+     
       <!-- Portada -->
       <div class="portada">
-        <img src="../images/NewIndex/backgrounds/PortadaMobile.webp" alt="Rubicat Cuidamos lo que amás" class="img">
-        <a href="/origen"> 
-        <button class="boton">
-          <span>Conocé más sobre nosotros ­</span>
-          <span class="flecha">→</span>
-        </button>
-      </a>
+        <img src="../images/NewIndex/backgrounds/PortadaMobile.webp"
+             alt="Rubicat Cuidamos lo que amás" class="img">
+      
+        <a href="/origen" class="boton">
+          <span>Conocé más sobre nosotros</span>
+          <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 12h14M12.5 5.5 19 12l-6.5 6.5"
+                  fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
-
+      
+      <!-- Portada desktop -->
       <div class="portadaDesktop">
-        <img src="../images/NewIndex/backgrounds/PortadaDesktop.webp" alt="Rubicat Cuidamos lo que amás" class="imgDesktop">
-        <a href="/origen"> 
-        <button class="boton">Conocé más sobre nosotros 🡢</button> 
-      </a>
+        <img src="../images/NewIndex/backgrounds/PortadaDesktop.webp"
+             alt="Rubicat Cuidamos lo que amás" class="imgDesktop">
+      
+        <a href="/origen" class="boton">
+          <span>Conocé más sobre nosotros</span>
+          <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 12h14M12.5 5.5 19 12l-6.5 6.5"
+                  fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
      <!--  <section class="lineaProductos">
@@ -31,8 +44,8 @@
 
       </section> -->
 
-      <section class="rc-section" aria-label="Catálogo de productos Rubicat">
-        <h2 class="rc-title">Línea completa de Rubicat</h2>
+      <section class="rc-section" aria-label="Catálogo de productos Rubicat" id="productos">
+        <h2 class="rc-title reveal-letters">Línea completa de Rubicat</h2>
       
         <p class="rc-copy">
           Explorá nuestra línea de productos y filtrá según el tipo y las necesidades de tu gato para encontrar el producto ideal para él.
@@ -69,44 +82,11 @@
         </div>
       
       </section>
-
-      <script>
-    document.addEventListener("DOMContentLoaded", function(){
-  var filtersEl = document.getElementById("rcFilters");
-  if(!filtersEl) return;
-
-  filtersEl.addEventListener("click", function(e){
-    var pill = e.target.closest(".rc-pill");
-    if(!pill) return;
-    crearPatita(e.clientX, e.clientY);
-  });
-
-  function crearPatita(x, y){
-    var paw = document.createElement("div");
-    paw.className = "paw-print";
-    paw.style.left = x + "px";
-    paw.style.top = y + "px";
-    paw.style.setProperty("--paw-rot", (Math.random() * 30 - 15) + "deg");
-
-    paw.innerHTML =
-      '<div class="almohadilla"></div>' +
-      '<div class="dedo"></div>' +
-      '<div class="dedo"></div>' +
-      '<div class="dedo"></div>' +
-      '<div class="dedo"></div>';
-
-    document.body.appendChild(paw);
-    paw.addEventListener("animationend", function(){
-      paw.remove();
-    });
-  }
-});
-      </script>
       
       <section class="preguntasFrecuentes">
      
         <div>
-          <img src="../../images/NewIndex/Cumulo.webp" alt="Cumulo de arena Rubicat" class="img">
+          <img src="../../images/NewIndex/PreguntasFrecuentes/PreguntasFrecuentes.webp" alt="Cumulo de arena Rubicat" class="img">
         </div>
 
         <div class="containerPreguntas">
@@ -120,7 +100,7 @@
                 <span class="iconoMas">+</span>
                 <span class="iconoCerrar">×</span>
               </span>
-              <p class="textoPregunta">¿Cuál es la mejor forma de comenzar a utilizar <strong>Rubicat?</strong></p>
+              <p class="textoPregunta">¿Cuál es la mejor forma de comenzar a utilizar Rubicat?</p>
             </div>
             <div class="contenidoRespuesta">
               <p><strong>Cambio gradual:</strong> Podés comenzar mezclando 2/3 del producto que usás actualmente con 1/3 de Rubicat. Luego, aumentá progresivamente la cantidad de Rubicat hasta hacer el cambio completo. De esta manera, el gato puede acostumbrarse de forma gradual al nuevo sustrato.</p>
@@ -134,7 +114,7 @@
                 <span class="iconoMas">+</span>
                 <span class="iconoCerrar">×</span>
               </span>
-              <p class="textoPregunta">¿Dónde comprar <strong>Rubicat?</strong></p>
+              <p class="textoPregunta">¿Dónde comprar Rubicat?</p>
             </div>
             <div class="contenidoRespuesta">
               <p>Rubicat realiza ventas a mayoristas, distribuidores y pet shops, y no cuenta con venta directa al público. Tenemos distribución en gran parte de Argentina y también podés encontrar nuestros productos en Mercado Libre y en distintas tiendas online.</p>
@@ -187,15 +167,17 @@
         </div>
       </section>
 
-      <section class="formularioContacto">
-        <h1 class="titulo">Contactanos</h1>
+
+
+      <section class="formularioContacto" id="contactoNuevo">
+        <h1 class="titulo reveal-letters">Contactanos</h1>
         <p class="descripcion">
-          Si tenés alguna duda, consulta o necesitás más información, podés completar nuestro formulario de contacto y nos pondremos en contacto con vos a la brevedad. También podés comunicarte con nosotros por correo electrónico o WhatsApp para realizar consultas, conocer más sobre nuestros productos o solicitar información para distribuir Rubicat.
+          Si tenés alguna duda o necesitás más información, completá nuestro formulario de contacto y te responderemos a la brevedad. También podés escribirnos por correo electrónico o WhatsApp para conocer nuestros productos o distribuir Rubicat.
         </p>
 
         <div class="datosContacto">
           <div class="listaDatos">
-            <a href="mailto:info@rubicat.com">
+            <a href="mailto:info@rubicat.com.ar">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16v16H4z" stroke="none"/>
                 <rect x="3" y="5" width="18" height="14" rx="2"/>
@@ -210,47 +192,53 @@
               +54 1132762324
             </a>
           </div>
-     
-        <form class="formulario">
-          <input class="campo" type="text" name="nombre" placeholder="Nombre">
-          <input class="campo" type="text" name="localidad" placeholder="Localidad">
-          <input class="campo" type="tel" name="telefono" placeholder="Telefono">
-     
-          <div class="campoMensaje">
-            <textarea class="campo" name="mensaje" placeholder="Mensaje (opcional)"></textarea>
-          </div>
-     
-          <button type="submit" class="botonEnviar">Enviar</button>
-        </form>
-     
-       
 
+          <form class="formulario" action="/" method="POST" novalidate id="index">
+
+            <% if (locals.envioError) { %>
+              <p class="textoError alertaEnvio"><%= envioError %></p>
+            <% } %>
+          
+            <input class="campo" type="text" name="nombre" placeholder="Nombre" maxlength="30"
+                   value="<%= locals.old && old.nombre ? old.nombre : '' %>">
+            <span class="textoError">
+              <%= locals.errores && errores.nombre ? errores.nombre.msg : '' %>
+            </span>
+          
+            <input class="campo" type="text" name="localidad" placeholder="Localidad" maxlength="60"
+                   value="<%= locals.old && old.localidad ? old.localidad : '' %>">
+            <span class="textoError">
+              <%= locals.errores && errores.localidad ? errores.localidad.msg : '' %>
+            </span>
+          
+            <input class="campo" type="tel" name="telefono" placeholder="Teléfono"
+                   inputmode="numeric" pattern="[0-9]*" maxlength="30"
+                   value="<%= locals.old && old.telefono ? old.telefono : '' %>">
+            <span class="textoError">
+              <%= locals.errores && errores.telefono ? errores.telefono.msg : '' %>
+            </span>
+          
+            <div class="campoMensaje">
+              <textarea class="campo" name="mensaje" placeholder="Mensaje"><%= locals.old && old.mensaje ? old.mensaje : '' %></textarea>
+              <span class="textoError">
+                <%= locals.errores && errores.mensaje ? errores.mensaje.msg : '' %>
+              </span>
+            </div>
+          
+            <button type="submit" class="botonEnviar">Enviar</button>
+          
+          </form>
+
+        </div><!-- /.datosContacto -->
       </section>
 
 
   </main>
-
+  <%- include('partials/scriptTitulos') %>
+  <%- include('partials/PatitasAnimacion') %>
     <%- include('partials/newFooter') %>
     <%- include('partials/scripts') %>
-    <script>
-      const els = document.querySelectorAll('.reveal');
-    
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          } else {
-            entry.target.classList.remove('is-visible');
-          }
-        });
-      }, {
-        threshold: 0.15,
-        rootMargin: "0px 0px -10% 0px"
-      });
-    
-      els.forEach(el => observer.observe(el));
-    </script>
-    
+   
     
   </body>
 </html>

@@ -174,7 +174,7 @@
   .sr-nav__inner {
     max-width: 100%; /* Ocupa todo el ancho disponible */
     justify-content: space-between; /* Empuja el logo a la izquierda y el nav a la derecha */
-    padding: 14px 8rem; /* Espaciado lateral generoso para que no pegue a los bordes */
+    padding: 14px 3em; /* Espaciado lateral generoso para que no pegue a los bordes */
   }
 
   .sr-nav{
@@ -199,5 +199,12 @@
    color: red;
   }
 
+
+}
+
+@media (min-width: 1440px){
+  .sr-nav__inner {
+    padding: 14px 7em;
+  }
 
 }

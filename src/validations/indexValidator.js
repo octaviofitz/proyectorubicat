@@ -2,28 +2,21 @@ const { check } = require("express-validator");
 
 const validateCreate = [
 
-    /* Nombre */
-    check("nombre")
+  check("nombre")
     .notEmpty()
     .withMessage("Debe ingresar su nombre")
     .bail()
-    .isLength({
-      min: 3,
-      max: 30,
-    })
+    .isLength({ min: 3, max: 30 })
     .withMessage("El nombre debe tener un mínimo de 3 caracteres"),
 
-    /* Correo */
-
-  check("email")
+  check("localidad")
     .notEmpty()
-    .withMessage("Debe ingresar un correo")
-    .isEmail()
-    .withMessage("Debe ingresar un correo válido"),
+    .withMessage("Debe ingresar su localidad")
+    .bail()
+    .isLength({ max: 60 })
+    .withMessage("El máximo de caracteres permitidos es de 60"),
 
-    /* Número de contacto */
-
-    check("telefono")
+  check("telefono")
     .notEmpty()
     .withMessage("Indique un número de contacto")
     .bail()
@@ -31,25 +24,12 @@ const validateCreate = [
     .withMessage("El máximo de caracteres permitidos es de 30")
     .bail()
     .isNumeric()
-    .withMessage("Solo se permiten números")
-    .bail(),
+    .withMessage("Solo se permiten números"),
 
-    /* Asunto */
-
-    check("asunto")
+  check("mensaje")
     .notEmpty()
-    .withMessage("Debe ingresar un asunto")
-    .bail()
-    .isLength({ max: 100 })
-    .withMessage("El maximo de caracteres permitidos es de 100")
-    .bail(),
-
-    /* Mensaje */
-
-     check("mensaje")
-     .notEmpty()
-     .bail()
     .withMessage("Debe ingresar su mensaje")
+
 ];
 
-module.exports = {validateCreate}
+module.exports = { validateCreate };
