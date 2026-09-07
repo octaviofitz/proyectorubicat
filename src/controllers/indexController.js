@@ -41,7 +41,7 @@ const escapar = (valor = '') =>
 
 const datosHome = {
 
-  title: "Rubicat - Un Llamado de la Naturaleza",
+  title: "Rubicat - Cuidamos lo que amás",
 
   descripcion:
     "Fina Bentonita Patagónica de excelente calidad. Rinde más de un mes por bidón. Ofrecemos variedad de calidad y muy buena duración para el higiene de tu gato. Aglutina en el momento. 100% natural. Elimina Olores.",
@@ -227,9 +227,9 @@ Enviado desde www.rubicat.com.ar
 
     return res.render("formulario-enviado", {
 
-      title: "Rubicat - Un llamado de la Naturaleza",
+      title: "Rubicat - Cuidamos lo que amás",
 
-      descripcion: "Rubicat - Distribuidores",
+      descripcion: "Rubicat - Formulario",
 
       keywords:
         "rubicat, rubicat premium, bentonita, arena aglutinante, piedras sanitarias, gatos"
