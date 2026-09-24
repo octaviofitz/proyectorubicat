@@ -3,32 +3,31 @@ const { check } = require("express-validator");
 const validateCreate = [
 
   check("nombre")
-    .notEmpty()
-    .withMessage("Debe ingresar su nombre")
-    .bail()
-    .isLength({ min: 3, max: 30 })
-    .withMessage("El nombre debe tener un mínimo de 3 caracteres"),
+    .trim()
+    .notEmpty().withMessage("Debe ingresar su nombre").bail()
+    .isLength({ min: 3, max: 30 }).withMessage("El nombre debe tener entre 3 y 30 caracteres"),
+
+  check("email")
+    .trim()
+    .notEmpty().withMessage("Debe ingresar su email").bail()
+    .isEmail().withMessage("Ingrese un email válido")
+    .normalizeEmail(),
 
   check("localidad")
-    .notEmpty()
-    .withMessage("Debe ingresar su localidad")
-    .bail()
-    .isLength({ max: 60 })
-    .withMessage("El máximo de caracteres permitidos es de 60"),
+    .trim()
+    .notEmpty().withMessage("Debe ingresar su localidad").bail()
+    .isLength({ max: 60 }).withMessage("El máximo de caracteres permitidos es de 60"),
 
   check("telefono")
-    .notEmpty()
-    .withMessage("Indique un número de contacto")
-    .bail()
-    .isLength({ max: 30 })
-    .withMessage("El máximo de caracteres permitidos es de 30")
-    .bail()
-    .isNumeric()
-    .withMessage("Solo se permiten números"),
+    .trim()
+    .notEmpty().withMessage("Indique un número de contacto").bail()
+    .matches(/^[0-9+\s-]+$/).withMessage("Solo se permiten números, espacios, + y -").bail()
+    .isLength({ min: 6, max: 30 }).withMessage("El teléfono debe tener entre 6 y 30 caracteres"),
 
   check("mensaje")
-    .notEmpty()
-    .withMessage("Debe ingresar su mensaje")
+    .trim()
+    .notEmpty().withMessage("Debe ingresar su mensaje").bail()
+    .isLength({ max: 2000 }).withMessage("El mensaje no puede superar los 2000 caracteres")
 
 ];
 

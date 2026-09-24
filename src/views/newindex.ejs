@@ -204,6 +204,13 @@
             <span class="textoError">
               <%= locals.errores && errores.nombre ? errores.nombre.msg : '' %>
             </span>
+
+            <input class="campo" type="email" name="email" placeholder="Email" maxlength="100"
+                autocomplete="email"
+                value="<%= locals.old && old.email ? old.email : '' %>">
+          <span class="textoError">
+            <%= locals.errores && errores.email ? errores.email.msg : '' %>
+          </span>
           
             <input class="campo" type="text" name="localidad" placeholder="Localidad" maxlength="60"
                    value="<%= locals.old && old.localidad ? old.localidad : '' %>">
