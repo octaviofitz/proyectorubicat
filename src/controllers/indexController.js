@@ -166,13 +166,13 @@ Enviado desde www.rubicat.com.ar
 
   /* ---------------- PRODUCTOS ---------------- */
 
-/*   productos: (req, res) => {
+   productos: (req, res) => {
     return res.render("productos", {
       title: "Rubicat - Productos",
-      descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat",
+      descripcion: "Conocé la línea de piedras sanitarias Rubicat: bentonita patagónica 100% natural, aglutinante y sin olores.",
       keywords
     });
-  }, */
+  }, 
 
 
   /* ---------------- PREGUNTAS FRECUENTES ---------------- */
@@ -180,7 +180,7 @@ Enviado desde www.rubicat.com.ar
   preguntasfrecuentes: (req, res) => {
     return res.render("preguntas-frecuentes", {
       title: "Rubicat - Preguntas Frecuentes",
-      descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat",
+      descripcion: "Resolvé tus dudas sobre Rubicat y conocé más sobre nuestros productos, beneficios y recomendaciones el bienestar de tu gato.",
       keywords
     });
   }

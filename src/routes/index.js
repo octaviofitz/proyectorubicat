@@ -7,7 +7,7 @@ const {
   formulario,
   formularioenviado,
   origen,
-/*   productos, */
+  productos, 
   preguntasfrecuentes
 } = require('../controllers/indexController');
 
@@ -34,7 +34,7 @@ router.post('/', validateCreate, formulario);
 
 router.get('/origen', origen);
 
-/* router.get('/productos', productos); */
+router.get('/productos', productos); 
 
 router.get('/preguntas-frecuentes', preguntasfrecuentes);
 
@@ -42,6 +42,8 @@ router.get('/nosotros', nosotros);
 
 router.get('/formulario-enviado', formularioenviado);
 
+
+router.get('/productos/:slug', (req, res) => res.redirect(301, '/'));
 
 /* =========================================================
    RUTAS DESACTIVADAS
