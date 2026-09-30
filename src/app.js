@@ -54,9 +54,29 @@ app.use((req, res, next) => {
 /* Indicación de donde se encuentra la carpeta public */
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+
+
+// Productos que ahora están en /productos → redirigir
+const productosVigentes = ['sensitive', 'classic', 'detox', 'premium'];
+
+// Productos discontinuados → 410
+const productosDiscontinuados = [];
+
+app.get('/productos/:producto', (req, res, next) => {
+  const p = req.params.producto.toLowerCase();
+
+  if (productosVigentes.includes(p)) {
+    return res.redirect(301, '/productos');
+  }
+  if (productosDiscontinuados.includes(p)) {
+    return res.status(410).render('error', { message: 'Producto discontinuado', error: {} });
+  }
+  next();
+});
+
 app.use('/', indexRouter);
-/* app.use('/productos', productsRouter);
- */app.use('/eng', (req, res) => res.redirect(301, '/'));
+
+app.use('/eng', (req, res) => res.redirect(301, '/'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
