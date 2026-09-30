@@ -26,7 +26,7 @@ var compression = require('compression');
 
 /* Requiriendo Rutas */
 var indexRouter = require('./routes/index');
-var productsRouter = require('./routes/products');
+/* var productsRouter = require('./routes/products'); */
 var englishRouter = require('./routes/english');
 
 var app = express();

@@ -166,13 +166,13 @@ Enviado desde www.rubicat.com.ar
 
   /* ---------------- PRODUCTOS ---------------- */
 
-  productos: (req, res) => {
+/*   productos: (req, res) => {
     return res.render("productos", {
       title: "Rubicat - Productos",
       descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat",
       keywords
     });
-  },
+  }, */
 
 
   /* ---------------- PREGUNTAS FRECUENTES ---------------- */

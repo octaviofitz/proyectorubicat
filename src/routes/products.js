@@ -1,4 +1,4 @@
-var express = require('express');
+/* var express = require('express');
 var router = express.Router();
 
 const {classic, premium, sensitive, original, detox} = require('../controllers/productsController');
@@ -9,4 +9,4 @@ router.get('/sensitive', sensitive)
 router.get('/original', original)
 router.get('/detox', detox)
 
-module.exports = router; 
+module.exports = router;  */
