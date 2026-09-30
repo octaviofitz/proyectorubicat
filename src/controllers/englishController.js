@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator');
+/* const { validationResult } = require('express-validator');
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail')
 sgMail.setTimeout(2000);
@@ -43,8 +43,8 @@ module.exports = {
                 title: "Rubicat - Un Llamado de la Naturaleza",
                 descripcion: "Fine Patagonian Bentonite of excellent quality. Yields more than a month per drum. We offer quality variety and very good duration for the hygiene of your cat. Agglutinate in the moment. 100% natural. Eliminates Odours.",
                 keywords: "rubicat, rubicat premium, bentonita, cats, lumping cat litter",
-                errores: errors.mapped(),  /* Envío Errors al Frontend.*/
-                old: req.body /* guardo esta variable para la persistencia de datos */
+                errores: errors.mapped(),  
+                old: req.body 
               })
             }
           }, 
@@ -56,4 +56,4 @@ module.exports = {
               keywords: "rubicat, rubicat premium, bentonita, cats, lumping cat litter"
             })}, 
 
-        } 
+        }  */

@@ -27,8 +27,8 @@ var compression = require('compression');
 /* Requiriendo Rutas */
 var indexRouter = require('./routes/index');
 /* var productsRouter = require('./routes/products'); */
-var englishRouter = require('./routes/english');
-
+/* var englishRouter = require('./routes/english');
+ */
 var app = express();
 app.set('trust proxy', true);
 
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/', indexRouter);
 /* app.use('/productos', productsRouter);
- */app.use('/eng', englishRouter);
+ */app.use('/eng', (req, res) => res.redirect(301, '/'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -11,7 +11,10 @@ const {
   preguntasfrecuentes
 } = require('../controllers/indexController');
 
+
+const soloMobile = require('../middlewares/soloMobile');
 const { validateCreate } = require('../validations/indexValidator');
+
 
 /* =========================================================
    PÁGINA PRINCIPAL
@@ -34,7 +37,7 @@ router.post('/', validateCreate, formulario);
 
 router.get('/origen', origen);
 
-router.get('/productos', productos); 
+router.get('/productos', soloMobile, productos); 
 
 router.get('/preguntas-frecuentes', preguntasfrecuentes);
 
@@ -43,8 +46,7 @@ router.get('/nosotros', nosotros);
 router.get('/formulario-enviado', formularioenviado);
 
 
-router.get('/productos/:slug', (req, res) => res.redirect(301, '/'));
-
+router.get('/productos/:slug', (req, res) => res.redirect(301, '/productos'));
 /* =========================================================
    RUTAS DESACTIVADAS
    ========================================================= */
