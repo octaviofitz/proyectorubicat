@@ -42,6 +42,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Redirigir www.rubicat.com.ar → rubicat.com.ar
+app.use((req, res, next) => {
+  if (req.hostname.startsWith('www.')) {
+    return res.redirect(301, `https://${req.hostname.slice(4)}${req.originalUrl}`);
+  }
+  next();
+});
+
+
 /* Indicación de donde se encuentra la carpeta public */
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

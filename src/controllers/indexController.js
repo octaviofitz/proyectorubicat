@@ -138,19 +138,16 @@ Enviado desde www.rubicat.com.ar
     return res.render("formulario-enviado", {
       title: "Rubicat - Cuidamos lo que amás",
       descripcion: "Rubicat - Formulario",
-      keywords
+      keywords,
+      noindex: true
     });
   },
 
 
   /* ---------------- NOSOTROS ---------------- */
 
-  nosotros: (req, res) => {
-    return res.render("nosotros", {
-      title: "Rubicat - Nosotros",
-      descripcion: "Historia, objetivos, producción, materia prima y comunicación de Rubicat",
-      keywords
-    });
+   nosotros: (req, res) => {
+    return res.redirect(301, '/origen');
   },
 
 
